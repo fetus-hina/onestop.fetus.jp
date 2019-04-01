@@ -14,11 +14,11 @@ class Pdf2016 extends Model
     const SEX_MALE   = Form::SEX_MALE;
     const SEX_FEMALE = Form::SEX_FEMALE;
 
-    const ERA_MEIJI  = Form::ERA_MEIJI;
-    const ERA_TAISHO = Form::ERA_TAISHO;
-    const ERA_SHOWA  = Form::ERA_SHOWA;
-    const ERA_HEISEI = Form::ERA_HEISEI;
-    const ERA_REIWA  = Form::ERA_REIWA;
+    const ERA_MEIJI  = JapaneseEra::MEIJI;
+    const ERA_TAISHO = JapaneseEra::TAISHO;
+    const ERA_SHOWA  = JapaneseEra::SHOWA;
+    const ERA_HEISEI = JapaneseEra::HEISEI;
+    const ERA_REIWA  = JapaneseEra::REIWA;
 
     const A4_WIDTH_MM  = 210;
     const A4_HEIGHT_MM = 297;
@@ -122,7 +122,7 @@ class Pdf2016 extends Model
         $this->pdf = PdfDocument::load(Yii::getAlias('@app/data/pdfs/2016.pdf'));
         $this->page = $this->pdf->pages[0];
 
-        $this->drawDebugLines();
+        // $this->drawDebugLines();
     }
 
     public function getBinary() : string
@@ -325,24 +325,65 @@ class Pdf2016 extends Model
     
     public function setBirthday(int $year, int $month, int $day)
     {
+        $era = JapaneseEra::getEra($year, $month, $day);
+        $eraY = $year - (int)$era['start']->format('Y') + 1;
+        $year  = ($eraY === 1) ? '元年' : mb_convert_kana((string)$eraY, 'A', 'UTF-8');
+
         // 時代の○
-        //$this->page
-        //    ->setLineColor($this->black)
-        //    ->setLineWidth(self::mm2pt(0.4))
-        //    ->drawCircle(
-        //        self::x(
-        //            in_array($era, [static::ERA_MEIJI, static::ERA_SHOWA], true)
-        //                ? static::INDIVIDUAL_BIRTH_H_1_MM
-        //                : static::INDIVIDUAL_BIRTH_H_2_MM
-        //        ),
-        //        self::y(
-        //            in_array($era, [static::ERA_MEIJI, static::ERA_TAISHO], true)
-        //                ? static::INDIVIDUAL_BIRTH_V_1_MM
-        //                : static::INDIVIDUAL_BIRTH_V_2_MM
-        //        ),
-        //        self::mm2pt(static::INDIVIDUAL_BIRTH_CIRCLE_MM),
-        //        \ZendPdf\Page::SHAPE_DRAW_STROKE
-        //    );
+        $checked = false;
+        if (in_array($era['name'], [
+                static::ERA_MEIJI,
+                static::ERA_TAISHO,
+                static::ERA_SHOWA,
+                static::ERA_HEISEI,
+        ])) {
+            $this->page
+                ->setLineColor($this->black)
+                ->setLineWidth(self::mm2pt(0.4))
+                ->drawCircle(
+                    self::x(
+                        in_array($era['name'], [static::ERA_MEIJI, static::ERA_SHOWA], true)
+                            ? static::INDIVIDUAL_BIRTH_H_1_MM
+                            : static::INDIVIDUAL_BIRTH_H_2_MM
+                    ),
+                    self::y(
+                        in_array($era['name'], [static::ERA_MEIJI, static::ERA_TAISHO], true)
+                            ? static::INDIVIDUAL_BIRTH_V_1_MM
+                            : static::INDIVIDUAL_BIRTH_V_2_MM
+                    ),
+                    self::mm2pt(static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    \ZendPdf\Page::SHAPE_DRAW_STROKE
+                );
+            $checked = true;
+        } else {
+            $this->page
+                ->setLineColor($this->black)
+                ->setLineWidth(self::mm2pt(0.25))
+                ->drawLine(
+                    static::x(static::INDIVIDUAL_BIRTH_H_1_MM - static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_1_MM - 0.3),
+                    static::x(static::INDIVIDUAL_BIRTH_H_2_MM + static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_1_MM - 0.3)
+                )
+                ->drawLine(
+                    static::x(static::INDIVIDUAL_BIRTH_H_1_MM - static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_1_MM + 0.3),
+                    static::x(static::INDIVIDUAL_BIRTH_H_2_MM + static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_1_MM + 0.3)
+                )
+                ->drawLine(
+                    static::x(static::INDIVIDUAL_BIRTH_H_1_MM - static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_2_MM - 0.3),
+                    static::x(static::INDIVIDUAL_BIRTH_H_2_MM + static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_2_MM - 0.3)
+                )
+                ->drawLine(
+                    static::x(static::INDIVIDUAL_BIRTH_H_1_MM - static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_2_MM + 0.3),
+                    static::x(static::INDIVIDUAL_BIRTH_H_2_MM + static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+                    static::y(static::INDIVIDUAL_BIRTH_V_2_MM + 0.3)
+                );
+        }
 
         list($font, $baseline) = $this->Mincho;
         $this->page->setFont($font, static::mm2pt(static::INDIVIDUAL_BIRTH_FONT_MM));
@@ -361,11 +402,23 @@ class Pdf2016 extends Model
             $this->page->drawText($text, self::x($x), self::y($y));
         };
 
-        $drawText(
-            $year == 1 ? '元年' : $year,
-            static::INDIVIDUAL_BIRTH_YEAR_LEFT_MM,
-            static::INDIVIDUAL_BIRTH_YEAR_RIGHT_MM
-        );
+        if ($checked) {
+            // 元号に○をつけた
+            $drawText(
+                $year,
+                static::INDIVIDUAL_BIRTH_YEAR_LEFT_MM,
+                static::INDIVIDUAL_BIRTH_YEAR_RIGHT_MM
+            );
+        } else {
+            // 元号ごと出力
+            $x2 = static::INDIVIDUAL_BIRTH_YEAR_RIGHT_MM - 0.3;
+            $x1 = $x2 - mb_strlen($era['name'] . $year, 'UTF-8') * static::INDIVIDUAL_BIRTH_FONT_MM;
+            $drawText(
+                $era['name'] . $year,
+                $x1,
+                $x2
+            );
+        }
         $drawText(
             $month,
             static::INDIVIDUAL_BIRTH_MONTH_LEFT_MM,

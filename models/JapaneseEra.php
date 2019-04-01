@@ -7,6 +7,12 @@ use Yii;
 
 class JapaneseEra
 {
+    const MEIJI = '明治';
+    const TAISHO = '大正';
+    const SHOWA = '昭和';
+    const HEISEI = '平成';
+    const REIWA = '令和';
+
     public static function getYearList(int $yearStart, int $yearEnd): array
     {
         $yFormat = function (int $year, array $era): array {
@@ -56,27 +62,27 @@ class JapaneseEra
     {
         return [
             [
-                'name' => '令和',
+                'name' => static::REIWA,
                 'initial' => 'R',
                 'start' => static::makeDate(2019,  5,  1),
             ],
             [
-                'name' => '平成',
+                'name' => static::HEISEI,
                 'initial' => 'H',
                 'start' => static::makeDate(1989,  1,  8),
             ],
             [
-                'name' => '昭和',
+                'name' => static::SHOWA,
                 'initial' => 'S',
                 'start' => static::makeDate(1926, 12, 25),
             ],
             [
-                'name' => '大正',
+                'name' => static::TAISHO,
                 'initial' => 'T',
                 'start' => static::makeDate(1912,  7, 30),
             ],
             [
-                'name' => '明治',
+                'name' => static::MEIJI,
                 'initial' => 'M',
                 'start' => static::makeDate(1868,  1,  1),
             ],
