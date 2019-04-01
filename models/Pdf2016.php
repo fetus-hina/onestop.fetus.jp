@@ -18,6 +18,7 @@ class Pdf2016 extends Model
     const ERA_TAISHO = Form::ERA_TAISHO;
     const ERA_SHOWA  = Form::ERA_SHOWA;
     const ERA_HEISEI = Form::ERA_HEISEI;
+    const ERA_REIWA  = Form::ERA_REIWA;
 
     const A4_WIDTH_MM  = 210;
     const A4_HEIGHT_MM = 297;
@@ -114,6 +115,8 @@ class Pdf2016 extends Model
         parent::init();
         $this->pdf = PdfDocument::load(Yii::getAlias('@app/data/pdfs/2016.pdf'));
         $this->page = $this->pdf->pages[0];
+
+        // $this->drawDebugLines();
     }
 
     public function getBinary() : string
@@ -125,14 +128,41 @@ class Pdf2016 extends Model
         int $year,
         int $month,
         int $day,
-        string $localGovName) : self
-    {
+        string $localGovName
+    ) : self {
         list($font, $baseline) = $this->Mincho;
 
-        $year  = ($year === 1) ? '元' : mb_convert_kana((string)$year, 'A', 'UTF-8');
+        $era = JapaneseEra::getEra($year, $month, $day);
+        $eraY = $year - (int)$era['start']->format('Y') + 1;
+        $year  = ($eraY === 1) ? '元' : mb_convert_kana((string)$eraY, 'A', 'UTF-8');
         $month = mb_convert_kana((string)$month, 'A', 'UTF-8');
         $day   = mb_convert_kana((string)$day,   'A', 'UTF-8');
         $this->page->setFont($font, static::mm2pt(static::ENVELOPE_DATE_FONT_MM));
+
+        if ($era['name'] !== '平成') {
+            // 平成を消す
+            $x1 = static::x(static::ENVELOPE_CELL_LEFT_MM + 0.2);
+            $x2 = static::x(static::ENVELOPE_YEAR_LEFT_MM - 0.2);
+            $y1 = static::y(
+                (static::ENVELOPE_DATE_TOP_MM + static::ENVELOPE_DATE_BOTTOM_MM) / 2 - 0.4
+            );
+            $y2 = static::y(
+                (static::ENVELOPE_DATE_TOP_MM + static::ENVELOPE_DATE_BOTTOM_MM) / 2 + 0.4
+            );
+            $this->page
+                ->setLineColor($this->black)
+                ->setLineWidth(self::mm2pt(0.35))
+                ->drawLine($x1, $y1, $x2, $y1)
+                ->drawLine($x1, $y2, $x2, $y2);
+
+            // 元号
+            $x = static::x(static::ENVELOPE_CELL_LEFT_MM + 0.25);
+            $y = static::y(
+                static::ENVELOPE_NAME_TOP_MM + static::ENVELOPE_NAME_FONT_MM * $baseline
+            );
+            $this->page->drawText($era['name'], $x, $y);
+        }
+
         $y = static::ENVELOPE_DATE_TOP_MM + static::ENVELOPE_DATE_FONT_MM * $baseline;
 
         // 年
@@ -291,26 +321,26 @@ class Pdf2016 extends Model
         return $this;
     }
     
-    public function setBirthday(string $era, int $year, int $month, int $day)
+    public function setBirthday(int $year, int $month, int $day)
     {
         // 時代の○
-        $this->page
-            ->setLineColor($this->black)
-            ->setLineWidth(self::mm2pt(0.4))
-            ->drawCircle(
-                self::x(
-                    in_array($era, [static::ERA_MEIJI, static::ERA_SHOWA], true)
-                        ? static::INDIVIDUAL_BIRTH_H_1_MM
-                        : static::INDIVIDUAL_BIRTH_H_2_MM
-                ),
-                self::y(
-                    in_array($era, [static::ERA_MEIJI, static::ERA_TAISHO], true)
-                        ? static::INDIVIDUAL_BIRTH_V_1_MM
-                        : static::INDIVIDUAL_BIRTH_V_2_MM
-                ),
-                self::mm2pt(static::INDIVIDUAL_BIRTH_CIRCLE_MM),
-                \ZendPdf\Page::SHAPE_DRAW_STROKE
-            );
+        //$this->page
+        //    ->setLineColor($this->black)
+        //    ->setLineWidth(self::mm2pt(0.4))
+        //    ->drawCircle(
+        //        self::x(
+        //            in_array($era, [static::ERA_MEIJI, static::ERA_SHOWA], true)
+        //                ? static::INDIVIDUAL_BIRTH_H_1_MM
+        //                : static::INDIVIDUAL_BIRTH_H_2_MM
+        //        ),
+        //        self::y(
+        //            in_array($era, [static::ERA_MEIJI, static::ERA_TAISHO], true)
+        //                ? static::INDIVIDUAL_BIRTH_V_1_MM
+        //                : static::INDIVIDUAL_BIRTH_V_2_MM
+        //        ),
+        //        self::mm2pt(static::INDIVIDUAL_BIRTH_CIRCLE_MM),
+        //        \ZendPdf\Page::SHAPE_DRAW_STROKE
+        //    );
 
         list($font, $baseline) = $this->Mincho;
         $this->page->setFont($font, static::mm2pt(static::INDIVIDUAL_BIRTH_FONT_MM));

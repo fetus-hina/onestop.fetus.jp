@@ -15,6 +15,7 @@ class Pdf2016Form extends Model
     const ERA_TAISHO = 'T';
     const ERA_SHOWA  = 'S';
     const ERA_HEISEI = 'H';
+    const ERA_REIWA  = 'R';
 
     // 投函年月日
     public $post_year;
@@ -38,7 +39,6 @@ class Pdf2016Form extends Model
     public $name;
     public $name_kana;
     public $sex;
-    public $birth_era;
     public $birth_year;
     public $birth_month;
     public $birth_day;
@@ -64,13 +64,11 @@ class Pdf2016Form extends Model
             $this->kifu_month = (int)$date->format('n');
             $this->kifu_day = (int)$date->format('j');
         }
-        if ($this->birth_era === null &&
-                $this->birth_year === null &&
+        if ($this->birth_year === null &&
                 $this->birth_month === null &&
                 $this->birth_day === null
         ) {
-            $this->birth_era = static::ERA_SHOWA;
-            $this->birth_year = 1;
+            $this->birth_year = 1980;
             $this->birth_month = 1;
             $this->birth_day = 1;
         }
@@ -96,7 +94,6 @@ class Pdf2016Form extends Model
             'name',
             'name_kana',
             'sex',
-            'birth_era',
             'birth_year',
             'birth_month',
             'birth_day',
@@ -127,12 +124,6 @@ class Pdf2016Form extends Model
                 static::SEX_MALE,
                 static::SEX_FEMALE
             ]],
-            [['birth_era'], 'in', 'range' => [
-                static::ERA_MEIJI,
-                static::ERA_TAISHO,
-                static::ERA_SHOWA,
-                static::ERA_HEISEI,
-            ]],
             [['individual_number'], 'match', 'pattern' => '/^\d{12}$/'],
             [['individual_number'], MyNumberValidator::class],
         ];
@@ -158,7 +149,6 @@ class Pdf2016Form extends Model
             'name'          => '名前（漢字）',
             'name_kana'     => '名前（カナ）',
             'sex'           => '性別',
-            'birth_era'     => '誕生日（和暦）',
             'birth_year'    => '誕生日（年）',
             'birth_month'   => '誕生日（月）',
             'birth_day'     => '誕生日（日）',
@@ -190,7 +180,6 @@ class Pdf2016Form extends Model
             ->setIndividualNumber($this->individual_number)
             ->setSex($this->sex)
             ->setBirthday(
-                $this->birth_era,
                 (int)$this->birth_year,
                 (int)$this->birth_month,
                 (int)$this->birth_day
