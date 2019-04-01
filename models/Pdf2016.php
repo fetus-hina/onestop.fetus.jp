@@ -57,14 +57,12 @@ class Pdf2016 extends Model
     const INDIVIDUAL_BIRTH_DAY_LEFT_MM      = self::INDIVIDUAL_BIRTH_MONTH_RIGHT_MM;
     const INDIVIDUAL_BIRTH_DAY_RIGHT_MM     = self::INDIVIDUAL_BIRTH_DAY_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
 
-    const TITLE_YEAR_CELL_TOP_MM        = 17.3;
-    const TITLE_YEAR_CELL_BOTTOM_MM     = 21.3;
+    const TITLE_YEAR_CELL_TOP_MM        = 17.4;
+    const TITLE_YEAR_CELL_BOTTOM_MM     = 21.1;
     const TITLE_YEAR_CELL_LEFT_MM       = 43.0;
     const TITLE_YEAR_CELL_RIGHT_MM      = 54.0;
     const TITLE_H_ERA_TOP_MM            = self::TITLE_YEAR_CELL_TOP_MM;
     const TITLE_H_ERA_BOTTOM_MM         = self::TITLE_YEAR_CELL_BOTTOM_MM;
-    const TITLE_ERA_TOP_MM              = self::TITLE_H_ERA_BOTTOM_MM;
-    const TITLE_ERA_BOTTOM_MM           = self::TITLE_ERA_TOP_MM + 4.0;
     const TITLE_ERA_LEFT_MM             = self::TITLE_YEAR_CELL_LEFT_MM - 7.5;
     const TITLE_ERA_RIGHT_MM            = self::TITLE_YEAR_CELL_LEFT_MM;
 
@@ -124,7 +122,7 @@ class Pdf2016 extends Model
         $this->pdf = PdfDocument::load(Yii::getAlias('@app/data/pdfs/2016.pdf'));
         $this->page = $this->pdf->pages[0];
 
-        // $this->drawDebugLines();
+        $this->drawDebugLines();
     }
 
     public function getBinary() : string
@@ -164,11 +162,7 @@ class Pdf2016 extends Model
                 ->drawLine($x1, $y2, $x2, $y2);
 
             // 元号
-            $x = static::x(static::ENVELOPE_CELL_LEFT_MM + 0.25);
-            $y = static::y(
-                static::ENVELOPE_NAME_TOP_MM + static::ENVELOPE_NAME_FONT_MM * $baseline
-            );
-            $this->page->drawText($era['name'], $x, $y);
+            $year = $era['name'] . $year;
         }
 
         $y = static::ENVELOPE_DATE_TOP_MM + static::ENVELOPE_DATE_FONT_MM * $baseline;
@@ -414,12 +408,8 @@ class Pdf2016 extends Model
                 ->drawLine(static::x($x1), static::y($y1), static::x($x2), static::y($y1))
                 ->drawLine(static::x($x1), static::y($y2), static::x($x2), static::y($y2));
 
-            // 元号
-            $y = static::TITLE_ERA_TOP_MM + static::TITLE_FONT_MM * $baseline;
-            $x = static::TITLE_ERA_LEFT_MM +
-                (static::TITLE_ERA_RIGHT_MM - static::TITLE_ERA_LEFT_MM) / 2 -
-                    mb_strlen($era['name'], 'UTF-8') * static::TITLE_FONT_MM / 2;
-            $this->page->drawText($era['name'], static::x($x), static::y($y));
+            // 元号 + 年表記
+            $year = $era['name'] . $year;
         }
         // タイトル年
         $y = static::TITLE_YEAR_CELL_TOP_MM + static::TITLE_FONT_MM * $baseline;
@@ -447,10 +437,6 @@ class Pdf2016 extends Model
         }
 
         if ($era['name'] !== '平成') {
-            $x = static::DATA_KIFU_H_ERA_LEFT_MM -
-                (mb_strlen($era['name'], 'UTF-8') * static::DATA_FONT_MM) - 0.2;
-            $this->page->drawText($era['name'], static::x($x), static::y($y));
-
             // 打ち消し
             $x1 = static::DATA_KIFU_H_ERA_LEFT_MM;
             $x2 = static::DATA_KIFU_H_ERA_RIGHT_MM;
@@ -522,14 +508,6 @@ class Pdf2016 extends Model
                 static::y(static::TITLE_H_ERA_TOP_MM),
                 static::x(static::TITLE_ERA_RIGHT_MM),
                 static::y(static::TITLE_H_ERA_BOTTOM_MM),
-                \ZendPdf\Page::SHAPE_DRAW_STROKE
-            )
-            // 別元号の位置
-            ->drawRectangle(
-                static::x(static::TITLE_ERA_LEFT_MM),
-                static::y(static::TITLE_ERA_TOP_MM),
-                static::x(static::TITLE_ERA_RIGHT_MM),
-                static::y(static::TITLE_ERA_BOTTOM_MM),
                 \ZendPdf\Page::SHAPE_DRAW_STROKE
             );
 
