@@ -6,17 +6,13 @@
   "require": {
     "php": ">= 7.1.0",
 
-    "bower-asset/bootstrap": "4.*@alpha",
+    "bower-asset/bootstrap": "4.*",
 
     "jp3cki/mynumber": "^1.0.0",
     "rmrevin/yii2-fontawesome": "^2.13",
-    "yiisoft/yii2": "~2.0.5",
+    "yiisoft/yii2": "2.0.*@dev",
     "yiisoft/yii2-bootstrap": "~2.1.0@dev",
     "zendframework/zendpdf": "^2.0.2"
-  },
-  "require-dev": {
-    "yiisoft/yii2-debug": "~2.0.0",
-    "yiisoft/yii2-gii": "~2.0.0"
   },
   "config": {
     "process-timeout": 1800
@@ -28,6 +24,13 @@
     }
   },
   "repositories": [
-    { "type": "git", "url": "https://github.com/fetus-hina/yii2-bootstrap.git" }
+    {
+      "type": "git",
+      "url": "https://github.com/fetus-hina/yii2-bootstrap.git"
+    },
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
   ]
 }
