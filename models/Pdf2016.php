@@ -61,6 +61,12 @@ class Pdf2016 extends Model
     const TITLE_YEAR_CELL_BOTTOM_MM     = 21.3;
     const TITLE_YEAR_CELL_LEFT_MM       = 43.0;
     const TITLE_YEAR_CELL_RIGHT_MM      = 54.0;
+    const TITLE_H_ERA_TOP_MM            = self::TITLE_YEAR_CELL_TOP_MM;
+    const TITLE_H_ERA_BOTTOM_MM         = self::TITLE_YEAR_CELL_BOTTOM_MM;
+    const TITLE_ERA_TOP_MM              = self::TITLE_H_ERA_BOTTOM_MM;
+    const TITLE_ERA_BOTTOM_MM           = self::TITLE_ERA_TOP_MM + 4.0;
+    const TITLE_ERA_LEFT_MM             = self::TITLE_YEAR_CELL_LEFT_MM - 7.5;
+    const TITLE_ERA_RIGHT_MM            = self::TITLE_YEAR_CELL_LEFT_MM;
 
     const ENVELOPE_CELL_TOP_MM          = 29.9;
     const ENVELOPE_CELL_BOTTOM_MM       = 35.8;
@@ -90,6 +96,8 @@ class Pdf2016 extends Model
     const DATA_KIFU_MONTH_RIGHT_MM      = self::DATA_CELL_LEFT_MM + 39.6;
     const DATA_KIFU_DAY_LEFT_MM         = self::DATA_CELL_LEFT_MM + 42.7;
     const DATA_KIFU_DAY_RIGHT_MM        = self::DATA_CELL_LEFT_MM + 52.4;
+    const DATA_KIFU_H_ERA_RIGHT_MM      = self::DATA_KIFU_YEAR_LEFT_MM;
+    const DATA_KIFU_H_ERA_LEFT_MM       = self::DATA_KIFU_H_ERA_RIGHT_MM - 6.4;
 
     const _8PT = 8 * 25.4 / 72;
     const _9PT = 9 * 25.4 / 72;
@@ -385,18 +393,41 @@ class Pdf2016 extends Model
     {
         list($font, $baseline) = $this->Mincho;
 
-        $year  = ($year === 1) ? '元' : mb_convert_kana((string)$year, 'A', 'UTF-8');
+        $era = JapaneseEra::getEra($year, $month, $day);
+        $eraY = $year - (int)$era['start']->format('Y') + 1;
+        $year  = ($eraY === 1) ? '元' : mb_convert_kana((string)$eraY, 'A', 'UTF-8');
         $month = mb_convert_kana((string)$month, 'A', 'UTF-8');
         $day   = mb_convert_kana((string)$day,   'A', 'UTF-8');
         $amount = mb_convert_kana(number_format($amount), 'A', 'UTF-8');
 
         // タイトル
         $this->page->setFont($font, static::mm2pt(static::TITLE_FONT_MM));
+        if ($era['name'] !== '平成') {
+            // 打ち消し
+            $x1 = static::TITLE_ERA_LEFT_MM;
+            $x2 = static::TITLE_ERA_RIGHT_MM;
+            $y1 = (static::TITLE_H_ERA_TOP_MM + static::TITLE_H_ERA_BOTTOM_MM) / 2 - 0.5;
+            $y2 = (static::TITLE_H_ERA_TOP_MM + static::TITLE_H_ERA_BOTTOM_MM) / 2 + 0.5;
+            $this->page
+                ->setLineColor($this->black)
+                ->setLineWidth(self::mm2pt(0.35))
+                ->drawLine(static::x($x1), static::y($y1), static::x($x2), static::y($y1))
+                ->drawLine(static::x($x1), static::y($y2), static::x($x2), static::y($y2));
+
+            // 元号
+            $y = static::TITLE_ERA_TOP_MM + static::TITLE_FONT_MM * $baseline;
+            $x = static::TITLE_ERA_LEFT_MM +
+                (static::TITLE_ERA_RIGHT_MM - static::TITLE_ERA_LEFT_MM) / 2 -
+                    mb_strlen($era['name'], 'UTF-8') * static::TITLE_FONT_MM / 2;
+            $this->page->drawText($era['name'], static::x($x), static::y($y));
+        }
+        // タイトル年
         $y = static::TITLE_YEAR_CELL_TOP_MM + static::TITLE_FONT_MM * $baseline;
         $x = static::TITLE_YEAR_CELL_LEFT_MM +
                 (static::TITLE_YEAR_CELL_RIGHT_MM - static::TITLE_YEAR_CELL_LEFT_MM) / 2 -
                     mb_strlen($year, 'UTF-8') * static::TITLE_FONT_MM / 2;
         $this->page->drawText($year, static::x($x), static::y($y));
+
 
         $this->page->setFont($font, static::mm2pt(static::DATA_FONT_MM));
         $cellHeight = static::DATA_KIFU_CELL_BOTTOM_MM - static::DATA_KIFU_CELL_TOP_MM;
@@ -413,6 +444,23 @@ class Pdf2016 extends Model
         foreach ($data as list ($text, $x1, $x2)) {
             $x = $x1 + ($x2 - $x1) / 2 - (mb_strlen($text, 'UTF-8') * static::DATA_FONT_MM) / 2;
             $this->page->drawText($text, static::x($x), static::y($y));
+        }
+
+        if ($era['name'] !== '平成') {
+            $x = static::DATA_KIFU_H_ERA_LEFT_MM -
+                (mb_strlen($era['name'], 'UTF-8') * static::DATA_FONT_MM) - 0.2;
+            $this->page->drawText($era['name'], static::x($x), static::y($y));
+
+            // 打ち消し
+            $x1 = static::DATA_KIFU_H_ERA_LEFT_MM;
+            $x2 = static::DATA_KIFU_H_ERA_RIGHT_MM;
+            $y1 = (static::DATA_KIFU_CELL_TOP_MM + static::DATA_KIFU_CELL_BOTTOM_MM) / 2 - 0.4;
+            $y2 = (static::DATA_KIFU_CELL_TOP_MM + static::DATA_KIFU_CELL_BOTTOM_MM) / 2 + 0.4;
+            $this->page
+                ->setLineColor($this->black)
+                ->setLineWidth(self::mm2pt(0.35))
+                ->drawLine(static::x($x1), static::y($y1), static::x($x2), static::y($y1))
+                ->drawLine(static::x($x1), static::y($y2), static::x($x2), static::y($y2));
         }
 
         // 寄付金額
@@ -464,6 +512,24 @@ class Pdf2016 extends Model
                 static::y(static::TITLE_YEAR_CELL_TOP_MM),
                 static::x(static::TITLE_YEAR_CELL_RIGHT_MM),
                 static::y(static::TITLE_YEAR_CELL_BOTTOM_MM),
+                \ZendPdf\Page::SHAPE_DRAW_STROKE
+            );
+
+        $this->page
+            // 平成の位置（打ち消し用）
+            ->drawRectangle(
+                static::x(static::TITLE_ERA_LEFT_MM),
+                static::y(static::TITLE_H_ERA_TOP_MM),
+                static::x(static::TITLE_ERA_RIGHT_MM),
+                static::y(static::TITLE_H_ERA_BOTTOM_MM),
+                \ZendPdf\Page::SHAPE_DRAW_STROKE
+            )
+            // 別元号の位置
+            ->drawRectangle(
+                static::x(static::TITLE_ERA_LEFT_MM),
+                static::y(static::TITLE_ERA_TOP_MM),
+                static::x(static::TITLE_ERA_RIGHT_MM),
+                static::y(static::TITLE_ERA_BOTTOM_MM),
                 \ZendPdf\Page::SHAPE_DRAW_STROKE
             );
 
@@ -736,6 +802,8 @@ class Pdf2016 extends Model
             static::DATA_KIFU_MONTH_RIGHT_MM,
             static::DATA_KIFU_DAY_LEFT_MM,
             static::DATA_KIFU_DAY_RIGHT_MM,
+            static::DATA_KIFU_H_ERA_LEFT_MM,
+            static::DATA_KIFU_H_ERA_RIGHT_MM,
         ];
         foreach ($x_ as $x) {
             $this->page->drawLine(
