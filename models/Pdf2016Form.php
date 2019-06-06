@@ -55,12 +55,12 @@ class Pdf2016Form extends Model
             ->setTimezone(new \DateTimeZone('Asia/Tokyo'));
 
         if ($this->post_year === null && $this->post_month === null && $this->post_day === null) {
-            $this->post_year = (int)$date->format('Y') - 1988;
+            $this->post_year = (int)$date->format('Y');
             $this->post_month = (int)$date->format('n');
             $this->post_day = (int)$date->format('j');
         }
         if ($this->kifu_year === null && $this->kifu_month === null && $this->kifu_day === null) {
-            $this->kifu_year = (int)$date->format('Y') - 1988;
+            $this->kifu_year = (int)$date->format('Y');
             $this->kifu_month = (int)$date->format('n');
             $this->kifu_day = (int)$date->format('j');
         }
