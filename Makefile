@@ -26,21 +26,25 @@ composer.lock: composer.json composer.phar
 	php composer.phar update -vvv
 	touch -r $< $@
 
-node_modules: package.json
+node_modules: package-lock.json
 	npm install
-	touch -r $< $@
+	@touch $@
+
+package-lock.json: package.json
+	npm update
+	@touch $@
 
 resources: $(RESOURCES)
 
 %.css: %.scss node_modules
-	$(NPMBIN)/node-sass $< | \
-		$(NPMBIN)/postcss --use autoprefixer --autoprefixer.browsers 'last 2 versions,> 5%,firefox ESR' | \
-		$(NPMBIN)/cleancss --skip-import | \
+	npx node-sass $< | \
+		npx postcss --use autoprefixer | \
+		npx cleancss | \
 		cat > $@
 
 %.js: %.es node_modules
-	$(NPMBIN)/babel --presets=latest $< | \
-		$(NPMBIN)/uglifyjs --compress --mangle | \
+	npx babel --presets=latest $< | \
+		npx uglifyjs --compress --mangle | \
 		cat > $@
 
 config/cookie-secret.php:

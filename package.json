@@ -7,12 +7,12 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^6.7.7",
+    "autoprefixer": "^9.6.0",
     "babel-cli": "^6.26.0",
     "babel-preset-latest": "^6.24.1",
-    "clean-css": "^3.4.28",
+    "clean-css-cli": "^4.2.1",
     "node-sass": "^4.12.0",
-    "postcss-cli": "^2.6.0",
-    "uglify-js": "^2.8.29"
+    "postcss-cli": "^6.1.2",
+    "uglify-js": "^3.6.0"
   }
 }
