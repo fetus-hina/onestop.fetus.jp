@@ -1,7 +1,8 @@
 .PHONY: all config-files setup setup-db resources
 
 RESOURCES := \
-	web/css/site.css
+	web/css/site.css \
+	web/js/mynumber.js
 
 NPMBIN := $(shell npm bin)
 

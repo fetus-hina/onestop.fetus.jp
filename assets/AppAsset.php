@@ -14,6 +14,9 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
     ];
+    public $js = [
+        'js/mynumber.js',
+    ];
     public $depends = [
         BootstrapAsset::class,
         BootstrapPluginAsset::class,

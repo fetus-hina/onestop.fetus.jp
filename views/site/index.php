@@ -184,8 +184,9 @@ $thisYear = (int)date('Y', $now);
     </div>
     <?= $form->field($model, 'individual_number')
       ->textInput(['placeholder' => '123412341234'])
-      ->hint('数字のみを入力します') . "\n"
+      ->hint('数字のみを入力します。テスト用ダミー: <span id="dummy-mynumber"></span>') . "\n"
     ?>
+<?php $this->registerJs('$("#dummy-mynumber").dummyMyNumber();') ?>
   </fieldset>
   <fieldset>
     <legend>特例が利用できる人かチェック</legend>
