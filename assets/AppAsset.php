@@ -1,7 +1,11 @@
 <?php
 namespace app\assets;
 
+use rmrevin\yii\fontawesome\AssetBundle as FontAwesomeAsset;
+use yii\bootstrap4\BootstrapAsset;
+use yii\bootstrap4\BootstrapPluginAsset;
 use yii\web\AssetBundle;
+use yii\web\YiiAsset;
 
 class AppAsset extends AssetBundle
 {
@@ -11,9 +15,9 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-        'rmrevin\yii\fontawesome\AssetBundle',
+        BootstrapAsset::class,
+        BootstrapPluginAsset::class,
+        FontAwesomeAsset::class,
+        YiiAsset::class,
     ];
 }

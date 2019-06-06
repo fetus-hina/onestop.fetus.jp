@@ -4,9 +4,6 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 $app = Yii::$app;
@@ -25,8 +22,8 @@ AppAsset::register($this);
   </head>
   <body>
 <?php $this->beginBody() ?>
-    <div class="container-fluid mb-1">
-      <nav class="navbar navbar-light bg-faded">
+    <div class="container-fluid bg-dark mb-1">
+      <nav class="navbar navbar-dark bg-faded">
         <div class="container">
           <a class="navbar-brand" href="/"><?= Html::encode($app->name) ?></a>
         </div>

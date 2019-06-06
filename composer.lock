@@ -1,27 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c8f3947a18fe55fea14e68a42f70f25",
+    "content-hash": "46f7a237957abc37f553674f77529406",
     "packages": [
-        {
-            "name": "bower-asset/bootstrap",
-            "version": "v4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "8a628b943cf31ca0a002c08af661a95772480225"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/8a628b943cf31ca0a002c08af661a95772480225",
-                "reference": "8a628b943cf31ca0a002c08af661a95772480225",
-                "shasum": ""
-            },
-            "type": "bower-asset-library"
-        },
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
@@ -33,125 +17,33 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "shasum": ""
+                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
             },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "./dist/inputmask/inputmask.js",
-                    "./dist/inputmask/inputmask.extensions.js",
-                    "./dist/inputmask/inputmask.date.extensions.js",
-                    "./dist/inputmask/inputmask.numeric.extensions.js",
-                    "./dist/inputmask/inputmask.phone.extensions.js",
-                    "./dist/inputmask/jquery.inputmask.js",
-                    "./dist/inputmask/global/document.js",
-                    "./dist/inputmask/global/window.js",
-                    "./dist/inputmask/phone-codes/phone.js",
-                    "./dist/inputmask/phone-codes/phone-be.js",
-                    "./dist/inputmask/phone-codes/phone-nl.js",
-                    "./dist/inputmask/phone-codes/phone-ru.js",
-                    "./dist/inputmask/phone-codes/phone-uk.js",
-                    "./dist/inputmask/dependencyLibs/inputmask.dependencyLib.jqlite.js",
-                    "./dist/inputmask/dependencyLibs/inputmask.dependencyLib.jquery.js",
-                    "./dist/inputmask/dependencyLibs/inputmask.dependencyLib.js",
-                    "./dist/inputmask/bindings/inputmask.binding.js"
-                ],
-                "bower-asset-ignore": [
-                    "**/*",
-                    "!dist/*",
-                    "!dist/inputmask/*",
-                    "!dist/min/*",
-                    "!dist/min/inputmask/*"
-                ]
-            },
+            "type": "bower-asset",
             "license": [
                 "http://opensource.org/licenses/mit-license.php"
-            ],
-            "description": "Inputmask is a javascript library which creates an input mask.  Inputmask can run against vanilla javascript, jQuery and jqlite.",
-            "keywords": [
-                "form",
-                "input",
-                "inputmask",
-                "jquery",
-                "mask",
-                "plugins"
-            ],
-            "time": "2017-11-21T11:46:23+00:00"
+            ]
         },
         {
             "name": "bower-asset/jquery",
-            "version": "3.3.1",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e"
+                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/9e8ec3d10fad04748176144f108d7355662ae75e",
-                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e",
-                "shasum": ""
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/15bc73803f76bc53b654b9fdbbbc096f56d7c03d",
+                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "dist/jquery.js",
-                "bower-asset-ignore": [
-                    "package.json"
-                ]
-            },
+            "type": "bower-asset",
             "license": [
                 "MIT"
-            ],
-            "keywords": [
-                "browser",
-                "javascript",
-                "jquery",
-                "library"
-            ],
-            "time": "2018-01-20T17:26:57+00:00"
-        },
-        {
-            "name": "bower-asset/popper.js",
-            "version": "v1.12.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FezVrasta/popper.js.git",
-                "reference": "bf60988e6ee6f7b73e7be8088fd325985bb6e7f4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FezVrasta/popper.js/zipball/bf60988e6ee6f7b73e7be8088fd325985bb6e7f4",
-                "reference": "bf60988e6ee6f7b73e7be8088fd325985bb6e7f4",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "dist/umd/popper.js",
-                "bower-asset-ignore": [
-                    "**/.*",
-                    "node_modules",
-                    "bower_components",
-                    "tests"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A kickass library to manage your poppers",
-            "keywords": [
-                "attached",
-                "component",
-                "drop",
-                "popover",
-                "popperjs",
-                "position",
-                "tooltip"
-            ],
-            "time": "2017-11-15T12:22:40+00:00"
+            ]
         },
         {
             "name": "bower-asset/punycode",
@@ -164,22 +56,9 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "shasum": ""
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "punycode.js",
-                "bower-asset-ignore": [
-                    "coverage",
-                    "tests",
-                    ".*",
-                    "component.json",
-                    "Gruntfile.js",
-                    "node_modules",
-                    "package.json"
-                ]
-            }
+            "type": "bower-asset"
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -192,29 +71,15 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/aef7b953107264f00234902a3880eb50dafc48be",
-                "reference": "aef7b953107264f00234902a3880eb50dafc48be",
-                "shasum": ""
+                "reference": "aef7b953107264f00234902a3880eb50dafc48be"
             },
             "require": {
                 "bower-asset/jquery": ">=1.8"
             },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "./jquery.pjax.js",
-                "bower-asset-ignore": [
-                    ".travis.yml",
-                    "Gemfile",
-                    "Gemfile.lock",
-                    "CONTRIBUTING.md",
-                    "vendor/",
-                    "script/",
-                    "test/"
-                ]
-            },
+            "type": "bower-asset",
             "license": [
                 "MIT"
-            ],
-            "time": "2017-10-12T10:11:14+00:00"
+            ]
         },
         {
             "name": "cebe/markdown",
@@ -413,6 +278,18 @@
             "time": "2017-01-16T18:55:33+00:00"
         },
         {
+            "name": "npm-asset/bootstrap",
+            "version": "4.3.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.3.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v9.99.99",
             "source": {
@@ -511,16 +388,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "dev-master",
+            "version": "2.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ff7a63849d419f2cae4df31c802cd46e791dc0d6"
+                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ff7a63849d419f2cae4df31c802cd46e791dc0d6",
-                "reference": "ff7a63849d419f2cae4df31c802cd46e791dc0d6",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/bd05e0e0ac353cb239997da78f459d0960a1fe9f",
+                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f",
                 "shasum": ""
             },
             "require": {
@@ -607,58 +484,76 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-06-04T19:11:32+00:00"
+            "time": "2019-06-04T19:10:59+00:00"
         },
         {
-            "name": "yiisoft/yii2-bootstrap",
-            "version": "2.1.x-dev",
+            "name": "yiisoft/yii2-bootstrap4",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fetus-hina/yii2-bootstrap.git",
-                "reference": "8613e504bd5be6f78eb9b8504aafc5843184704a"
+                "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
+                "reference": "dce3d0421188cf8ff6d4ec79707e6e2effd02e05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/dce3d0421188cf8ff6d4ec79707e6e2effd02e05",
+                "reference": "dce3d0421188cf8ff6d4ec79707e6e2effd02e05",
+                "shasum": ""
             },
             "require": {
-                "bower-asset/bootstrap": "~4.0.0@beta",
-                "bower-asset/popper.js": "~1.12.0",
-                "yiisoft/yii2": "~2.0.6"
+                "npm-asset/bootstrap": "^4.2",
+                "yiisoft/yii2": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "<7",
+                "yiisoft/yii2-coding-standards": "~2.0"
             },
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                },
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "yii\\bootstrap\\": ""
+                    "yii\\bootstrap4\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
             "authors": [
                 {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                },
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru",
+                    "homepage": "http://rmcreative.ru/"
+                },
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "amigo.cobos@gmail.com"
+                },
+                {
+                    "name": "Simon Karlen",
+                    "email": "simi.albi@gmail.com"
+                },
+                {
                     "name": "Qiang Xue",
-                    "email": "qiang.xue@gmail.com"
+                    "email": "qiang.xue@gmail.com",
+                    "homepage": "http://www.yiiframework.com/"
                 }
             ],
             "description": "The Twitter Bootstrap extension for the Yii framework",
             "keywords": [
                 "bootstrap",
+                "bootstrap4",
                 "yii2"
             ],
-            "support": {
-                "issues": "https://github.com/yiisoft/yii2-bootstrap/issues",
-                "forum": "http://www.yiiframework.com/forum/",
-                "wiki": "http://www.yiiframework.com/wiki/",
-                "irc": "irc://irc.freenode.net/yii",
-                "source": "https://github.com/yiisoft/yii2-bootstrap"
-            },
-            "time": "2018-02-25T09:53:58+00:00"
+            "time": "2019-06-04T12:50:33+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -856,14 +751,11 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "yiisoft/yii2": 20,
-        "yiisoft/yii2-bootstrap": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 7.1.0"
+        "php": ">= 7.3.0"
     },
     "platform-dev": []
 }

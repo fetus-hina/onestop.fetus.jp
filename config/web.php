@@ -11,24 +11,11 @@ $config = [
     'charset' => 'UTF-8',
     'timeZone' => 'Asia/Tokyo',
     'bootstrap' => ['log'],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'components' => [
-        'assetManager' => [
-            'bundles' => [
-                'yii\web\JqueryAsset' => [
-                    'js' => [ 'jquery.min.js' ],
-                ],
-                'yii\bootstrap\BootstrapAsset' => [
-                    'css' => [ 'css/bootstrap.min.css' ],
-                ],
-                'yii\bootstrap\BootstrapPluginAsset' => [
-                    'js' => [ 'js/bootstrap.min.js' ],
-                ],
-                'yii\bootstrap\TetherAsset' => [
-                    'css' => [ 'css/tether.min.css' ],
-                    'js' => [ 'js/tether.min.js' ],
-                ],
-            ],
-        ],
         'request' => [
             'cookieValidationKey' => require(__DIR__ . '/cookie-secret.php'),
         ],

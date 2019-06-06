@@ -4,30 +4,21 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">= 7.1.0",
-
-    "bower-asset/bootstrap": "4.*",
+    "php": ">= 7.3.0",
 
     "jp3cki/mynumber": "^1.0.0",
     "rmrevin/yii2-fontawesome": "^2.13",
-    "yiisoft/yii2": "2.0.*@dev",
-    "yiisoft/yii2-bootstrap": "~2.1.0@dev",
+    "yiisoft/yii2": "2.0.*",
+    "yiisoft/yii2-bootstrap4": "*",
     "zendframework/zendpdf": "^2.0.2"
   },
   "config": {
-    "process-timeout": 1800
-  },
-  "extra": {
-    "asset-installer-paths": {
-      "npm-asset-library": "vendor/npm",
-      "bower-asset-library": "vendor/bower"
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
     }
   },
   "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/fetus-hina/yii2-bootstrap.git"
-    },
     {
       "type": "composer",
       "url": "https://asset-packagist.org"

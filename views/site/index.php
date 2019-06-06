@@ -2,7 +2,7 @@
 use app\models\JapaneseEra;
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -11,8 +11,8 @@ $this->title = 'onestop.fetus.jp';
 $now = ((int)$_SERVER['REQUEST_TIME'] ?? time());
 $thisYear = (int)date('Y', $now);
 ?>
-<div>
-  <h1>
+<main>
+  <h1 class="sr-only">
     <span class="font-script"><?= Html::encode(Yii::$app->name); ?></span>
   </h1>
   <p>
@@ -206,4 +206,4 @@ $thisYear = (int)date('Y', $now);
   </div>
 
   <?php ActiveForm::end(); echo "\n"; ?>
-</div>
+</main>
