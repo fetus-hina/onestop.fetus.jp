@@ -1,4 +1,4 @@
-.PHONY: all config-files setup setup-db resources
+.PHONY: all config-files setup setup-db resources clean
 
 RESOURCES := \
 	web/css/site.css \
@@ -35,6 +35,9 @@ package-lock.json: package.json
 	npm update
 	@touch $@
 
+clean:
+	rm -rf $(RESOURCES)
+
 resources: $(RESOURCES)
 
 %.css: %.scss node_modules
@@ -44,9 +47,7 @@ resources: $(RESOURCES)
 		cat > $@
 
 %.js: %.es node_modules
-	npx babel --presets=latest $< | \
-		npx uglifyjs --compress --mangle | \
-		cat > $@
+	npx babel $< | npx uglifyjs --compress --mangle > $@
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@
