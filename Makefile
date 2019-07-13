@@ -2,9 +2,9 @@
 
 RESOURCES := \
 	web/css/site.css \
-	web/js/mynumber.js
-
-NPMBIN := $(shell npm bin)
+	web/js/fakedata.js \
+	web/js/mynumber.js \
+	web/js/polyfill.js
 
 all: setup
 

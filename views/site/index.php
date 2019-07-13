@@ -1,10 +1,10 @@
 <?php
-use app\models\JapaneseEra;
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 $this->title = 'onestop.fetus.jp';
 
@@ -20,6 +20,14 @@ $thisYear = (int)date('Y', $now);
     ここで入力した情報は一切保存されていません（<a href="https://github.com/fetus-hina/onestop.fetus.jp/" rel="external" target="_blank">ソースコード</a>）。<br>
     一文字でも手書きを減らしたい自分のためのフォームなので細かいことはあまり考えてないです。
   </p>
+
+  <script type="application/json" id="fake-data"><?= Json::encode($fake) ?></script>
+  <div class="text-right">
+    <button type="button" class="btn btn-outline-secondary" id="use-fake-data" data-data="#fake-data">
+      サンプルデータ
+    </button>
+<?php $this->registerJs('$("#use-fake-data").fakeData();') ?>
+  </div>
 
   <?php $form = ActiveForm::begin(); echo "\n"; ?>
     

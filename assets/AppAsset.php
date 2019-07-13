@@ -15,7 +15,9 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/polyfill.js',
         'js/mynumber.js',
+        'js/fakedata.js',
     ];
     public $depends = [
         BootstrapAsset::class,

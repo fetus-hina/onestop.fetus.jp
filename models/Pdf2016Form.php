@@ -1,9 +1,13 @@
 <?php
 namespace app\models;
 
+use DateInterval;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use ZendPdf\PdfDocument;
 use app\validators\MyNumberValidator;
+use jp3cki\mynumber\MyNumber;
 use yii\base\Model;
 
 class Pdf2016Form extends Model
@@ -201,5 +205,44 @@ class Pdf2016Form extends Model
     public function getPrefecturer() : ?Prefecturer
     {
         return Prefecturer::findOne(['id' => $this->pref_id]);
+    }
+
+    public function faker(): self
+    {
+        $today = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
+        $yesterday = $today->sub(new DateInterval('P1D'));
+        $birthday = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
+            ->setTimestamp(mt_rand(
+                (int)floor(time() - 55 * 365.2422 * 86400),
+                (int)ceil(time() - 23 * 365.2422 * 86400)
+            ));
+
+        $this->attributes = [
+            'post_year' => (int)$today->format('Y'),
+            'post_month' => (int)$today->format('n'),
+            'post_day' => (int)$today->format('j'),
+            'local_gov' => '寝屋川市',
+            'kifu_year' => (int)$yesterday->format('Y'),
+            'kifu_month' => (int)$yesterday->format('n'),
+            'kifu_day' => (int)$yesterday->format('j'),
+            'kifu_amount' => mt_rand(5, 50) * 1000,
+            'zipcode' => '1000001',
+            'pref_id' => 13,
+            'city' => '千代田区',
+            'address1' => '千代田1-1',
+            'address2' => 'パレス皇居404',
+            'phone' => '090-1234-5678',
+            'name' => '相沢　陽菜',
+            'name_kana' => 'アイザワ　ヒナ',
+            'sex' => '2',
+            'birth_year' => (int)$birthday->format('Y'),
+            'birth_month' => (int)$birthday->format('n'),
+            'birth_day' => (int)$birthday->format('j'),
+            'individual_number' => MyNumber::generate(),
+            'checkbox1' => '1',
+            'checkbox2' => '1',
+        ];
+
+        return $this;
     }
 }
