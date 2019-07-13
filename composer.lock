@@ -388,16 +388,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.20",
+            "version": "2.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f"
+                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/bd05e0e0ac353cb239997da78f459d0960a1fe9f",
-                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/417299927ed14adcd51c69a9d75311c5fc33d227",
+                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227",
                 "shasum": ""
             },
             "require": {
@@ -484,24 +484,24 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-06-04T19:10:59+00:00"
+            "time": "2019-07-02T20:28:40+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
-            "version": "2.0.3",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
-                "reference": "dce3d0421188cf8ff6d4ec79707e6e2effd02e05"
+                "reference": "30317f483b38fdac3476583d68e619d3b3393a4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/dce3d0421188cf8ff6d4ec79707e6e2effd02e05",
-                "reference": "dce3d0421188cf8ff6d4ec79707e6e2effd02e05",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/30317f483b38fdac3476583d68e619d3b3393a4d",
+                "reference": "30317f483b38fdac3476583d68e619d3b3393a4d",
                 "shasum": ""
             },
             "require": {
-                "npm-asset/bootstrap": "^4.2",
+                "npm-asset/bootstrap": "^4.3",
                 "yiisoft/yii2": "~2.0"
             },
             "require-dev": {
@@ -553,7 +553,7 @@
                 "bootstrap4",
                 "yii2"
             ],
-            "time": "2019-06-04T12:50:33+00:00"
+            "time": "2019-07-02T10:22:59+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
