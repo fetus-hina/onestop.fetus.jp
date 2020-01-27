@@ -1,4 +1,5 @@
 <?php
+
 namespace app\assets;
 
 use rmrevin\yii\fontawesome\AssetBundle as FontAwesomeAsset;

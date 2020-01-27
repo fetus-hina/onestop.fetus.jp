@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use Yii;
@@ -11,107 +12,111 @@ use yii\base\Model;
 
 class Pdf2016 extends Model
 {
-    const SEX_MALE   = Form::SEX_MALE;
-    const SEX_FEMALE = Form::SEX_FEMALE;
+    public const SEX_MALE = Form::SEX_MALE;
+    public const SEX_FEMALE = Form::SEX_FEMALE;
 
-    const ERA_MEIJI  = JapaneseEra::MEIJI;
-    const ERA_TAISHO = JapaneseEra::TAISHO;
-    const ERA_SHOWA  = JapaneseEra::SHOWA;
-    const ERA_HEISEI = JapaneseEra::HEISEI;
-    const ERA_REIWA  = JapaneseEra::REIWA;
+    public const ERA_MEIJI = JapaneseEra::MEIJI;
+    public const ERA_TAISHO = JapaneseEra::TAISHO;
+    public const ERA_SHOWA = JapaneseEra::SHOWA;
+    public const ERA_HEISEI = JapaneseEra::HEISEI;
+    public const ERA_REIWA = JapaneseEra::REIWA;
 
-    const A4_WIDTH_MM  = 210;
-    const A4_HEIGHT_MM = 297;
+    public const A4_WIDTH_MM = 210;
+    public const A4_HEIGHT_MM = 297;
 
-    const INDIVIDUAL_COL_1_LEFT_MM      =  49.8;
-    const INDIVIDUAL_COL_1_RIGHT_MM     = 101.6;
-    const INDIVIDUAL_COL_2_LEFT_MM      = 116.8;
-    const INDIVIDUAL_COL_2_RIGHT_MM     = 168.5;
-    const INDIVIDUAL_ADDRESS_TOP_MM     =  36.3;
-    const INDIVIDUAL_ADDRESS_BOTTOM_MM  =  60.2;
-    const INDIVIDUAL_PHONE_TOP_MM       = self::INDIVIDUAL_ADDRESS_BOTTOM_MM;
-    const INDIVIDUAL_PHONE_BOTTOM_MM    =  68.2;
-    const INDIVIDUAL_KANA_TOP_MM        = self::INDIVIDUAL_ADDRESS_TOP_MM;
-    const INDIVIDUAL_KANA_BOTTOM_MM     =  39.45;
-    const INDIVIDUAL_NAME_TOP_MM        = self::INDIVIDUAL_KANA_BOTTOM_MM;
-    const INDIVIDUAL_NAME_BOTTOM_MM     =  49.0;
-    const INDIVIDUAL_NUMBER_TOP_MM      = self::INDIVIDUAL_NAME_BOTTOM_MM;
-    const INDIVIDUAL_NUMBER_BOTTOM_MM   =  55.4;
-    const INDIVIDUAL_NUMBER_CELL_WIDTH_MM = (self::INDIVIDUAL_COL_2_RIGHT_MM - self::INDIVIDUAL_COL_2_LEFT_MM) / 12;
-    const INDIVIDUAL_SEX_V_MM           =  57.8; // 性別の縦方向中心位置
-    const INDIVIDUAL_SEX_H_MALE_MM      = 135.6; // 男の横方向中心位置
-    const INDIVIDUAL_SEX_H_FEMALE_MM    = 150.0; // 女の横方向中心位置
-    const INDIVIDUAL_SEX_CIRCLE_R       =   1.85; // 性別の円の大きさ
-    const INDIVIDUAL_BIRTH_TOP_MM       = self::INDIVIDUAL_PHONE_TOP_MM;
-    const INDIVIDUAL_BIRTH_BOTTOM_MM    = self::INDIVIDUAL_PHONE_BOTTOM_MM;
-    const INDIVIDUAL_BIRTH_V_1_MM       =  63.0; // 誕生日・明治/大正 の縦方向中心位置 | 明・大
-    const INDIVIDUAL_BIRTH_V_2_MM       =  65.7; // 誕生日・昭和/平成 の縦方向中心位置 | 昭・平
-    const INDIVIDUAL_BIRTH_H_1_MM       = 124.1; // 誕生日・明治/昭和 の横方向中心位置 ~~~~~~~~~
-    const INDIVIDUAL_BIRTH_H_2_MM       = 128.4; // 誕生日・大正/平成 の横方向中心位置
-    const INDIVIDUAL_BIRTH_CIRCLE_MM    =   1.5; // 明治・大正・昭和・平成の円の大きさ
-    const INDIVIDUAL_BIRTH_CELL_WIDTH_MM    =  9.54;
-    const INDIVIDUAL_BIRTH_YEAR_LEFT_MM     = self::INDIVIDUAL_COL_2_LEFT_MM + 17.15;
-    const INDIVIDUAL_BIRTH_YEAR_RIGHT_MM    = self::INDIVIDUAL_BIRTH_YEAR_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
-    const INDIVIDUAL_BIRTH_MONTH_LEFT_MM    = self::INDIVIDUAL_BIRTH_YEAR_RIGHT_MM;
-    const INDIVIDUAL_BIRTH_MONTH_RIGHT_MM   = self::INDIVIDUAL_BIRTH_MONTH_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
-    const INDIVIDUAL_BIRTH_DAY_LEFT_MM      = self::INDIVIDUAL_BIRTH_MONTH_RIGHT_MM;
-    const INDIVIDUAL_BIRTH_DAY_RIGHT_MM     = self::INDIVIDUAL_BIRTH_DAY_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
+    public const INDIVIDUAL_COL_1_LEFT_MM = 49.8;
+    public const INDIVIDUAL_COL_1_RIGHT_MM = 101.6;
+    public const INDIVIDUAL_COL_2_LEFT_MM = 116.8;
+    public const INDIVIDUAL_COL_2_RIGHT_MM = 168.5;
+    public const INDIVIDUAL_ADDRESS_TOP_MM = 36.3;
+    public const INDIVIDUAL_ADDRESS_BOTTOM_MM = 60.2;
+    public const INDIVIDUAL_PHONE_TOP_MM = self::INDIVIDUAL_ADDRESS_BOTTOM_MM;
+    public const INDIVIDUAL_PHONE_BOTTOM_MM = 68.2;
+    public const INDIVIDUAL_KANA_TOP_MM = self::INDIVIDUAL_ADDRESS_TOP_MM;
+    public const INDIVIDUAL_KANA_BOTTOM_MM = 39.45;
+    public const INDIVIDUAL_NAME_TOP_MM = self::INDIVIDUAL_KANA_BOTTOM_MM;
+    public const INDIVIDUAL_NAME_BOTTOM_MM = 49.0;
+    public const INDIVIDUAL_NUMBER_TOP_MM = self::INDIVIDUAL_NAME_BOTTOM_MM;
+    public const INDIVIDUAL_NUMBER_BOTTOM_MM = 55.4;
+    public const INDIVIDUAL_NUMBER_CELL_WIDTH_MM =
+        (self::INDIVIDUAL_COL_2_RIGHT_MM - self::INDIVIDUAL_COL_2_LEFT_MM) / 12;
+    public const INDIVIDUAL_SEX_V_MM =  57.8; // 性別の縦方向中心位置
+    public const INDIVIDUAL_SEX_H_MALE_MM = 135.6; // 男の横方向中心位置
+    public const INDIVIDUAL_SEX_H_FEMALE_MM = 150.0; // 女の横方向中心位置
+    public const INDIVIDUAL_SEX_CIRCLE_R = 1.85; // 性別の円の大きさ
+    public const INDIVIDUAL_BIRTH_TOP_MM = self::INDIVIDUAL_PHONE_TOP_MM;
+    public const INDIVIDUAL_BIRTH_BOTTOM_MM = self::INDIVIDUAL_PHONE_BOTTOM_MM;
+    public const INDIVIDUAL_BIRTH_V_1_MM = 63.0;  // 誕生日・明治/大正 の縦方向中心位置 | 明・大
+    public const INDIVIDUAL_BIRTH_V_2_MM = 65.7;  // 誕生日・昭和/平成 の縦方向中心位置 | 昭・平
+    public const INDIVIDUAL_BIRTH_H_1_MM = 124.1; // 誕生日・明治/昭和 の横方向中心位置 ~~~~~~~~~
+    public const INDIVIDUAL_BIRTH_H_2_MM = 128.4; // 誕生日・大正/平成 の横方向中心位置
+    public const INDIVIDUAL_BIRTH_CIRCLE_MM = 1.5; // 明治・大正・昭和・平成の円の大きさ
+    public const INDIVIDUAL_BIRTH_CELL_WIDTH_MM =  9.54;
+    public const INDIVIDUAL_BIRTH_YEAR_LEFT_MM = self::INDIVIDUAL_COL_2_LEFT_MM + 17.15;
+    public const INDIVIDUAL_BIRTH_YEAR_RIGHT_MM =
+        self::INDIVIDUAL_BIRTH_YEAR_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
+    public const INDIVIDUAL_BIRTH_MONTH_LEFT_MM = self::INDIVIDUAL_BIRTH_YEAR_RIGHT_MM;
+    public const INDIVIDUAL_BIRTH_MONTH_RIGHT_MM =
+        self::INDIVIDUAL_BIRTH_MONTH_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
+    public const INDIVIDUAL_BIRTH_DAY_LEFT_MM = self::INDIVIDUAL_BIRTH_MONTH_RIGHT_MM;
+    public const INDIVIDUAL_BIRTH_DAY_RIGHT_MM =
+        self::INDIVIDUAL_BIRTH_DAY_LEFT_MM + self::INDIVIDUAL_BIRTH_CELL_WIDTH_MM;
 
-    const TITLE_YEAR_CELL_TOP_MM        = 17.4;
-    const TITLE_YEAR_CELL_BOTTOM_MM     = 21.1;
-    const TITLE_YEAR_CELL_LEFT_MM       = 43.0;
-    const TITLE_YEAR_CELL_RIGHT_MM      = 54.0;
-    const TITLE_H_ERA_TOP_MM            = self::TITLE_YEAR_CELL_TOP_MM;
-    const TITLE_H_ERA_BOTTOM_MM         = self::TITLE_YEAR_CELL_BOTTOM_MM;
-    const TITLE_ERA_LEFT_MM             = self::TITLE_YEAR_CELL_LEFT_MM - 7.5;
-    const TITLE_ERA_RIGHT_MM            = self::TITLE_YEAR_CELL_LEFT_MM;
+    public const TITLE_YEAR_CELL_TOP_MM = 17.4;
+    public const TITLE_YEAR_CELL_BOTTOM_MM = 21.1;
+    public const TITLE_YEAR_CELL_LEFT_MM = 43.0;
+    public const TITLE_YEAR_CELL_RIGHT_MM = 54.0;
+    public const TITLE_H_ERA_TOP_MM = self::TITLE_YEAR_CELL_TOP_MM;
+    public const TITLE_H_ERA_BOTTOM_MM = self::TITLE_YEAR_CELL_BOTTOM_MM;
+    public const TITLE_ERA_LEFT_MM = self::TITLE_YEAR_CELL_LEFT_MM - 7.5;
+    public const TITLE_ERA_RIGHT_MM = self::TITLE_YEAR_CELL_LEFT_MM;
 
-    const ENVELOPE_CELL_TOP_MM          = 29.9;
-    const ENVELOPE_CELL_BOTTOM_MM       = 35.8;
-    const ENVELOPE_CELL_LEFT_MM         = 35.0;
-    const ENVELOPE_CELL_RIGHT_MM        = 88.4;
-    const ENVELOPE_DATE_TOP_MM          = self::ENVELOPE_CELL_TOP_MM;
-    const ENVELOPE_DATE_BOTTOM_MM       = self::ENVELOPE_DATE_TOP_MM + 2.9;
-    const ENVELOPE_YEAR_LEFT_MM         = self::ENVELOPE_CELL_LEFT_MM + 6.2;
-    const ENVELOPE_YEAR_RIGHT_MM        = self::ENVELOPE_CELL_LEFT_MM + 14.6;
-    const ENVELOPE_MONTH_LEFT_MM        = self::ENVELOPE_CELL_LEFT_MM + 17.6;
-    const ENVELOPE_MONTH_RIGHT_MM       = self::ENVELOPE_CELL_LEFT_MM + 25.7;
-    const ENVELOPE_DAY_LEFT_MM          = self::ENVELOPE_CELL_LEFT_MM + 29.7;
-    const ENVELOPE_DAY_RIGHT_MM         = self::ENVELOPE_CELL_LEFT_MM + 37.9;
-    const ENVELOPE_NAME_LEFT_MM         = self::ENVELOPE_CELL_LEFT_MM;
-    const ENVELOPE_NAME_RIGHT_MM        = self::ENVELOPE_CELL_RIGHT_MM - 11.0;
-    const ENVELOPE_NAME_BOTTOM_MM       = self::ENVELOPE_CELL_BOTTOM_MM;
-    const ENVELOPE_NAME_TOP_MM          = self::ENVELOPE_NAME_BOTTOM_MM - 2.7;
+    public const ENVELOPE_CELL_TOP_MM = 29.9;
+    public const ENVELOPE_CELL_BOTTOM_MM = 35.8;
+    public const ENVELOPE_CELL_LEFT_MM = 35.0;
+    public const ENVELOPE_CELL_RIGHT_MM = 88.4;
+    public const ENVELOPE_DATE_TOP_MM = self::ENVELOPE_CELL_TOP_MM;
+    public const ENVELOPE_DATE_BOTTOM_MM = self::ENVELOPE_DATE_TOP_MM + 2.9;
+    public const ENVELOPE_YEAR_LEFT_MM = self::ENVELOPE_CELL_LEFT_MM + 6.2;
+    public const ENVELOPE_YEAR_RIGHT_MM = self::ENVELOPE_CELL_LEFT_MM + 14.6;
+    public const ENVELOPE_MONTH_LEFT_MM = self::ENVELOPE_CELL_LEFT_MM + 17.6;
+    public const ENVELOPE_MONTH_RIGHT_MM = self::ENVELOPE_CELL_LEFT_MM + 25.7;
+    public const ENVELOPE_DAY_LEFT_MM = self::ENVELOPE_CELL_LEFT_MM + 29.7;
+    public const ENVELOPE_DAY_RIGHT_MM = self::ENVELOPE_CELL_LEFT_MM + 37.9;
+    public const ENVELOPE_NAME_LEFT_MM = self::ENVELOPE_CELL_LEFT_MM;
+    public const ENVELOPE_NAME_RIGHT_MM = self::ENVELOPE_CELL_RIGHT_MM - 11.0;
+    public const ENVELOPE_NAME_BOTTOM_MM = self::ENVELOPE_CELL_BOTTOM_MM;
+    public const ENVELOPE_NAME_TOP_MM = self::ENVELOPE_NAME_BOTTOM_MM - 2.7;
 
-    const DATA_CELL_LEFT_MM             = self::ENVELOPE_CELL_LEFT_MM - 0.2;
-    const DATA_CELL_RIGHT_MM            = self::INDIVIDUAL_COL_2_RIGHT_MM;
-    const DATA_CELL_CENTER_MM           = self::INDIVIDUAL_COL_1_RIGHT_MM + 0.1;
-    const DATA_KIFU_CELL_TOP_MM         = 138.5;
-    const DATA_KIFU_CELL_BOTTOM_MM      = 143.3;
-    const DATA_KIFU_YEAR_LEFT_MM        = self::DATA_CELL_LEFT_MM + 18.0;
-    const DATA_KIFU_YEAR_RIGHT_MM       = self::DATA_CELL_LEFT_MM + 27.0;
-    const DATA_KIFU_MONTH_LEFT_MM       = self::DATA_CELL_LEFT_MM + 30.7;
-    const DATA_KIFU_MONTH_RIGHT_MM      = self::DATA_CELL_LEFT_MM + 39.6;
-    const DATA_KIFU_DAY_LEFT_MM         = self::DATA_CELL_LEFT_MM + 42.7;
-    const DATA_KIFU_DAY_RIGHT_MM        = self::DATA_CELL_LEFT_MM + 52.4;
-    const DATA_KIFU_H_ERA_RIGHT_MM      = self::DATA_KIFU_YEAR_LEFT_MM;
-    const DATA_KIFU_H_ERA_LEFT_MM       = self::DATA_KIFU_H_ERA_RIGHT_MM - 6.4;
+    public const DATA_CELL_LEFT_MM = self::ENVELOPE_CELL_LEFT_MM - 0.2;
+    public const DATA_CELL_RIGHT_MM = self::INDIVIDUAL_COL_2_RIGHT_MM;
+    public const DATA_CELL_CENTER_MM = self::INDIVIDUAL_COL_1_RIGHT_MM + 0.1;
+    public const DATA_KIFU_CELL_TOP_MM = 138.5;
+    public const DATA_KIFU_CELL_BOTTOM_MM = 143.3;
+    public const DATA_KIFU_YEAR_LEFT_MM = self::DATA_CELL_LEFT_MM + 18.0;
+    public const DATA_KIFU_YEAR_RIGHT_MM = self::DATA_CELL_LEFT_MM + 27.0;
+    public const DATA_KIFU_MONTH_LEFT_MM = self::DATA_CELL_LEFT_MM + 30.7;
+    public const DATA_KIFU_MONTH_RIGHT_MM = self::DATA_CELL_LEFT_MM + 39.6;
+    public const DATA_KIFU_DAY_LEFT_MM = self::DATA_CELL_LEFT_MM + 42.7;
+    public const DATA_KIFU_DAY_RIGHT_MM = self::DATA_CELL_LEFT_MM + 52.4;
+    public const DATA_KIFU_H_ERA_RIGHT_MM = self::DATA_KIFU_YEAR_LEFT_MM;
+    public const DATA_KIFU_H_ERA_LEFT_MM = self::DATA_KIFU_H_ERA_RIGHT_MM - 6.4;
 
-    const _8PT = 8 * 25.4 / 72;
-    const _9PT = 9 * 25.4 / 72;
-    const _13PT = 13 * 25.4 / 72;
+    public const _8PT = 8 * 25.4 / 72;
+    public const _9PT = 9 * 25.4 / 72;
+    public const _13PT = 13 * 25.4 / 72;
 
-    const INDIVIDUAL_ADDRESS_FONT_MM    = self::_8PT;
-    const INDIVIDUAL_PHONE_FONT_MM      = self::INDIVIDUAL_ADDRESS_FONT_MM;
-    const INDIVIDUAL_KANA_FONT_MM       =   2.6;
-    const INDIVIDUAL_NAME_FONT_MM       =   5.2;
-    const INDIVIDUAL_NUMBER_FONT_MM     =   5.2;
-    const INDIVIDUAL_BIRTH_FONT_MM      = self::INDIVIDUAL_ADDRESS_FONT_MM;
-    const TITLE_FONT_MM                 = self::TITLE_YEAR_CELL_BOTTOM_MM - self::TITLE_YEAR_CELL_TOP_MM;
-    const ENVELOPE_NAME_FONT_MM         = self::ENVELOPE_NAME_BOTTOM_MM - self::ENVELOPE_NAME_TOP_MM;
-    const ENVELOPE_DATE_FONT_MM         = self::ENVELOPE_NAME_FONT_MM;
-    const DATA_FONT_MM                  = self::_9PT;
-    const DATA_CHECK_FONT_MM            = self::_13PT;
+    public const INDIVIDUAL_ADDRESS_FONT_MM = self::_8PT;
+    public const INDIVIDUAL_PHONE_FONT_MM = self::INDIVIDUAL_ADDRESS_FONT_MM;
+    public const INDIVIDUAL_KANA_FONT_MM = 2.6;
+    public const INDIVIDUAL_NAME_FONT_MM = 5.2;
+    public const INDIVIDUAL_NUMBER_FONT_MM = 5.2;
+    public const INDIVIDUAL_BIRTH_FONT_MM = self::INDIVIDUAL_ADDRESS_FONT_MM;
+    public const TITLE_FONT_MM = self::TITLE_YEAR_CELL_BOTTOM_MM - self::TITLE_YEAR_CELL_TOP_MM;
+    public const ENVELOPE_NAME_FONT_MM = self::ENVELOPE_NAME_BOTTOM_MM - self::ENVELOPE_NAME_TOP_MM;
+    public const ENVELOPE_DATE_FONT_MM = self::ENVELOPE_NAME_FONT_MM;
+    public const DATA_FONT_MM = self::_9PT;
+    public const DATA_CHECK_FONT_MM = self::_13PT;
 
     private $pdf;
     private $page;
@@ -125,7 +130,7 @@ class Pdf2016 extends Model
         // $this->drawDebugLines();
     }
 
-    public function getBinary() : string
+    public function getBinary(): string
     {
         return $this->pdf->render();
     }
@@ -135,14 +140,14 @@ class Pdf2016 extends Model
         int $month,
         int $day,
         string $localGovName
-    ) : self {
+    ): self {
         list($font, $baseline) = $this->Mincho;
 
         $era = JapaneseEra::getEra($year, $month, $day);
         $eraY = $year - (int)$era['start']->format('Y') + 1;
         $year  = ($eraY === 1) ? '元' : mb_convert_kana((string)$eraY, 'A', 'UTF-8');
         $month = mb_convert_kana((string)$month, 'A', 'UTF-8');
-        $day   = mb_convert_kana((string)$day,   'A', 'UTF-8');
+        $day   = mb_convert_kana((string)$day, 'A', 'UTF-8');
         $this->page->setFont($font, static::mm2pt(static::ENVELOPE_DATE_FONT_MM));
 
         if ($era['name'] !== '平成') {
@@ -169,19 +174,19 @@ class Pdf2016 extends Model
 
         // 年
         $x = static::ENVELOPE_YEAR_LEFT_MM +
-                (static::ENVELOPE_YEAR_RIGHT_MM - static::ENVELOPE_YEAR_LEFT_MM) / 2 - 
+                (static::ENVELOPE_YEAR_RIGHT_MM - static::ENVELOPE_YEAR_LEFT_MM) / 2 -
                     mb_strlen($year, 'UTF-8') * static::ENVELOPE_DATE_FONT_MM / 2;
         $this->page->drawText($year, static::x($x), static::y($y));
 
         // 月
         $x = static::ENVELOPE_MONTH_LEFT_MM +
-                (static::ENVELOPE_MONTH_RIGHT_MM - static::ENVELOPE_MONTH_LEFT_MM) / 2 - 
+                (static::ENVELOPE_MONTH_RIGHT_MM - static::ENVELOPE_MONTH_LEFT_MM) / 2 -
                     mb_strlen($month, 'UTF-8') * static::ENVELOPE_DATE_FONT_MM / 2;
         $this->page->drawText($month, static::x($x), static::y($y));
 
         // 日
         $x = static::ENVELOPE_DAY_LEFT_MM +
-                (static::ENVELOPE_DAY_RIGHT_MM - static::ENVELOPE_DAY_LEFT_MM) / 2 - 
+                (static::ENVELOPE_DAY_RIGHT_MM - static::ENVELOPE_DAY_LEFT_MM) / 2 -
                     mb_strlen($day, 'UTF-8') * static::ENVELOPE_DATE_FONT_MM / 2;
         $this->page->drawText($day, static::x($x), static::y($y));
 
@@ -199,8 +204,8 @@ class Pdf2016 extends Model
         Prefecturer $pref,
         string $city,
         string $address1,
-        ?string $address2) : self
-    {
+        ?string $address2
+    ): self {
         $lines = [
             sprintf('〒%s-%s', substr($zipcode, 0, 3), substr($zipcode, 3, 4)),
             sprintf('%s %s', $pref->name, $city),
@@ -252,7 +257,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         if ($name != '') {
             list($font, $baseline) = $this->Mincho;
@@ -267,7 +272,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function setKanaName(string $kana) : self
+    public function setKanaName(string $kana): self
     {
         list($font, $baseline) = $this->Mincho;
         $this->page->setFont($font, static::mm2pt(static::INDIVIDUAL_KANA_FONT_MM));
@@ -280,7 +285,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function setIndividualNumber(string $number) : self
+    public function setIndividualNumber(string $number): self
     {
         $number = $number . str_repeat(' ', 12);
         list($font, $baseline) = $this->OCRB;
@@ -305,7 +310,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function setSex($sex) : self
+    public function setSex($sex): self
     {
         $this->page
             ->setLineColor($this->black)
@@ -331,12 +336,14 @@ class Pdf2016 extends Model
 
         // 時代の○
         $checked = false;
-        if (in_array($era['name'], [
+        if (
+            in_array($era['name'], [
                 static::ERA_MEIJI,
                 static::ERA_TAISHO,
                 static::ERA_SHOWA,
                 static::ERA_HEISEI,
-        ])) {
+            ])
+        ) {
             $this->page
                 ->setLineColor($this->black)
                 ->setLineWidth(self::mm2pt(0.4))
@@ -436,15 +443,15 @@ class Pdf2016 extends Model
         int $year,
         int $month,
         int $day,
-        int $amount) : self
-    {
+        int $amount
+    ): self {
         list($font, $baseline) = $this->Mincho;
 
         $era = JapaneseEra::getEra($year, $month, $day);
         $eraY = $year - (int)$era['start']->format('Y') + 1;
         $year  = ($eraY === 1) ? '元' : mb_convert_kana((string)$eraY, 'A', 'UTF-8');
         $month = mb_convert_kana((string)$month, 'A', 'UTF-8');
-        $day   = mb_convert_kana((string)$day,   'A', 'UTF-8');
+        $day   = mb_convert_kana((string)$day, 'A', 'UTF-8');
         $amount = mb_convert_kana(number_format($amount), 'A', 'UTF-8');
 
         // タイトル
@@ -511,7 +518,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function setCheckbox() : self
+    public function setCheckbox(): self
     {
         list($font, $baseline) = $this->checkFont;
 
@@ -530,7 +537,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function drawDebugLines() : self
+    public function drawDebugLines(): self
     {
         return $this
             ->drawDebugLinesTitleForms()
@@ -539,7 +546,7 @@ class Pdf2016 extends Model
             ->drawDebugLinesData1Forms();
     }
 
-    private function drawDebugLinesTitleForms() : self
+    private function drawDebugLinesTitleForms(): self
     {
         $this->page
             ->setLineColor($this->cyan)
@@ -567,7 +574,7 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    private function drawDebugLinesEnvelopeForms() : self
+    private function drawDebugLinesEnvelopeForms(): self
     {
         $this->page
             ->setLineColor($this->orange)
@@ -643,7 +650,7 @@ class Pdf2016 extends Model
     }
                 
 
-    private function drawDebugLinesIndividualForms() : self
+    private function drawDebugLinesIndividualForms(): self
     {
         $this->page
             ->setLineColor($this->orange)
@@ -779,7 +786,7 @@ class Pdf2016 extends Model
     }
 
     // 当団体に対する寄付に関する事項
-    private function drawDebugLinesData1Forms() : self
+    private function drawDebugLinesData1Forms(): self
     {
         $this->page
             ->setLineColor($this->orange)
@@ -848,23 +855,23 @@ class Pdf2016 extends Model
         return $this;
     }
 
-    public function getBlack() : ColorInterface
+    public function getBlack(): ColorInterface
     {
         return new Cmyk(0, 0, 0, 1.0);
     }
 
-    public function getOrange() : ColorInterface
+    public function getOrange(): ColorInterface
     {
         return new Cmyk(0, 0.9, 1.0, 0);
     }
 
-    public function getCyan() : ColorInterface
+    public function getCyan(): ColorInterface
     {
         return new Cmyk(1.0, 0, 0, 0);
     }
 
     // list ($font, $baseline)
-    public function getOCRB() : array
+    public function getOCRB(): array
     {
         static $cache;
         if (!$cache) {
@@ -876,7 +883,7 @@ class Pdf2016 extends Model
         return $cache;
     }
 
-    public function getMincho() : array
+    public function getMincho(): array
     {
         static $cache;
         if (!$cache) {
@@ -888,7 +895,7 @@ class Pdf2016 extends Model
         return $cache;
     }
 
-    public function getCheckFont() : array
+    public function getCheckFont(): array
     {
         static $cache;
         if (!$cache) {
@@ -900,22 +907,22 @@ class Pdf2016 extends Model
         return $cache;
     }
 
-    private static function x(float $mm) : float
+    private static function x(float $mm): float
     {
         return static::mm2pt($mm);
     }
 
-    private static function y(float $mm) : float
+    private static function y(float $mm): float
     {
         return static::mm2pt(self::A4_HEIGHT_MM - $mm);
     }
 
-    private static function mm2pt(float $mm) : float
+    private static function mm2pt(float $mm): float
     {
         return $mm * 72 / 25.4;
     }
 
-    private static function pt2mm(float $pt) : float
+    private static function pt2mm(float $pt): float
     {
         return $pt * 25.4 / 72;
     }

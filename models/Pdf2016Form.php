@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use DateInterval;
@@ -12,14 +13,14 @@ use yii\base\Model;
 
 class Pdf2016Form extends Model
 {
-    const SEX_MALE   = '1';
-    const SEX_FEMALE = '2';
+    public const SEX_MALE   = '1';
+    public const SEX_FEMALE = '2';
 
-    const ERA_MEIJI  = 'M';
-    const ERA_TAISHO = 'T';
-    const ERA_SHOWA  = 'S';
-    const ERA_HEISEI = 'H';
-    const ERA_REIWA  = 'R';
+    public const ERA_MEIJI  = 'M';
+    public const ERA_TAISHO = 'T';
+    public const ERA_SHOWA  = 'S';
+    public const ERA_HEISEI = 'H';
+    public const ERA_REIWA  = 'R';
 
     // 投函年月日
     public $post_year;
@@ -68,9 +69,10 @@ class Pdf2016Form extends Model
             $this->kifu_month = (int)$date->format('n');
             $this->kifu_day = (int)$date->format('j');
         }
-        if ($this->birth_year === null &&
-                $this->birth_month === null &&
-                $this->birth_day === null
+        if (
+            $this->birth_year === null &&
+            $this->birth_month === null &&
+            $this->birth_day === null
         ) {
             $this->birth_year = 1980;
             $this->birth_month = 1;
@@ -165,7 +167,8 @@ class Pdf2016Form extends Model
     public function createPdf()
     {
         $pdf = Yii::createObject(Pdf2016::class);
-        $pdf->setEnvelope(
+        $pdf
+            ->setEnvelope(
                 (int)$this->post_year,
                 (int)$this->post_month,
                 (int)$this->post_day,
@@ -202,7 +205,7 @@ class Pdf2016Form extends Model
         exit;
     }
 
-    public function getPrefecturer() : ?Prefecturer
+    public function getPrefecturer(): ?Prefecturer
     {
         return Prefecturer::findOne(['id' => $this->pref_id]);
     }

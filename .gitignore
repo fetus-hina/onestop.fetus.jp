@@ -11,6 +11,8 @@
 Thumbs.db
 composer.phar
 nbproject
+phpcbf
+phpcs
 phpunit.phar
 tests/_output/*
 tests/_support/_generated

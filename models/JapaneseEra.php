@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use DateTimeImmutable;
@@ -7,11 +8,11 @@ use Yii;
 
 class JapaneseEra
 {
-    const MEIJI = '明治';
-    const TAISHO = '大正';
-    const SHOWA = '昭和';
-    const HEISEI = '平成';
-    const REIWA = '令和';
+    public const MEIJI = '明治';
+    public const TAISHO = '大正';
+    public const SHOWA = '昭和';
+    public const HEISEI = '平成';
+    public const REIWA = '令和';
 
     public static function getYearList(int $yearStart, int $yearEnd): array
     {
@@ -64,12 +65,12 @@ class JapaneseEra
             [
                 'name' => static::REIWA,
                 'initial' => 'R',
-                'start' => static::makeDate(2019,  5,  1),
+                'start' => static::makeDate(2019, 5, 1),
             ],
             [
                 'name' => static::HEISEI,
                 'initial' => 'H',
-                'start' => static::makeDate(1989,  1,  8),
+                'start' => static::makeDate(1989, 1, 8),
             ],
             [
                 'name' => static::SHOWA,
@@ -79,12 +80,12 @@ class JapaneseEra
             [
                 'name' => static::TAISHO,
                 'initial' => 'T',
-                'start' => static::makeDate(1912,  7, 30),
+                'start' => static::makeDate(1912, 7, 30),
             ],
             [
                 'name' => static::MEIJI,
                 'initial' => 'M',
-                'start' => static::makeDate(1868,  1,  1),
+                'start' => static::makeDate(1868, 1, 1),
             ],
         ];
     }
