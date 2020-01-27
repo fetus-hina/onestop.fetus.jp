@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
 use yii\bootstrap4\ActiveForm;
@@ -112,7 +115,7 @@ $thisYear = (int)date('Y', $now);
     ?>
     <?= $form->field($model, 'kifu_amount')
       ->textInput(['type' => 'number', 'placeholder' => '例: 1000000'])
-      ->hint('数字のみを入力します'). "\n"
+      ->hint('数字のみを入力します') . "\n"
     ?>
   </fieldset>
   <fieldset>
@@ -209,8 +212,9 @@ $thisYear = (int)date('Y', $now);
 
   <div class="form-group">
     <button type="submit" class="btn btn-primary">
-      <span class="fa fa-fw fa-file-pdf-o"></span>
+      <span class="fas fa-fw fa-file-pdf"></span>
       PDF作成
+      <span class="fas fa-fw fa-download"></span>
     </button>
   </div>
 

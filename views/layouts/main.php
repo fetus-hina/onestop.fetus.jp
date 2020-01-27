@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -34,10 +36,10 @@ AppAsset::register($this);
     </div>
     <footer class="footer">
       <div class="container">
-         Created by AIZAWA Hina.
-         <a href="https://twitter.com/fetus_hina" target="_blank"><span class="fa fa-twitter"></span></a>
-         <a href="https://github.com/fetus-hina" target="_blank"><span class="fa fa-github"></span></a><br>
-         <?= Yii::powered() . "\n" ?>
+        Copyright &copy; 2017-2020 AIZAWA Hina
+        <a href="https://twitter.com/fetus_hina" target="_blank"><span class="fab fa-twitter"></span></a>
+        <a href="https://github.com/fetus-hina" target="_blank"><span class="fab fa-github"></span></a><br>
+        Powered by <a href="http://www.yiiframework.com/" target="_blank">Yii Framework</a>
       </div>
     </footer>
 <?php $this->endBody(); echo "\n"; ?>

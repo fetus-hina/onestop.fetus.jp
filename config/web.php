@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $params = require(__DIR__ . '/params.php');
 
 $config = [
@@ -12,10 +14,12 @@ $config = [
     'timeZone' => 'Asia/Tokyo',
     'bootstrap' => ['log'],
     'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@node' => '@app/node_modules',
+        '@bower' => '@node',
+        '@npm' => '@node',
     ],
     'components' => [
+        'assetManager' => require(__DIR__ . '/web/asset-manager.php'),
         'request' => [
             'cookieValidationKey' => require(__DIR__ . '/cookie-secret.php'),
         ],
