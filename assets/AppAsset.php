@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\assets;
 
-use rmrevin\yii\fontawesome\AssetBundle as FontAwesomeAsset;
 use yii\bootstrap4\BootstrapAsset;
 use yii\bootstrap4\BootstrapPluginAsset;
 use yii\web\AssetBundle;

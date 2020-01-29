@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
 use yii\bootstrap4\ActiveForm;
@@ -42,8 +45,8 @@ $thisYear = (int)date('Y', $now);
               return $v . '年';
             },
             array_combine(
-              range($thisYear, $thisYear + 1),
-              range($thisYear, $thisYear + 1)
+              range(2008, $thisYear + 1),
+              range(2008, $thisYear + 1)
             )
           ))
           ->label(false) . "\n"
@@ -80,8 +83,8 @@ $thisYear = (int)date('Y', $now);
               return $v . '年';
             },
             array_combine(
-              range($thisYear - 1, $thisYear),
-              range($thisYear - 1, $thisYear)
+              range(2008, $thisYear),
+              range(2008, $thisYear)
             )
           ))
           ->label(false) . "\n"
@@ -112,7 +115,7 @@ $thisYear = (int)date('Y', $now);
     ?>
     <?= $form->field($model, 'kifu_amount')
       ->textInput(['type' => 'number', 'placeholder' => '例: 1000000'])
-      ->hint('数字のみを入力します'). "\n"
+      ->hint('数字のみを入力します') . "\n"
     ?>
   </fieldset>
   <fieldset>
@@ -164,8 +167,8 @@ $thisYear = (int)date('Y', $now);
               return $v . '年';
             },
             array_combine(
-              range(1900, $thisYear),
-              range(1900, $thisYear)
+              range(1903, $thisYear),
+              range(1903, $thisYear)
             )
           ))
           ->label(false) . "\n"
@@ -200,17 +203,20 @@ $thisYear = (int)date('Y', $now);
     <legend>特例が利用できる人かチェック</legend>
     <p>詳しい内容は各種解説ページを見てください。</p>
     <?= $form->field($model, 'checkbox1')
-      ->checkbox() . "\n"
+      ->checkbox()
+      ->hint('確定申告を行う必要がなく、医療控除等もないことを申告します。') . "\n"
     ?>
     <?= $form->field($model, 'checkbox2')
-      ->checkbox() . "\n"
+      ->checkbox()
+      ->hint('同年中の寄附先が5自治体以下であることを申告します。') . "\n"
     ?>
   </fieldset>
 
   <div class="form-group">
     <button type="submit" class="btn btn-primary">
-      <span class="fa fa-fw fa-file-pdf-o"></span>
+      <span class="fas fa-fw fa-file-pdf"></span>
       PDF作成
+      <span class="fas fa-fw fa-download"></span>
     </button>
   </div>
 

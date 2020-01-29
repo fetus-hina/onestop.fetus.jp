@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use ZendPdf\PdfDocument;
 use app\validators\MyNumberValidator;
 use jp3cki\mynumber\MyNumber;
 use yii\base\Model;
@@ -15,12 +16,6 @@ class Pdf2016Form extends Model
 {
     public const SEX_MALE   = '1';
     public const SEX_FEMALE = '2';
-
-    public const ERA_MEIJI  = 'M';
-    public const ERA_TAISHO = 'T';
-    public const ERA_SHOWA  = 'S';
-    public const ERA_HEISEI = 'H';
-    public const ERA_REIWA  = 'R';
 
     // 投函年月日
     public $post_year;
@@ -56,8 +51,8 @@ class Pdf2016Form extends Model
     {
         parent::init();
 
-        $date = (new \DateTimeImmutable(sprintf('@%d', $_SERVER['REQUEST_TIME'] ?? time())))
-            ->setTimezone(new \DateTimeZone('Asia/Tokyo'));
+        $date = (new DateTimeImmutable(sprintf('@%d', $_SERVER['REQUEST_TIME'] ?? time())))
+            ->setTimezone(new DateTimeZone('Asia/Tokyo'));
 
         if ($this->post_year === null && $this->post_month === null && $this->post_day === null) {
             $this->post_year = (int)$date->format('Y');
@@ -166,14 +161,18 @@ class Pdf2016Form extends Model
 
     public function createPdf()
     {
-        $pdf = Yii::createObject(Pdf2016::class);
-        $pdf
-            ->setEnvelope(
-                (int)$this->post_year,
-                (int)$this->post_month,
-                (int)$this->post_day,
-                $this->local_gov
-            )
+        $post = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
+            ->setDate((int)$this->post_year, (int)$this->post_month, (int)$this->post_day)
+            ->setTime(0, 0, 0);
+        $birthday = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
+            ->setDate((int)$this->birth_year, (int)$this->birth_month, (int)$this->birth_day)
+            ->setTime(0, 0, 0);
+        $kifu = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
+            ->setDate((int)$this->kifu_year, (int)$this->kifu_month, (int)$this->kifu_day)
+            ->setTime(0, 0, 0);
+
+        $pdf = Yii::createObject(Pdf::class)
+            ->setEnvelope($post, $this->local_gov)
             ->setAddress(
                 $this->zipcode,
                 $this->prefecturer,
@@ -182,23 +181,11 @@ class Pdf2016Form extends Model
                 $this->address2
             )
             ->setPhone($this->phone)
-            ->setName($this->name)
-            ->setKanaName($this->name_kana)
+            ->setName($this->name, $this->name_kana)
             ->setIndividualNumber($this->individual_number)
-            ->setSex($this->sex)
-            ->setBirthday(
-                (int)$this->birth_year,
-                (int)$this->birth_month,
-                (int)$this->birth_day
-            )
-            ->setKifuData(
-                (int)$this->kifu_year,
-                (int)$this->kifu_month,
-                (int)$this->kifu_day,
-                (int)$this->kifu_amount
-            )
-            ->setCheckbox();
-        //$pdf->drawDebugLines();
+            ->setSex($this->sex === static::SEX_MALE)
+            ->setBirthday($birthday)
+            ->setKifuData($kifu, (int)$this->kifu_amount);
 
         header('Content-Type: application/pdf');
         echo $pdf->binary;

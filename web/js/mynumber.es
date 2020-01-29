@@ -1,5 +1,6 @@
-((window, $) => {
+($ => {
   const getRandomDigit = () => Math.floor(Math.random() * 10);
+
   const calcCheckDigit = numbers => {
     let s = 0;
     for (let n = 1; n <= 11; ++n) {
@@ -10,6 +11,7 @@
     s %= 11;
     return (s <= 1) ? 0 : (11 - s);
   };
+
   const makeDummyMyNumber = () => {
     let numbers = '';
     for (let i = 0; i < 11; ++i) {
@@ -24,4 +26,4 @@
     });
     return this;
   };
-})(window, jQuery);
+})(jQuery);

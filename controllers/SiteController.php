@@ -40,8 +40,7 @@ class SiteController extends Controller
         if (Yii::$app->request->isPost) {
             if ($model->load($_POST) && $model->validate()) {
                 $model->createPdf();
-                echo "OK";
-                exit;
+                return;
             }
         }
 

@@ -9,6 +9,7 @@
 
   <file>.</file>
   <exclude-pattern>*/bin/*</exclude-pattern>
+  <exclude-pattern>*/data/*</exclude-pattern>
   <exclude-pattern>*/migrations/*</exclude-pattern>
   <exclude-pattern>*/node_modules/*</exclude-pattern>
   <exclude-pattern>*/resources/*</exclude-pattern>
