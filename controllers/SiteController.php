@@ -39,8 +39,12 @@ class SiteController extends Controller
         $model = Yii::createObject(Pdf2016Form::class);
         if (Yii::$app->request->isPost) {
             if ($model->load($_POST) && $model->validate()) {
-                $model->createPdf();
-                return;
+                $resp = Yii::$app->response;
+                $resp->sendContentAsFile($model->createPdf(), 'onestop.pdf', [
+                    'mimeType' => 'application/pdf',
+                    'inline' => false,
+                ]);
+                return $resp;
             }
         }
 

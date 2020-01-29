@@ -159,7 +159,7 @@ class Pdf2016Form extends Model
         ];
     }
 
-    public function createPdf()
+    public function createPdf(): string
     {
         $post = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
             ->setDate((int)$this->post_year, (int)$this->post_month, (int)$this->post_day)
@@ -187,9 +187,7 @@ class Pdf2016Form extends Model
             ->setBirthday($birthday)
             ->setKifuData($kifu, (int)$this->kifu_amount);
 
-        header('Content-Type: application/pdf');
-        echo $pdf->binary;
-        exit;
+        return $pdf->binary;
     }
 
     public function getPrefecturer(): ?Prefecturer
