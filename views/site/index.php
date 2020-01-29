@@ -45,8 +45,8 @@ $thisYear = (int)date('Y', $now);
               return $v . '年';
             },
             array_combine(
-              range($thisYear, $thisYear + 1),
-              range($thisYear, $thisYear + 1)
+              range(2008, $thisYear + 1),
+              range(2008, $thisYear + 1)
             )
           ))
           ->label(false) . "\n"
@@ -83,8 +83,8 @@ $thisYear = (int)date('Y', $now);
               return $v . '年';
             },
             array_combine(
-              range($thisYear - 1, $thisYear),
-              range($thisYear - 1, $thisYear)
+              range(2008, $thisYear),
+              range(2008, $thisYear)
             )
           ))
           ->label(false) . "\n"

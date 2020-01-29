@@ -19,7 +19,7 @@ class Era extends ActiveRecord
             {
                 parent::init();
                 $this->andWhere(['<>', '{{era}}.[[enabled]]', 0]);
-                $this->orderBy(['{{era}}.[[start_date]]' => SORT_ASC]);
+                $this->orderBy(['{{era}}.[[start_date]]' => SORT_DESC]);
             }
 
             public function andByDate(DateTimeImmutable $date): ActiveQuery
