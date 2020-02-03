@@ -8,15 +8,15 @@ declare(strict_types=1);
 use yii\helpers\Html;
 use app\assets\AppAsset;
 
-$app = Yii::$app;
-
 AppAsset::register($this);
+
+$now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= $app->language ?>">
+<?= Html::beginTag('html', ['lang' => Yii::$app->language]) . "\n" ?>
   <head>
-    <meta charset="<?= $app->charset ?>">
+    <?= Html::tag('meta', '', ['charset' => Yii::$app->charset]) . "\n" ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -27,7 +27,7 @@ AppAsset::register($this);
     <div class="container-fluid bg-dark mb-1">
       <nav class="navbar navbar-dark bg-faded">
         <div class="container">
-          <a class="navbar-brand" href="/"><?= Html::encode($app->name) ?></a>
+          <a class="navbar-brand" href="/"><?= Html::encode(Yii::$app->name) ?></a>
         </div>
       </nav>
     </div>
@@ -35,12 +35,30 @@ AppAsset::register($this);
       <?= $content . "\n" ?>
     </div>
     <footer class="footer">
-      <div class="container">
-        Copyright &copy; 2017-2020 AIZAWA Hina
-        <a href="https://twitter.com/fetus_hina" target="_blank"><span class="fab fa-twitter"></span></a>
-        <a href="https://github.com/fetus-hina" target="_blank"><span class="fab fa-github"></span></a><br>
-        Powered by <a href="http://www.yiiframework.com/" target="_blank">Yii Framework</a>
-      </div>
+      <div class="container text-right"><?= implode('<br>', [
+        vsprintf('Copyright &copy; 2017-%d AIZAWA Hina %s.', [
+          (int)$now->format('Y'),
+          implode(' ', [
+            Html::a(
+              Html::tag('span', '', ['class' => 'fab fa-twitter']),
+              'https://twitter.com/fetus_hina',
+              ['target' => '_blank']
+            ),
+            Html::a(
+              Html::tag('span', '', ['class' => 'fab fa-github']),
+              'https://github.com/fetus-hina',
+              ['target' => '_blank']
+            ),
+          ]),
+        ]),
+        vsprintf('Powered by %s.', implode(', ', [
+          Html::a(
+            Html::encode('Yii Framework'),
+            'https://www.yiiframework.com/',
+            ['target' => '_blank']
+          ),
+        ])),
+      ])?></div>
     </footer>
 <?php $this->endBody(); echo "\n"; ?>
   </body>
