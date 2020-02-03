@@ -102,7 +102,7 @@ class Pdf2016Form extends Model
             'checkbox1',
             'checkbox2',
         ];
-        $requiredAttrs = array_filter($allAttrs, function ($v) {
+        $requiredAttrs = array_filter($allAttrs, function (string $v): bool {
             return $v !== 'address2' && $v !== 'name';
         });
         return [
