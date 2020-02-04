@@ -4,7 +4,8 @@ RESOURCES := \
 	web/css/site.css \
 	web/js/fakedata.js \
 	web/js/mynumber.js \
-	web/js/polyfill.js
+	web/js/polyfill.js \
+	web/js/zipsearch.js
 
 all: setup
 
