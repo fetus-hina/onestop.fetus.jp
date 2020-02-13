@@ -1,6 +1,6 @@
 ($ => {
   function update(entry, updateMap) {
-    for (let [selectorTarget, entryIndex] of Object.entries(updateMap)) {
+    for (const [selectorTarget, entryIndex] of Object.entries(updateMap)) {
       const $obj = $(selectorTarget);
       if ($obj.length) {
         $obj.val(entryIndex ? entry[entryIndex] : '');
@@ -58,19 +58,21 @@
                 break;
 
               default:
-                const $choiceDialog = $(selectorChoiceDialog);
-                const $choiceList = $('.list-group', $choiceDialog).empty();
-                data.forEach(row => {
-                  const $item = $('<a href="#" class="list-group-item list-group-item-action">');
-                  $item.text(`${row.address1} ${row.address2} ${row.address3}`);
-                  $choiceList.append($item);
-                  $item.click(() => {
-                    update(row, updateMap);
-                    $choiceDialog.modal('hide');
-                    return false;
+                (() => {
+                  const $choiceDialog = $(selectorChoiceDialog);
+                  const $choiceList = $('.list-group', $choiceDialog).empty();
+                  data.forEach(row => {
+                    const $item = $('<a href="#" class="list-group-item list-group-item-action">');
+                    $item.text(`${row.address1} ${row.address2} ${row.address3}`);
+                    $choiceList.append($item);
+                    $item.click(() => {
+                      update(row, updateMap);
+                      $choiceDialog.modal('hide');
+                      return false;
+                    });
                   });
-                });
-                $choiceDialog.modal();
+                  $choiceDialog.modal();
+                })();
                 break;
             }
           })
