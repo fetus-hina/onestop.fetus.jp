@@ -1,4 +1,5 @@
 <?php
+
 $params = require(__DIR__ . '/params.php');
 $dbParams = require(__DIR__ . '/test_db.php');
 
