@@ -29,10 +29,11 @@ composer.lock: composer.json composer.phar
 	touch -r $< $@
 
 node_modules: package-lock.json
-	npm install
+	npm ci
 	@touch $@
 
 package-lock.json: package.json
+	@rm -rf $@ node_modules
 	npm update
 	@touch $@
 
