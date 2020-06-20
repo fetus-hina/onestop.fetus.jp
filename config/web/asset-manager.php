@@ -11,8 +11,9 @@ return [
     'class' => AssetManager::class,
     'bundles' => [
         BootstrapAsset::class => [
+            'sourcePath' => '@npm/fetus.css/dist',
             'css' => [
-                'css/bootstrap.min.css',
+                'bootstrap.min.css',
             ],
         ],
         BootstrapPluginAsset::class => [

@@ -24,41 +24,57 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
   </head>
   <body>
 <?php $this->beginBody() ?>
-    <div class="container-fluid bg-dark mb-1">
-      <nav class="navbar navbar-dark bg-faded">
-        <div class="container">
-          <a class="navbar-brand" href="/"><?= Html::encode(Yii::$app->name) ?></a>
-        </div>
-      </nav>
+    <header class="mb-3">
+      <div class="container">
+        <h1><a href="https://fetus.jp/">fetus</a></h1>
+      </div>
+    </header>
+    <div class="container">
+      <h1>onestop.fetus.jp</h1>
     </div>
+    <hr>
     <div class="container">
       <?= $content . "\n" ?>
     </div>
-    <footer class="footer">
-      <div class="container text-right"><?= implode('<br>', [
-        vsprintf('Copyright &copy; 2017-%d AIZAWA Hina %s.', [
-          (int)$now->format('Y'),
-          implode(' ', [
+    <footer>
+      <hr>
+      <div class="container text-right pb-3">
+        <?= implode('<br>', [
+          vsprintf('Copyright &copy; 2017-%d %s %s.', [
+            (int)$now->format('Y'),
             Html::a(
-              Html::tag('span', '', ['class' => 'fab fa-twitter']),
-              'https://twitter.com/fetus_hina',
-              ['target' => '_blank']
+              Html::encode('AIZAWA Hina'),
+              'https://fetus.jp/'
             ),
-            Html::a(
-              Html::tag('span', '', ['class' => 'fab fa-github']),
-              'https://github.com/fetus-hina',
-              ['target' => '_blank']
+            implode(' ', [
+              Html::a(
+                Html::tag('span', '', ['class' => 'fab fa-twitter']),
+                'https://twitter.com/fetus_hina'
+              ),
+              Html::a(
+                Html::tag('span', '', ['class' => 'fab fa-github']),
+                'https://github.com/fetus-hina'
+              ),
+            ]),
+          ]),
+          vsprintf('Powered by %s.', [
+            preg_replace(
+              '/,(?=[^,]+$)/', // 最後のカンマ
+              ' and ',
+              implode(', ', [
+                Html::a(
+                  Html::encode('Yii Framework'),
+                  'https://www.yiiframework.com/',
+                ),
+                Html::a(
+                  Html::encode('TCPDF'),
+                  'https://tcpdf.org/',
+                ),
+              ])
             ),
           ]),
-        ]),
-        vsprintf('Powered by %s.', implode(', ', [
-          Html::a(
-            Html::encode('Yii Framework'),
-            'https://www.yiiframework.com/',
-            ['target' => '_blank']
-          ),
-        ])),
-      ])?></div>
+        ]) . "\n" ?>
+      </div>
     </footer>
 <?php $this->endBody(); echo "\n"; ?>
   </body>
