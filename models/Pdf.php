@@ -24,7 +24,7 @@ class Pdf extends Model
     public function init()
     {
         parent::init();
-        
+
         $pdf = new TCPDF('P', 'mm', [static::A4_WIDTH_MM, static::A4_HEIGHT_MM], true, 'UTF-8');
         $pdf->SetPrintHeader(false);
         $pdf->SetPrintFooter(false);
@@ -165,7 +165,7 @@ class Pdf extends Model
             'L',
             'M'
         );
-            
+
         $name = mb_convert_kana(trim((string)$name), 'ASKV', 'UTF-8');
         $this->drawTextToBox(
             116.5 + 0.5,
