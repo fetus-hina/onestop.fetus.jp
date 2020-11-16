@@ -43,7 +43,7 @@ clean:
 resources: $(RESOURCES)
 
 %.css: %.scss node_modules
-	npx node-sass $< | \
+	npx sass $< | \
 		npx postcss --use autoprefixer | \
 		npx cleancss | \
 		cat > $@
