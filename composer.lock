@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68cd08135eb40d50e7288b977f3b348b",
+    "content-hash": "91c108a2c4f9ec135bddde4f3daf0ebf",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -414,16 +414,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.39.2",
+            "version": "2.0.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "c1d88666f4fc4702af5d492e4c5c35353c9ac6ca"
+                "reference": "debb520c1d72a2c97c09d70a2a2a4f600ef3958e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/c1d88666f4fc4702af5d492e4c5c35353c9ac6ca",
-                "reference": "c1d88666f4fc4702af5d492e4c5c35353c9ac6ca",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/debb520c1d72a2c97c09d70a2a2a4f600ef3958e",
+                "reference": "debb520c1d72a2c97c09d70a2a2a4f600ef3958e",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +531,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-13T10:15:29+00:00"
+            "time": "2020-12-23T15:44:43+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
