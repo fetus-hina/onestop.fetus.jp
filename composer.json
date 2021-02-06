@@ -4,7 +4,7 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">= 7.3.0",
+    "php": ">= 7.4.0",
 
     "jp3cki/mynumber": "^1.0.0",
     "php-curl-class/php-curl-class": "^8.6",
@@ -24,6 +24,9 @@
     "process-timeout": 1800,
     "fxp-asset": {
       "enabled": false
+    },
+    "platform": {
+      "php": "7.4.15"
     }
   }
 }
