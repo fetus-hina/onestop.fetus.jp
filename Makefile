@@ -7,39 +7,39 @@ RESOURCES := \
 	web/js/polyfill.js \
 	web/js/zipsearch.js
 
+.PHONY: all
 all: setup
 
+.PHONY: config-files
 config-files: config/cookie-secret.php
 
+.PHONY: setup
 setup: composer.phar config-files vendor node_modules setup-db resources
 
+.PHONY: setup-db
 setup-db: composer.phar config-files vendor
-	./yii migrate/up
+	./yii migrate/up --interactive=0
 
 composer.phar:
-	curl -sL 'https://getcomposer.org/installer' | php -- --stable
-	touch -t 201601010000.00 $@
+	curl -fsSL 'https://getcomposer.org/installer' | php -- --stable
 
 vendor: composer.lock composer.phar
 	php composer.phar install --prefer-dist
-	touch -r $< $@
-
-composer.lock: composer.json composer.phar
-	php composer.phar update -vvv
-	touch -r $< $@
+	@touch $@
 
 node_modules: package-lock.json
-	npm ci
+	npm clean-install
 	@touch $@
 
-package-lock.json: package.json
-	@rm -rf $@ node_modules
-	npm update
-	@touch $@
-
+.PHONY: clean
 clean:
-	rm -rf $(RESOURCES)
+	rm -rf \
+		$(RESOURCES) \
+		composer.phar \
+		node_modules \
+		vendor
 
+.PHONY: resources
 resources: $(RESOURCES)
 
 %.css: %.scss node_modules
