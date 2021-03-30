@@ -9,6 +9,8 @@ use app\models\Pdf2016Form;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use yii\web\Controller;
+use yii\web\ErrorAction;
+use yii\web\Response;
 
 class SiteController extends Controller
 {
@@ -31,11 +33,12 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => ErrorAction::class,
             ],
         ];
     }
 
+    /** @return string|Response */
     public function actionIndex()
     {
         $model = Yii::createObject(Pdf2016Form::class);

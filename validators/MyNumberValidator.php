@@ -10,6 +10,7 @@ use yii\validators\Validator;
 
 class MyNumberValidator extends Validator
 {
+    /** @return void */
     public function init()
     {
         parent::init();
@@ -18,6 +19,7 @@ class MyNumberValidator extends Validator
         }
     }
 
+    /** @return void */
     public function validateAttribute($model, $attribute)
     {
         $value = $model->$attribute;

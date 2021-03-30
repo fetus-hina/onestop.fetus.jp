@@ -18,6 +18,7 @@ use yii\web\Response;
 
 class ApiController extends Controller
 {
+    /** @return void */
     public function init()
     {
         parent::init();
@@ -61,7 +62,7 @@ class ApiController extends Controller
             return $this->makeInputError($model, ['api/postal-code']);
         }
 
-        $apiResp = $this->requestPostalCodeApi($model->code);
+        $apiResp = $this->requestPostalCodeApi($model->code); // @phpstan-ignore-line
         if ((int)($apiResp['status'] ?? 500) !== 200) {
             return $this->makeResponseError($apiResp, ['api/postal-code']);
         }

@@ -58,8 +58,12 @@ config/cookie-secret.php:
 check-style: check-style-php
 
 .PHONY: check-style-php
-check-style-php: check-style-phpcs
+check-style-php: check-style-phpcs check-style-phpstan
 
 .PHONY: check-style-phpcs
 check-style-phpcs: vendor
 	./vendor/bin/phpcs -p
+
+.PHONY: check-style-phpstan
+check-style-phpstan: vendor
+	./vendor/bin/phpstan analyze --memory-limit=1G || true

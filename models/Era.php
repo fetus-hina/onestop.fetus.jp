@@ -10,6 +10,15 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+/**
+ * This is the model class for table "era".
+ *
+ * @property int $id
+ * @property int $start_date
+ * @property string $name
+ * @property string $short_romaji
+ * @property bool|int $enabled
+ */
 class Era extends ActiveRecord
 {
     public static function find(): ActiveQuery

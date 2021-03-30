@@ -29,10 +29,14 @@ class m200129_084150_japanese_era extends Migration
             [$t('1989-01-08'), '平成', 'H', true],
             [$t('2019-05-01'), '令和', 'R', true],
         ]);
+
+        return true;
     }
 
     public function safeDown()
     {
         $this->dropTable('era');
+
+        return true;
     }
 }

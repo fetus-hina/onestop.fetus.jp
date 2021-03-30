@@ -12,41 +12,72 @@ use app\validators\MyNumberValidator;
 use jp3cki\mynumber\MyNumber;
 use yii\base\Model;
 
+/**
+ * @property-read ?Prefecturer $prefecturer
+ */
 class Pdf2016Form extends Model
 {
     public const SEX_MALE   = '1';
     public const SEX_FEMALE = '2';
 
     // 投函年月日
+    /** @var string|int */
     public $post_year;
+    /** @var string|int */
     public $post_month;
+    /** @var string|int */
     public $post_day;
+
     // 自治体名（"長"なし）
+    /** @var string */
     public $local_gov;
+
     // 寄付年月日
+    /** @var string|int */
     public $kifu_year;
+    /** @var string|int */
     public $kifu_month;
+    /** @var string|int */
     public $kifu_day;
+
     // 寄付金額
+    /** @var string|int */
     public $kifu_amount;
+
     // 寄付者情報
+    /** @var string */
     public $zipcode;
+    /** @var string|int */
     public $pref_id;
+    /** @var string */
     public $city;
+    /** @var string */
     public $address1;
+    /** @var string */
     public $address2;
+    /** @var string */
     public $phone;
+    /** @var string */
     public $name;
+    /** @var string */
     public $name_kana;
+    /** @var string */
     public $sex;
+    /** @var string|int */
     public $birth_year;
+    /** @var string|int */
     public $birth_month;
+    /** @var string|int */
     public $birth_day;
+    /** @var string */
     public $individual_number; // マイナンバー
     // 特例にかかわるチェックボックス
+    /** @var string */
     public $checkbox1;
+    /** @var string */
     public $checkbox2;
 
+    /** @return void */
     public function init()
     {
         parent::init();

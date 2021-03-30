@@ -9,6 +9,9 @@ use TCPDF;
 use Yii;
 use yii\base\Model;
 
+/**
+ * @property-read string $binary
+ */
 class Pdf extends Model
 {
     private const A4_WIDTH_MM = 210;
@@ -18,9 +21,10 @@ class Pdf extends Model
     private const LINE_WIDTH_REGULAR = self::LINE_WIDTH_BOLD / 2;
     private const LINE_WIDTH_THIN = self::LINE_WIDTH_REGULAR / 2;
 
-    private $black = [0, 0, 0, 100];
-    private $pdf;
+    private array $black = [0, 0, 0, 100];
+    private ?TCPDF $pdf = null;
 
+    /** @return void */
     public function init()
     {
         parent::init();
@@ -775,6 +779,7 @@ class Pdf extends Model
                 return $fontSize;
             }
         }
+        return $minFontSize;
         // }}}
     }
 

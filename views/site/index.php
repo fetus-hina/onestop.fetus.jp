@@ -8,6 +8,13 @@ use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array<string, string> $fake
+ * @var Form $model
+ */
 
 $this->title = 'onestop.fetus.jp';
 

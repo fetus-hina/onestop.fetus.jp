@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-use yii\helpers\Html;
 use app\assets\AppAsset;
+use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $content
+ */
 
 AppAsset::register($this);
 
