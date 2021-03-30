@@ -53,3 +53,13 @@ resources: $(RESOURCES)
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@
+
+.PHONY: check-style
+check-style: check-style-php
+
+.PHONY: check-style-php
+check-style-php: check-style-phpcs
+
+.PHONY: check-style-phpcs
+check-style-phpcs: vendor
+	./vendor/bin/phpcs -p
