@@ -60,11 +60,14 @@ jobs:
       - name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
 
+      - name: 'Create config-files'
+        run: 'make -j config-files'
+
       - name: 'Run PHPCS'
         run: './vendor/bin/phpcs'
 
       - name: 'Run PHPStan (Errors ignored)'
-        run: './vendor/bin/phpstan analyze --memory-limit=1G || bin'
+        run: './vendor/bin/phpstan analyze --memory-limit=1G || true'
 
   jsStyleCheck:
     name: 'JS Coding Style'
