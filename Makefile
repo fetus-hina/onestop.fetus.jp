@@ -65,5 +65,5 @@ check-style-phpcs: vendor
 	./vendor/bin/phpcs -p
 
 .PHONY: check-style-phpstan
-check-style-phpstan: vendor
+check-style-phpstan: config-files vendor
 	./vendor/bin/phpstan analyze --memory-limit=1G || true
