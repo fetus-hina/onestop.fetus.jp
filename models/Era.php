@@ -18,6 +18,8 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $short_romaji
  * @property bool|int $enabled
+ *
+ * @property-read int $startYear
  */
 class Era extends ActiveRecord
 {
@@ -76,6 +78,7 @@ class Era extends ActiveRecord
         ];
     }
 
+    /** @codeCoverageIgnore */
     public function attributeLabels()
     {
         return [

@@ -264,17 +264,17 @@ class Pdf extends Model
 
     public function setKifuData(DateTimeImmutable $date, int $amount): self
     {
-        if (!$_ = Era::calcYear($date)) {
-            return $this;
+        if ($_ = Era::calcYear($date)) {
+            list($era, $eraYear) = $_;
+            $formatted = vsprintf('%s%s年%s月%s日', [
+                $era->name,
+                static::num2str($eraYear, true),
+                static::num2str((int)$date->format('n')),
+                static::num2str((int)$date->format('j')),
+            ]);
+            $this->drawTextToBox(38, 139.4, 102.2, 144.8, $formatted, 'C', 'M', 0.1, 2.9);
         }
-        list($era, $eraYear) = $_;
-        $formatted = vsprintf('%s%s年%s月%s日', [
-            $era->name,
-            static::num2str($eraYear, true),
-            static::num2str((int)$date->format('n')),
-            static::num2str((int)$date->format('j')),
-        ]);
-        $this->drawTextToBox(38, 139.4, 102.2, 144.8, $formatted, 'C', 'M', 0.1, 2.9);
+
         $this->drawTextToBox(102.2, 139.4, 167, 144.8, (string)$amount, 'C', 'M', 0.1, 0, 'ocrb_aizu_1_1');
 
         $this->renderHeading($era, $eraYear);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "prefecturer".
@@ -12,7 +13,7 @@ use Yii;
  * @property integer $id
  * @property string $name
  */
-class Prefecturer extends \yii\db\ActiveRecord
+class Prefecturer extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -34,6 +35,7 @@ class Prefecturer extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function attributeLabels()
     {

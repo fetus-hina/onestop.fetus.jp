@@ -144,23 +144,25 @@ class Pdf2016Form extends Model
             [['post_day', 'kifu_day', 'birth_day'], 'integer', 'min' => 1, 'max' => 31],
             [['kifu_amount'], 'integer', 'min' => 1],
             [['local_gov', 'city', 'address1', 'address2', 'name', 'name_kana'], 'string'],
-            [['name_kana'], 'filter', 'filter' => function ($v) {
-                return mb_convert_kana($v, 'asKCV', 'UTF-8');
-            }],
+            [['name_kana'], 'filter', 'filter' => fn($v) => mb_convert_kana($v, 'asKCV', 'UTF-8')],
             [['zipcode'], 'match', 'pattern' => '/^\d{7}$/'],
-            [['pref_id'], 'exist', 'skipOnError' => true,
+            [['pref_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => Prefecturer::class,
                 'targetAttribute' => ['pref_id' => 'id']],
             [['phone'], 'match', 'pattern' => '/^0[0-9\-]+$/'],
-            [['sex'], 'in', 'range' => [
-                static::SEX_MALE,
-                static::SEX_FEMALE
-            ]],
+            [['sex'], 'in',
+                'range' => [
+                    static::SEX_MALE,
+                    static::SEX_FEMALE
+                ],
+            ],
             [['individual_number'], 'match', 'pattern' => '/^\d{12}$/'],
             [['individual_number'], MyNumberValidator::class],
         ];
     }
 
+    /** @codeCoverageIgnore */
     public function attributeLabels()
     {
         return [

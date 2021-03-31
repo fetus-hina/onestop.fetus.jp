@@ -2,37 +2,33 @@
 
 declare(strict_types=1);
 
-$params = require(__DIR__ . '/params.php');
-$dbParams = require(__DIR__ . '/test_db.php');
+use app\models\User;
 
-/**
- * Application configuration shared by all test types
- */
-return [
-    'id' => 'basic-tests',
-    'basePath' => dirname(__DIR__),
-    'language' => 'en-US',
-    'components' => [
-        'db' => $dbParams,
-        'mailer' => [
-            'useFileTransport' => true,
-        ],
-        'urlManager' => [
-            'showScriptName' => true,
-        ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-        ],
-        'request' => [
-            'cookieValidationKey' => 'test',
-            'enableCsrfValidation' => false,
-            // but if you absolutely need it set cookie domain to localhost
-            /*
-            'csrfCookie' => [
-                'domain' => 'localhost',
+return (function (): array {
+    $params = require(__DIR__ . '/params.php');
+    $dbParams = require(__DIR__ . '/test_db.php');
+
+    return [
+        'id' => 'basic-tests',
+        'basePath' => dirname(__DIR__),
+        'language' => 'en-US',
+        'timeZone' => 'Asia/Tokyo',
+        'components' => [
+            'db' => $dbParams,
+            'mailer' => [
+                'useFileTransport' => true,
             ],
-            */
+            'urlManager' => [
+                'showScriptName' => true,
+            ],
+            'user' => [
+                'identityClass' => User::class,
+            ],
+            'request' => [
+                'cookieValidationKey' => 'test',
+                'enableCsrfValidation' => false,
+            ],
         ],
-    ],
-    'params' => $params,
-];
+        'params' => $params,
+    ];
+})();

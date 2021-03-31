@@ -67,3 +67,13 @@ check-style-phpcs: vendor
 .PHONY: check-style-phpstan
 check-style-phpstan: config-files vendor
 	./vendor/bin/phpstan analyze --memory-limit=1G || true
+
+.PHONY: test
+test: composer.phar config-files vendor node_modules resources
+	./tests/bin/yii migrate/fresh --interactive=0 --compact=1
+	/usr/bin/env XDEBUG_MODE=coverage \
+		./vendor/bin/codecept run unit \
+			--coverage \
+			--coverage-html=./web/coverage/ \
+			--coverage-text=./runtime/coverage/coverage.txt \
+			--coverage-xml=./runtime/coverage/coverage.xml

@@ -6,15 +6,25 @@
   "require": {
     "php": ">= 7.4.0",
 
+    "codeception/codeception": "^4.0",
+    "codeception/module-asserts": "*",
+    "codeception/module-filesystem": "*",
+    "codeception/module-phpbrowser": "*",
+    "codeception/module-rest": "*",
+    "codeception/module-yii2": "*",
+    "codeception/specify": "*",
+    "codeception/verify": "*",
     "jp3cki/mynumber": "^1.0.0",
     "php-curl-class/php-curl-class": "^9.0",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpstan/phpstan": "*",
     "proget-hq/phpstan-yii2": "*",
     "squizlabs/php_codesniffer": "^3.5",
+    "symfony/browser-kit": "*",
     "tecnickcom/tcpdf": "^6.3",
     "yiisoft/yii2": "2.0.*",
     "yiisoft/yii2-bootstrap4": "*",
+    "yiisoft/yii2-debug": "*",
     "yiisoft/yii2-gii": "*"
   },
   "replace": {
