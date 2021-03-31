@@ -88,3 +88,37 @@ jobs:
           node --version
           npm ci
           npx stylelint "web/css/*.scss"
+
+  phpTest:
+    name: 'PHP test (PHP ${{ matrix.php_version }})'
+    strategy:
+      matrix:
+        php_version:
+          - '7.4'
+          - '8.0'
+    runs-on: 'ubuntu-20.04'
+    needs:
+      - 'makeComposerCache'
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Set up PHP version ${{ matrix.php_version }}'
+        run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
+
+      - name: 'Set up application'
+        run: |
+          ln -s `which composer` composer.phar
+          make config-files vendor
+
+      - name: 'Set up (migrate) database'
+        run: 'tests/bin/yii migrate/fresh --compact=1 --interactive=0'
+
+      - name: 'Run unit test'
+        run: 'vendor/bin/codecept run unit'
