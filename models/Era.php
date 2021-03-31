@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace app\models;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use Yii;
+use app\models\query\EraQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -23,25 +25,12 @@ use yii\db\ActiveRecord;
  */
 class Era extends ActiveRecord
 {
-    public static function find(): ActiveQuery
+    public static function find(): EraQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function init()
-            {
-                parent::init();
-                $this->andWhere(['<>', '{{era}}.[[enabled]]', 0]);
-                $this->orderBy(['{{era}}.[[start_date]]' => SORT_DESC]);
-            }
-
-            public function andByDate(DateTimeImmutable $date): ActiveQuery
-            {
-                $this->andWhere(['<=', '{{era}}.[[start_date]]', $date->getTimestamp()]);
-                return $this;
-            }
-        };
+        return Yii::createObject(EraQuery::class, [static::class]);
     }
 
-    public static function calcYear(DateTimeImmutable $date): ?array
+    public static function calcYear(DateTimeInterface $date): ?array
     {
         if (!$era = static::findByDate($date)) {
             return null;
@@ -49,14 +38,16 @@ class Era extends ActiveRecord
 
         return [
             $era,
-            $date->format('Y') - $era->startYear + 1,
+            (int)$date->format('Y') - $era->startYear + 1,
         ];
     }
 
-    public static function findByDate(DateTimeImmutable $date): ?self
+    public static function findByDate(DateTimeInterface $date): ?self
     {
-        return static::find()
-            ->andByDate($date)
+        $query = static::find();
+        assert($query instanceof EraQuery);
+
+        return $query->andByDate($date)
             ->limit(1)
             ->one();
     }
