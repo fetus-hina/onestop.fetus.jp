@@ -39,5 +39,13 @@
     "platform": {
       "php": "7.4.15"
     }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "./vendor/bin/codecept build"
+    ],
+    "post-update-cmd": [
+      "./vendor/bin/codecept build"
+    ]
   }
 }

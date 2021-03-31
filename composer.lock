@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86e0d82d1b8705db50f937b95238ffa0",
+    "content-hash": "97c5597e86c1c0488c1d4ad3b22de8d3",
     "packages": [
         {
             "name": "behat/gherkin",
@@ -453,6 +453,120 @@
             "time": "2020-10-24T14:46:40+00:00"
         },
         {
+            "name": "codeception/module-phpbrowser",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-phpbrowser.git",
+                "reference": "770a6be4160a5c0c08d100dd51bff35f6056bbf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-phpbrowser/zipball/770a6be4160a5c0c08d100dd51bff35f6056bbf1",
+                "reference": "770a6be4160a5c0c08d100dd51bff35f6056bbf1",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^4.0",
+                "codeception/lib-innerbrowser": "^1.3",
+                "guzzlehttp/guzzle": "^6.3|^7.0",
+                "php": ">=5.6.0 <9.0"
+            },
+            "conflict": {
+                "codeception/codeception": "<4.0"
+            },
+            "require-dev": {
+                "codeception/module-rest": "^1.0"
+            },
+            "suggest": {
+                "codeception/phpbuiltinserver": "Start and stop PHP built-in web server for your tests"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bodnarchuk"
+                },
+                {
+                    "name": "Gintautas Miselis"
+                }
+            ],
+            "description": "Codeception module for testing web application over HTTP",
+            "homepage": "http://codeception.com/",
+            "keywords": [
+                "codeception",
+                "functional-testing",
+                "http"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-phpbrowser/issues",
+                "source": "https://github.com/Codeception/module-phpbrowser/tree/1.0.2"
+            },
+            "time": "2020-10-24T15:29:28+00:00"
+        },
+        {
+            "name": "codeception/module-rest",
+            "version": "1.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-rest.git",
+                "reference": "4c8c6bd75f67a25ff91bdce0d6c135c5e7aa5e10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-rest/zipball/4c8c6bd75f67a25ff91bdce0d6c135c5e7aa5e10",
+                "reference": "4c8c6bd75f67a25ff91bdce0d6c135c5e7aa5e10",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^4.0",
+                "justinrainbow/json-schema": "~5.2.9",
+                "php": ">=5.6.0 <9.0",
+                "softcreatr/jsonpath": "^0.5 || ^0.7"
+            },
+            "require-dev": {
+                "codeception/lib-innerbrowser": "^1.0",
+                "codeception/util-universalframework": "^1.0"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "For using AWS Auth"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gintautas Miselis"
+                }
+            ],
+            "description": "REST module for Codeception",
+            "homepage": "http://codeception.com/",
+            "keywords": [
+                "codeception",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-rest/issues",
+                "source": "https://github.com/Codeception/module-rest/tree/1.2.8"
+            },
+            "time": "2021-03-02T06:47:59+00:00"
+        },
+        {
             "name": "codeception/module-yii2",
             "version": "1.1.2",
             "source": {
@@ -806,48 +920,54 @@
             "time": "2020-06-29T00:56:53+00:00"
         },
         {
-            "name": "fakerphp/faker",
-            "version": "v1.14.1",
+            "name": "guzzlehttp/guzzle",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1"
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "7008573787b430c1c1f650e3722d9bba59967628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1",
-                "reference": "ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7008573787b430c1c1f650e3722d9bba59967628",
+                "reference": "7008573787b430c1c1f650e3722d9bba59967628",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0",
-                "psr/container": "^1.0",
-                "symfony/deprecation-contracts": "^2.2"
+                "ext-json": "*",
+                "guzzlehttp/promises": "^1.4",
+                "guzzlehttp/psr7": "^1.7 || ^2.0",
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-client": "^1.0"
             },
-            "conflict": {
-                "fzaninotto/faker": "*"
+            "provide": {
+                "psr/http-client-implementation": "1.0"
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.4.1",
-                "ext-intl": "*",
-                "symfony/phpunit-bridge": "^4.4 || ^5.2"
+                "ext-curl": "*",
+                "php-http/client-integration-tests": "^3.0",
+                "phpunit/phpunit": "^8.5.5 || ^9.3.5",
+                "psr/log": "^1.1"
             },
             "suggest": {
-                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
-                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
-                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
-                "ext-mbstring": "Required for multibyte Unicode string functionality."
+                "ext-curl": "Required for CURL handler support",
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
+                "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "v1.15-dev"
+                    "dev-master": "7.3-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Faker\\": "src/Faker/"
-                }
+                    "GuzzleHttp\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -855,20 +975,107 @@
             ],
             "authors": [
                 {
-                    "name": "François Zaninotto"
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://sagikazarmark.hu"
                 }
             ],
-            "description": "Faker is a PHP library that generates fake data for you.",
+            "description": "Guzzle is a PHP HTTP client library",
+            "homepage": "http://guzzlephp.org/",
             "keywords": [
-                "data",
-                "faker",
-                "fixtures"
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "psr-18",
+                "psr-7",
+                "rest",
+                "web service"
             ],
             "support": {
-                "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v.1.14.1"
+                "issues": "https://github.com/guzzle/guzzle/issues",
+                "source": "https://github.com/guzzle/guzzle/tree/7.3.0"
             },
-            "time": "2021-03-30T06:27:33+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/alexeyshockov",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/gmponos",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-03-23T11:33:13+00:00"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "8e7d04f1f6450fef59366c399cfad4b9383aa30d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/8e7d04f1f6450fef59366c399cfad4b9383aa30d",
+                "reference": "8e7d04f1f6450fef59366c399cfad4b9383aa30d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^4.4 || ^5.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "support": {
+                "issues": "https://github.com/guzzle/promises/issues",
+                "source": "https://github.com/guzzle/promises/tree/1.4.1"
+            },
+            "time": "2021-03-07T09:25:29+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -989,6 +1196,76 @@
                 "source": "https://github.com/fetus-hina/mynumber-php/tree/v1.0.0"
             },
             "time": "2017-01-16T18:55:33+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "5.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "2ba9c8c862ecd5510ed16c6340aa9f6eadb4f31b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/2ba9c8c862ecd5510ed16c6340aa9f6eadb4f31b",
+                "reference": "2ba9c8c862ecd5510ed16c6340aa9f6eadb4f31b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
+                "json-schema/json-schema-test-suite": "1.2.0",
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "issues": "https://github.com/justinrainbow/json-schema/issues",
+                "source": "https://github.com/justinrainbow/json-schema/tree/5.2.10"
+            },
+            "time": "2020-05-27T16:41:55+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2361,6 +2638,58 @@
             "time": "2019-01-08T18:20:26+00:00"
         },
         {
+            "name": "psr/http-client",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-client/tree/master"
+            },
+            "time": "2020-06-29T06:28:15+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -3420,6 +3749,74 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
+        },
+        {
+            "name": "softcreatr/jsonpath",
+            "version": "0.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SoftCreatR/JSONPath.git",
+                "reference": "e3ae75112a5247e3b27a7e0e72155eae261d8c72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SoftCreatR/JSONPath/zipball/e3ae75112a5247e3b27a7e0e72155eae261d8c72",
+                "reference": "e3ae75112a5247e3b27a7e0e72155eae261d8c72",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<7.0 || >= 10.0"
+            },
+            "replace": {
+                "flow/jsonpath": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=7.0",
+                "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Flow\\JSONPath\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Frank",
+                    "email": "stephen@flowsa.com",
+                    "homepage": "https://prismaticbytes.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sascha Greuel",
+                    "email": "hello@1-2.dev",
+                    "homepage": "http://1-2.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JSONPath implementation for parsing, searching and flattening arrays",
+            "support": {
+                "email": "hello@1-2.dev",
+                "forum": "https://github.com/SoftCreatR/JSONPath/discussions",
+                "issues": "https://github.com/SoftCreatR/JSONPath/issues",
+                "source": "https://github.com/SoftCreatR/JSONPath"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/softcreatr",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-03-08T14:18:21+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -5365,88 +5762,6 @@
                 }
             ],
             "time": "2020-12-23T16:36:12+00:00"
-        },
-        {
-            "name": "yiisoft/yii2-faker",
-            "version": "2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-faker.git",
-                "reference": "8c361657143bfaea58ff7dcc9bf51f1991a46f5d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-faker/zipball/8c361657143bfaea58ff7dcc9bf51f1991a46f5d",
-                "reference": "8c361657143bfaea58ff7dcc9bf51f1991a46f5d",
-                "shasum": ""
-            },
-            "require": {
-                "fakerphp/faker": "~1.9|~1.10",
-                "yiisoft/yii2": "~2.0.0"
-            },
-            "require-dev": {
-                "cweagans/composer-patches": "^1.7",
-                "phpunit/phpunit": "4.8.34"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                },
-                "composer-exit-on-patch-failure": true,
-                "patches": {
-                    "phpunit/phpunit-mock-objects": {
-                        "Fix PHP 7 and 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_mock_objects.patch"
-                    },
-                    "phpunit/phpunit": {
-                        "Fix PHP 7 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php7.patch",
-                        "Fix PHP 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php8.patch"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\faker\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Jebri",
-                    "email": "mark.github@yandex.ru"
-                }
-            ],
-            "description": "Fixture generator. The Faker integration for the Yii framework.",
-            "keywords": [
-                "Fixture",
-                "faker",
-                "yii2"
-            ],
-            "support": {
-                "forum": "http://www.yiiframework.com/forum/",
-                "irc": "irc://irc.freenode.net/yii",
-                "issues": "https://github.com/yiisoft/yii2-faker/issues",
-                "source": "https://github.com/yiisoft/yii2-faker",
-                "wiki": "http://www.yiiframework.com/wiki/"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/yiisoft",
-                    "type": "github"
-                },
-                {
-                    "url": "https://opencollective.com/yiisoft",
-                    "type": "open_collective"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/yiisoft/yii2-faker",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-11-10T12:27:35+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
