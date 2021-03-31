@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Exception;
 use yii\helpers\Html;
 use yii\web\View;
 
