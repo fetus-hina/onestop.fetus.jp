@@ -17,6 +17,5 @@ vendor: composer.lock composer.phar
 	./composer.phar install --prefer-dist
 	@touch $@
 
-composer.lock: composer.json composer.phar
-	./composer.phar update --prefer-dist
-	@touch $@
+composer.phar:
+	curl -fsSL 'https://getcomposer.org/installer' | php -- --stable

@@ -23,10 +23,9 @@ vendor/tecnickcom/tcpdf/fonts/ipaexm.ctg.z: ../ipaexm.ttf vendor
 %.php: %.ctg.z
 %.z: %.ctg.z
 
+composer.phar:
+	curl -fsSL 'https://getcomposer.org/installer' | php -- --stable
+
 vendor: composer.lock composer.phar
 	./composer.phar install --prefer-dist
-	@touch $@
-
-composer.lock: composer.json composer.phar
-	./composer.phar update --prefer-dist
 	@touch $@

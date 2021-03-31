@@ -1,4 +1,4 @@
-VERSION := 00201
+VERSION := 00401
 
 TTF_FILES := \
 	ipaexg.ttf \
@@ -36,7 +36,7 @@ README: ipafont.zip
 	@touch $@
 
 ipafont.zip:
-	curl -fsSL -o $@ https://ipafont.ipa.go.jp/IPAexfont/IPAexfont$(VERSION).zip
+	curl -fsSL -o $@ https://moji.or.jp/wp-content/ipafont/IPAexfont/IPAexfont$(VERSION).zip
 
 $(FONT_TARGETS): tcpdf
 	cp tcpdf/vendor/tecnickcom/tcpdf/fonts/$@ $@
