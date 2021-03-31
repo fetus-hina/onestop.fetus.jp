@@ -42,8 +42,8 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
     <footer>
       <hr>
       <div class="container text-right pb-3">
-        <?= implode('<br>', [
-          vsprintf('Copyright &copy; 2017-%d %s %s.', [
+        <?= implode('<br>', array_filter([
+          vsprintf('Copyright &copy; 2017-%d %s %s', [
             (int)$now->format('Y'),
             Html::a(
               Html::encode('AIZAWA Hina'),
@@ -60,7 +60,29 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
               ),
             ]),
           ]),
-          vsprintf('Powered by %s.', [
+          Yii::$app->params['revision']
+            ? implode(', ', array_filter([
+              Yii::$app->params['revision']['version']
+                ? vsprintf('Version %s', [
+                  Html::a(
+                    Html::encode(Yii::$app->params['revision']['version']),
+                    vsprintf('https://github.com/fetus-hina/onestop.fetus.jp/releases/tag/%s', [
+                      rawurlencode(Yii::$app->params['revision']['version']),
+                    ])
+                  ),
+                ])
+                : null,
+              vsprintf('Revision %s', [
+                Html::a(
+                  Html::encode(Yii::$app->params['revision']['short']),
+                  vsprintf('https://github.com/fetus-hina/onestop.fetus.jp/tree/%s', [
+                    rawurlencode(Yii::$app->params['revision']['hash']),
+                  ])
+                ),
+              ]),
+            ]))
+            : null,
+          vsprintf('Powered by %s', [
             preg_replace(
               '/,(?=[^,]+$)/', // 最後のカンマ
               ' and ',
@@ -76,7 +98,7 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
               ])
             ),
           ]),
-        ]) . "\n" ?>
+        ])) . "\n" ?>
       </div>
     </footer>
 <?php $this->endBody(); echo "\n"; ?>

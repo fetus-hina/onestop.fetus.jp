@@ -11,7 +11,7 @@ RESOURCES := \
 all: setup
 
 .PHONY: config-files
-config-files: config/cookie-secret.php
+config-files: config/cookie-secret.php config/git-revision.php
 
 .PHONY: setup
 setup: composer.phar config-files vendor node_modules setup-db resources
@@ -53,6 +53,10 @@ resources: $(RESOURCES)
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@
+
+.PHONY: config/git-revision.php
+config/git-revision.php:
+	php setup/git-revison.php > $@
 
 .PHONY: check-style
 check-style: check-style-php

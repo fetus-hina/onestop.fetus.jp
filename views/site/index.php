@@ -18,6 +18,12 @@ use yii\web\View;
 
 $this->title = 'onestop.fetus.jp';
 
+$sourceUrl = (Yii::$app->params['revision'] && Yii::$app->params['revision']['hash'])
+  ? vsprintf('https://github.com/fetus-hina/onestop.fetus.jp/tree/%s', [
+    rawurlencode(Yii::$app->params['revision']['hash']),
+  ])
+  : 'https://github.com/fetus-hina/onestop.fetus.jp';
+
 $now = ((int)$_SERVER['REQUEST_TIME'] ?? time());
 $thisYear = (int)date('Y', $now);
 ?>
@@ -27,7 +33,7 @@ $thisYear = (int)date('Y', $now);
   </h1>
   <p>
     ふるさと納税ワンストップ特例申請書をそれなりに埋めたPDFを生成するだけのサイトです。<br>
-    ここで入力した情報は一切保存されていません（<a href="https://github.com/fetus-hina/onestop.fetus.jp/" rel="external" target="_blank">ソースコード</a>）。<br>
+    ここで入力した情報は一切保存されていません（<?= Html::a('ソースコード', $sourceUrl, ['rel' => 'external', 'target' => '_blank']) ?>）。<br>
     一文字でも手書きを減らしたい自分のためのフォームなので細かいことはあまり考えてないです。
   </p>
 
