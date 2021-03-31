@@ -10,7 +10,7 @@ echo str_replace(array_keys($data), array_values($data), $template) . "\n";
 
 function getCurrentRevision(): array
 {
-    $cmdline = vsprintf('/usr/bin/env %s log -n 1 --pretty=%s --color=never', [
+    $cmdline = vsprintf('/usr/bin/env %s log -n 1 --pretty=%s', [
         escapeshellarg('git'),
         escapeshellarg('format:%h:%H'),
     ]);
@@ -43,7 +43,7 @@ function getCurrentVersion(string $fullHash): ?string
 
 function getVersionTags(string $fullHash): array
 {
-    $cmdline = vsprintf('/usr/bin/env %s tag --points-at=%s --color=never', [
+    $cmdline = vsprintf('/usr/bin/env %s tag --points-at=%s', [
         escapeshellarg('git'),
         escapeshellarg($fullHash),
     ]);
