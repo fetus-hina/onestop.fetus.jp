@@ -16,6 +16,7 @@ parameters:
     - database
     - node_modules
     - runtime
+    - tests
     - vendor
 
   bootstrapFiles:

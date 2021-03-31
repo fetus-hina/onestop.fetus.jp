@@ -273,11 +273,10 @@ class Pdf extends Model
                 static::num2str((int)$date->format('j')),
             ]);
             $this->drawTextToBox(38, 139.4, 102.2, 144.8, $formatted, 'C', 'M', 0.1, 2.9);
+            $this->renderHeading($era, $eraYear);
         }
 
         $this->drawTextToBox(102.2, 139.4, 167, 144.8, (string)$amount, 'C', 'M', 0.1, 0, 'ocrb_aizu_1_1');
-
-        $this->renderHeading($era, $eraYear);
 
         return $this;
     }

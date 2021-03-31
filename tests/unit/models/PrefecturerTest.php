@@ -36,7 +36,7 @@ class PrefecturerTest extends Unit
         ]);
         $this->assertTrue($model->validate());
 
-        $model->name = 100;
+        $model->name = 100; // @phpstan-ignore-line 意図的に違反させるので
         $this->assertFalse($model->validate());
         $this->assertTrue($model->hasErrors('name'));
     }
