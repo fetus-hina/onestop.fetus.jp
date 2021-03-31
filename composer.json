@@ -14,6 +14,7 @@
     "codeception/module-yii2": "*",
     "codeception/specify": "*",
     "codeception/verify": "*",
+    "deployer/deployer": "*",
     "jp3cki/mynumber": "^1.0.0",
     "php-curl-class/php-curl-class": "^9.0",
     "phpcompatibility/php-compatibility": "^9.3",
