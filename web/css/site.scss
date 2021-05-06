@@ -1,7 +1,6 @@
 @charset "UTF-8";
-@import "../../node_modules/fetus.css/scss/vars/color";
 
-/*! Copyright (C) 2017-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2017-2021 AIZAWA Hina | MIT License */
 
 html,
 body {
@@ -17,5 +16,5 @@ footer {
 }
 
 .form-control::placeholder {
-  color: $gray-300 !important;
+  color: rgb(200, 190, 186) !important;
 }

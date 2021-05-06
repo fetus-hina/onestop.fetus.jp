@@ -38,7 +38,7 @@ $thisYear = (int)date('Y', $now);
   </p>
 
   <script type="application/json" id="fake-data"><?= Json::encode($fake) ?></script>
-  <div class="text-right mb-3">
+  <div class="text-end mb-3">
     <button type="button" class="btn btn-secondary" id="use-fake-data" data-data="#fake-data">
       サンプルデータ
     </button>
@@ -51,37 +51,41 @@ $thisYear = (int)date('Y', $now);
     <div class="card-body">
       <fieldset>
         <legend>エンベロープ</legend>
-        <div class="form-group">
-          <label for="dummy">投函予定日</label><br>
-          <div class="form-inline">
+        <label for="dummy">投函予定日</label><br>
+        <div class="row row-cols-sm-auto" style="--bs-gutter-x:0.5rem">
+          <div class="col-12">
             <?= $form->field($model, 'post_year')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '年';
-                },
-                array_combine(
-                  range(2008, $thisYear + 1),
-                  range(2008, $thisYear + 1)
-                )
-              ))
+              ->dropDownList(
+                array_map(
+                  fn($y) => "{$y}年",
+                  array_combine(range(2008, $thisYear + 1), range(2008, $thisYear + 1))
+                ),
+                ['class' => 'form-select']
+              )
               ->label(false) . "\n"
             ?>
+          </div>
+          <div class="col-12">
             <?= $form->field($model, 'post_month')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '月';
-                },
-                array_combine(range(1, 12), range(1, 12))
-              ))
+              ->dropDownList(
+                array_map(
+                  fn($m) => "{$m}月",
+                  array_combine(range(1, 12), range(1, 12))
+                ),
+                ['class' => 'form-select']
+              )
               ->label(false) . "\n"
             ?>
+          </div>
+          <div class="col-12">
             <?= $form->field($model, 'post_day')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '日';
-                },
-                array_combine(range(1, 31), range(1, 31))
-              ))
+              ->dropDownList(
+                array_map(
+                  fn($d) => "{$d}日",
+                  array_combine(range(1, 31), range(1, 31))
+                ),
+                ['class' => 'form-select']
+              )
               ->label(false) . "\n"
             ?>
           </div>
@@ -93,37 +97,41 @@ $thisYear = (int)date('Y', $now);
     <div class="card-body">
       <fieldset>
         <legend>寄付に関する情報</legend>
-        <div class="form-group">
-          <label for="dummy">寄付年月日</label><br>
-          <div class="form-inline">
+        <label for="dummy">寄付年月日</label><br>
+        <div class="row row-cols-sm-auto" style="--bs-gutter-x:0.5rem">
+          <div class="col-12">
             <?= $form->field($model, 'kifu_year')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '年';
-                },
-                array_combine(
-                  range(2008, $thisYear),
-                  range(2008, $thisYear)
-                )
-              ))
+              ->dropDownList(
+                array_map(
+                  fn($y) => "{$y}年",
+                  array_combine(range(2008, $thisYear), range(2008, $thisYear))
+                ),
+                ['class' => 'form-select']
+              )
               ->label(false) . "\n"
             ?>
+          </div>
+          <div class="col-12">
             <?= $form->field($model, 'kifu_month')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '月';
-                },
-                array_combine(range(1, 12), range(1, 12))
-              ))
+              ->dropDownList(
+                array_map(
+                  fn($m) => "{$m}月",
+                  array_combine(range(1, 12), range(1, 12))
+                ),
+                ['class' => 'form-select']
+              )
               ->label(false) . "\n"
             ?>
+          </div>
+          <div class="col-12">
             <?= $form->field($model, 'kifu_day')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '日';
-                },
-                array_combine(range(1, 31), range(1, 31))
-              ))
+              ->dropDownList(
+                array_map(
+                  fn($d) => "{$d}日",
+                  array_combine(range(1, 31), range(1, 31))
+                ),
+                ['class' => 'form-select']
+              )
               ->label(false) . "\n"
             ?>
           </div>
@@ -149,23 +157,17 @@ $thisYear = (int)date('Y', $now);
               'div',
               implode('', [
                 '{input}',
-                Html::tag(
-                  'div',
-                  implode('', [
-                    Html::button(Html::encode('住所入力'), [
-                      'id' => Html::getInputId($model, 'zipcode') . '--zipquerybtn',
-                      'class' => 'btn btn-secondary',
-                    ]),
-                    Html::button(Html::tag('span', '', ['class' => 'far fa-question-circle']), [
-                      'class' => 'btn btn-outline-secondary',
-                      'data' => [
-                        'toggle' => 'modal',
-                        'target' => sprintf('#%s--apiinfomodal', Html::getInputId($model, 'zipcode')),
-                      ],
-                    ]),
-                  ]),
-                  ['class' => 'input-group-append']
-                ),
+                Html::button(Html::encode('住所入力'), [
+                  'id' => Html::getInputId($model, 'zipcode') . '--zipquerybtn',
+                  'class' => 'btn btn-secondary',
+                ]),
+                Html::button(Html::tag('span', '', ['class' => 'far fa-question-circle']), [
+                  'class' => 'btn btn-outline-secondary',
+                  'data' => [
+                    'bs-toggle' => 'modal',
+                    'bs-target' => sprintf('#%s--apiinfomodal', Html::getInputId($model, 'zipcode')),
+                  ],
+                ]),
               ]),
               ['class' => 'input-group']
             ),
@@ -199,9 +201,7 @@ $thisYear = (int)date('Y', $now);
             <div class="modal-content">
               <div class="modal-header bg-light">
                 <h5 class="modal-title text-dark">住所入力機能について</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                  <span aria-hidden="true"><span class="fas fa-times"></span></span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 郵便番号に対応する住所を取得するため、<strong>株式会社アイビスの提供する<a href="http://zipcloud.ibsnet.co.jp/doc/api" target="_blank">検索API</a>を利用しています。</strong><br>
@@ -213,7 +213,7 @@ $thisYear = (int)date('Y', $now);
                 なお、このサイトの運営者と、当該サービスの運用者には一切の関係はありません。
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
               </div>
             </div>
           </div>
@@ -231,16 +231,14 @@ $thisYear = (int)date('Y', $now);
             <div class="modal-content">
               <div class="modal-header bg-light">
                 <h5 class="modal-title text-dark">複数の住所が該当しました</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                  <span aria-hidden="true"><span class="fas fa-times"></span></span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body p-0">
                 <div class="list-group overflow-auto" style="max-height:70vh">
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
               </div>
             </div>
           </div>
@@ -258,25 +256,26 @@ $thisYear = (int)date('Y', $now);
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">エラー - 住所入力</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                  <span aria-hidden="true"><span class="fas fa-times"></span></span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">閉じる</button>
               </div>
             </div>
           </div>
         </div>
 <?php // }}} ?>
         <?= $form->field($model, 'pref_id')
-          ->dropDownList(ArrayHelper::map(
-            Prefecturer::find()->orderBy('[[id]] ASC')->asArray()->all(),
-            'id',
-            'name'
-          )) . "\n"
+          ->dropDownList(
+            ArrayHelper::map(
+              Prefecturer::find()->orderBy('[[id]] ASC')->asArray()->all(),
+              'id',
+              'name'
+            ),
+            ['class' => 'form-select']
+          ) . "\n"
         ?>
         <?= $form->field($model, 'city')
           ->textInput() . "\n"
@@ -299,45 +298,54 @@ $thisYear = (int)date('Y', $now);
           ->textInput(['placeholder' => '例: アイザワ　ヒナ']) . "\n"
         ?>
         <?= $form->field($model, 'sex')
-          ->dropDownList([
-            Form::SEX_MALE   => '男性',
-            Form::SEX_FEMALE => '女性',
-          ])
+          ->dropDownList(
+            [
+              Form::SEX_MALE   => '男性',
+              Form::SEX_FEMALE => '女性',
+            ],
+            ['class' => 'form-select']
+          )
           ->hint('その他の性の人は自治体に問い合わせてください') . "\n"
         ?>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label for="dummy">生年月日</label><br>
-          <div class="form-inline">
-            <?= $form->field($model, 'birth_year')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '年';
-                },
-                array_combine(
-                  range(1903, $thisYear),
-                  range(1903, $thisYear)
+          <div class="row row-cols-sm-auto" style="--bs-gutter-x:0.5rem">
+            <div class="col-12">
+              <?= $form->field($model, 'birth_year')
+                ->dropDownList(
+                  array_map(
+                    fn($y) => "{$y}年",
+                    array_combine(range(1903, $thisYear), range(1903, $thisYear)),
+                  ),
+                  ['class' => 'form-select']
                 )
-              ))
-              ->label(false) . "\n"
-            ?>
-            <?= $form->field($model, 'birth_month')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '月';
-                },
-                array_combine(range(1, 12), range(1, 12))
-              ))
-              ->label(false) . "\n"
-            ?>
-            <?= $form->field($model, 'birth_day')
-              ->dropDownList(array_map(
-                function (int $v): string {
-                  return $v . '日';
-                },
-                array_combine(range(1, 31), range(1, 31))
-              ))
-              ->label(false) . "\n"
-            ?>
+                ->label(false) . "\n"
+              ?>
+            </div>
+            <div class="col-12">
+              <?= $form->field($model, 'birth_month')
+                ->dropDownList(
+                  array_map(
+                    fn($m) => "{$m}月",
+                    array_combine(range(1, 12), range(1, 12))
+                  ),
+                  ['class' => 'form-select']
+                )
+                ->label(false) . "\n"
+              ?>
+            </div>
+            <div class="col-12">
+              <?= $form->field($model, 'birth_day')
+                ->dropDownList(
+                  array_map(
+                    fn($d) => "{$d}日",
+                    array_combine(range(1, 31), range(1, 31)),
+                  ),
+                  ['class' => 'form-select']
+                )
+                ->label(false) . "\n"
+              ?>
+            </div>
           </div>
         </div>
         <?= $form->field($model, 'individual_number')
@@ -365,7 +373,7 @@ $thisYear = (int)date('Y', $now);
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="input-group">
     <button type="submit" class="btn btn-primary">
       <span class="fas fa-fw fa-file-pdf"></span>
       PDF作成

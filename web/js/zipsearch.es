@@ -50,7 +50,7 @@
             switch (data.length) {
               case 0:
                 $('.modal-body', $errorDialog).text('郵便番号の検索結果が空でした');
-                $errorDialog.modal();
+                (new bootstrap.Modal($errorDialog.get(0))).show();
                 break;
 
               case 1:
@@ -71,17 +71,17 @@
                       return false;
                     });
                   });
-                  $choiceDialog.modal();
+                  (new bootstrap.Modal($choiceDialog.get(0))).show();
                 })();
                 break;
             }
           })
           .fail(() => {
             $('.modal-body', $errorDialog).text('検索エラーが発生しました');
-            $errorDialog.modal();
+            (new bootstrap.Modal($errorDialog.get(0))).show();
           })
           .always(() => {
-            $button.text('住所入力')
+            $button.text('住所入力');
           });
       });
     });
