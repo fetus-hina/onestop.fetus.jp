@@ -3,6 +3,7 @@
 .idea
 .project
 .settings
+/.browserslistrc
 /config/cookie-secret.php
 /config/git-revision.php
 /coverage.serialized

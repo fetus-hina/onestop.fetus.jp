@@ -35,6 +35,7 @@ node_modules: package-lock.json
 clean:
 	rm -rf \
 		$(RESOURCES) \
+		.browserslistrc \
 		composer.phar \
 		node_modules \
 		vendor
@@ -42,13 +43,13 @@ clean:
 .PHONY: resources
 resources: $(RESOURCES)
 
-%.css: %.scss node_modules
+%.css: %.scss node_modules .browserslistrc
 	npx sass $< | \
 		npx postcss --use autoprefixer | \
 		npx cleancss | \
 		cat > $@
 
-%.js: %.es node_modules
+%.js: %.es node_modules .browserslistrc
 	npx babel $< | npx uglifyjs --compress --mangle > $@
 
 config/cookie-secret.php:
@@ -81,3 +82,6 @@ test: composer.phar config-files vendor node_modules resources
 			--coverage-html=./web/coverage/ \
 			--coverage-text=./runtime/coverage/coverage.txt \
 			--coverage-xml=./runtime/coverage/coverage.xml
+
+.browserslistrc:
+	curl -fsSL -o $@ 'https://raw.githubusercontent.com/twbs/bootstrap/v5.0.0/.browserslistrc'
