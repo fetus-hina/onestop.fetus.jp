@@ -77,7 +77,7 @@ jobs:
       - run: |
           node --version
           npm ci
-          npx eslint "web/js/*.es"
+          npx semistandard --global=jQuery --global=bootstrap 'web/**/*.es'
 
   cssStyleCheck:
     name: 'CSS Coding Style'

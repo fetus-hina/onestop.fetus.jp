@@ -4,7 +4,6 @@ RESOURCES := \
 	web/css/site.css \
 	web/js/fakedata.js \
 	web/js/mynumber.js \
-	web/js/polyfill.js \
 	web/js/zipsearch.js
 
 .PHONY: all
@@ -60,7 +59,7 @@ config/git-revision.php:
 	php setup/git-revison.php > $@
 
 .PHONY: check-style
-check-style: check-style-php
+check-style: check-style-php check-style-js
 
 .PHONY: check-style-php
 check-style-php: check-style-phpcs check-style-phpstan
@@ -72,6 +71,10 @@ check-style-phpcs: vendor
 .PHONY: check-style-phpstan
 check-style-phpstan: config-files vendor
 	./vendor/bin/phpstan analyze --memory-limit=1G || true
+
+.PHONY: check-style-js
+check-style-js: node_modules
+	npx semistandard --global=jQuery --global=bootstrap 'web/**/*.es'
 
 .PHONY: test
 test: composer.phar config-files vendor node_modules resources

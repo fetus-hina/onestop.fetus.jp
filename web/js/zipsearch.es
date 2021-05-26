@@ -1,5 +1,5 @@
 ($ => {
-  function update(entry, updateMap) {
+  function update (entry, updateMap) {
     for (const [selectorTarget, entryIndex] of Object.entries(updateMap)) {
       const $obj = $(selectorTarget);
       if ($obj.length) {
@@ -45,7 +45,7 @@
       const $button = $(this);
       $button.click(() => {
         $button.text('問合せ中...');
-        $.post('/api/postal-code', {code: $inputs.val()})
+        $.post('/api/postal-code', { code: $inputs.val() })
           .done(data => {
             switch (data.length) {
               case 0:
