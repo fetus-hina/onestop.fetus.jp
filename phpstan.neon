@@ -19,8 +19,7 @@ parameters:
     - tests
     - vendor
 
-  bootstrapFiles:
-    - vendor/autoload.php
+  scanFiles:
     - vendor/yiisoft/yii2/Yii.php
 
   yii2:
