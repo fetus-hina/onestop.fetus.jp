@@ -16,7 +16,7 @@
     "codeception/verify": "*",
     "deployer/deployer": "*",
     "jp3cki/mynumber": "^1.0.0",
-    "php-curl-class/php-curl-class": "^9.0",
+    "php-curl-class/php-curl-class": "^9.3.0",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpstan/phpstan": "*",
     "proget-hq/phpstan-yii2": "*",

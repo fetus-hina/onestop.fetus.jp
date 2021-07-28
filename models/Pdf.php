@@ -751,7 +751,7 @@ class Pdf extends Model
             array_reduce(
                 $lines,
                 function (float $carry, string $item): float {
-                    return $carry + $this->pdf->GetStringHeight(0, $item, false, 0);
+                    return $carry + $this->pdf->GetStringHeight(0, $item, false, false);
                 },
                 0.0
             ),
