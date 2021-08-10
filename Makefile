@@ -87,4 +87,8 @@ test: composer.phar config-files vendor node_modules resources
 			--coverage-xml=./runtime/coverage/coverage.xml
 
 .browserslistrc:
-	curl -fsSL -o $@ 'https://raw.githubusercontent.com/twbs/bootstrap/v5.0.0/.browserslistrc'
+	curl -fsSL -o $@ 'https://raw.githubusercontent.com/twbs/bootstrap/v5.1.0/.browserslistrc'
+
+bin/dep:
+	curl -fsSL -o $@ 'https://deployer.org/releases/v6.8.0/deployer.phar'
+	chmod +x $@

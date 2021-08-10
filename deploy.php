@@ -10,12 +10,12 @@ set('application', 'onestop');
 set('repository', 'git@github.com:fetus-hina/onestop.fetus.jp.git');
 set('composer_options', implode(' ', [
     'install',
-    '--verbose',
-    '--prefer-dist',
-    '--no-progress',
     '--no-interaction',
-    '--optimize-autoloader',
+    '--no-progress',
     '--no-suggest',
+    '--optimize-autoloader',
+    '--prefer-dist',
+    '--verbose',
 ]));
 set('git_tty', true);
 add('shared_files', [
@@ -83,6 +83,7 @@ task('deploy', [
     'deploy:writable',
     'deploy:run_migrations',
     'deploy:build',
+    'deploy:vendors_production',
     'deploy:symlink',
     'deploy:clear_opcache',
     'deploy:clear_proxy',
@@ -105,6 +106,13 @@ task('deploy:vendors', function () {
     within('{{release_path}}', function () {
         run('{{bin/composer}} {{composer_options}}');
         run('{{bin/npm}} clean-install');
+    });
+});
+
+task('deploy:vendors_production', function () {
+    within('{{release_path}}', function () {
+        run('{{bin/composer}} {{composer_options}} --no-dev');
+        run('{{bin/npm}} prune --production');
     });
 });
 

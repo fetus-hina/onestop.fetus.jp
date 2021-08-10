@@ -11,4 +11,5 @@ VERSION_TAG="v${BASE_VERSION}.${VERSION_DATE}"
 git tag -m $VERSION_TAG $VERSION_TAG || /bin/true
 git push origin master $VERSION_TAG
 
-./vendor/bin/dep deploy --tag=$VERSION_TAG production
+make bin/dep
+bin/dep deploy --tag=$VERSION_TAG production

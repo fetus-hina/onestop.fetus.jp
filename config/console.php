@@ -31,7 +31,10 @@ return (function (): array {
         'params' => $params,
     ];
 
-    if (YII_ENV_DEV) {
+    if (
+        YII_ENV_DEV &&
+        file_exists(__DIR__ . '/../vendor/yiisoft/yii2-gii')
+    ) {
         $config['bootstrap'][] = 'gii';
         $config['modules']['gii'] = [
             'class' => GiiModule::class,
