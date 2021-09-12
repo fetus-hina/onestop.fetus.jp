@@ -7,7 +7,7 @@
     "php": ">= 7.4",
 
     "jp3cki/mynumber": "^1.0.0",
-    "php-curl-class/php-curl-class": "^9.3.1",
+    "php-curl-class/php-curl-class": "^9.4.0",
     "tecnickcom/tcpdf": "^6.4.2",
     "yiisoft/yii2": "~2.0.43",
     "yiisoft/yii2-bootstrap4": "~2.0.10"
