@@ -43,10 +43,7 @@ clean:
 resources: $(RESOURCES)
 
 %.css: %.scss node_modules .browserslistrc
-	npx sass $< | \
-		npx postcss --use autoprefixer | \
-		npx cleancss | \
-		cat > $@
+	npx sass $< | npx postcss --no-map --use autoprefixer --use cssnano -o $@
 
 %.js: %.es node_modules .browserslistrc
 	npx babel $< | npx uglifyjs --compress --mangle > $@

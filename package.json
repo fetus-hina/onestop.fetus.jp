@@ -22,7 +22,7 @@
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "autoprefixer": "^10.3.4",
-    "clean-css-cli": "^5.3.3",
+    "cssnano": "^5.0.8",
     "patch-package": "^6.4.7",
     "postcss": "^8.3.6",
     "postcss-cli": "^8.3.1",
