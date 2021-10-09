@@ -6,7 +6,6 @@ namespace app\models;
 
 use DateTimeImmutable;
 use TCPDF;
-use Yii;
 use yii\base\Model;
 
 /**
@@ -221,7 +220,7 @@ class Pdf extends Model
     {
         $size = 2.9;
         $this->pdf->SetFont('ipaexm', '', static::mm2pt($size));
-        list($width, $height) = $this->calcTextSize('男');
+        list($width,) = $this->calcTextSize('男');
         $size = 4.35;
         $this->drawTextToBox(
             ($isMale ? 133 : 147.5) + $width / 2,

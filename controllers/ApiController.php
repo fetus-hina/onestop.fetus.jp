@@ -10,7 +10,6 @@ use Yii;
 use yii\base\DynamicModel;
 use yii\base\Model;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\Controller;
