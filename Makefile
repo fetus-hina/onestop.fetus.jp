@@ -56,7 +56,7 @@ config/git-revision.php:
 	php setup/git-revison.php > $@
 
 .PHONY: check-style
-check-style: check-style-php check-style-js
+check-style: check-style-php check-style-js check-style-css
 
 .PHONY: check-style-php
 check-style-php: check-style-phpcs check-style-phpstan
@@ -72,6 +72,10 @@ check-style-phpstan: config-files vendor
 .PHONY: check-style-js
 check-style-js: node_modules
 	npx semistandard --global=jQuery --global=bootstrap 'web/**/*.es'
+
+.PHONY: check-style-css
+check-style-css: node_modules
+	npx stylelint 'web/css/*.scss'
 
 .PHONY: test
 test: composer.phar config-files vendor node_modules resources
