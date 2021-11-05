@@ -170,28 +170,32 @@ class Pdf extends Model
         );
 
         $name = mb_convert_kana(trim((string)$name), 'ASKV', 'UTF-8');
-        $this->drawTextToBox(
-            116.5 + 0.5,
-            40.1 + 0.5,
-            157,
-            50.0 - 0.5,
-            $name,
-            'L',
-            'M',
-            0.1,
-            6
-        );
-        $this->drawTextToBox(
-            53 + 0.5,
-            251.4 + 0.5,
-            131 - 0.5,
-            261.9 - 0.5,
-            $name,
-            'L',
-            'M',
-            0.1,
-            6
-        );
+        if ($name !== '') {
+            $this->drawTextToBox(
+                116.5 + 0.5,
+                40.1 + 0.5,
+                157,
+                50.0 - 0.5,
+                $name,
+                'L',
+                'M',
+                0.1,
+                6
+            );
+            $this->drawTextToBox(
+                53 + 0.5,
+                251.4 + 0.5,
+                131 - 0.5,
+                261.9 - 0.5,
+                $name,
+                'L',
+                'M',
+                0.1,
+                6
+            );
+
+            $this->drawTextToBox(160.5, 40.1, 160.5, 50, '印', 'L', 'M', 2.9, 2.9, 'ipaexg');
+        }
 
         return $this;
     }
@@ -468,7 +472,6 @@ class Pdf extends Model
 
     private function drawLabels(): void
     {
-        // {{{
         $this->pdf->SetTextColorArray($this->black);
 
         $size = 2.9;
@@ -477,7 +480,6 @@ class Pdf extends Model
         $this->drawTextToBox(102.2, 30.8 - 1, 116.5, 38, '整理番号', 'C', 'M', $size, $size);
         $this->drawTextToBox(102.2, 38 - 0.6, 116.5, 40.1, 'フリガナ', 'C', 'M', $size, $size);
         $this->drawTextToBox(102.2, 40.1, 116.5, 50, '氏　名', 'C', 'M', $size, $size);
-        $this->drawTextToBox(160.5, 40.1, 160.5, 50, '印', 'L', 'M', $size, $size, 'ipaexg');
         $this->drawTextToBox(102.2, 50, 116.5, 56.5, '個人番号', 'C', 'M', $size, $size);
         $this->drawTextToBox(102.2, 56.5, 116.5, 61.1, '性　別', 'C', 'M', $size, $size);
         $this->drawTextToBox(102.2, 61.1, 116.5, 69.8, '生年月日', 'C', 'M', $size, $size);
@@ -674,7 +676,6 @@ class Pdf extends Model
             3.4,
             3.4
         );
-        // }}}
     }
 
     private function drawTextToBox(
