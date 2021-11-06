@@ -33,8 +33,21 @@ $thisYear = (int)date('Y', $now);
   </h1>
   <p>
     ふるさと納税ワンストップ特例申請書をそれなりに埋めたPDFを生成するだけのサイトです。<br>
-    ここで入力した情報は一切保存されていません（<?= Html::a('ソースコード', $sourceUrl, ['rel' => 'external', 'target' => '_blank']) ?>）。<br>
+    ここで入力した情報は一切保存されていません（<?= Html::a('ソースコード', $sourceUrl, ['rel' => 'external noopener', 'target' => '_blank']) ?>）。<br>
     一文字でも手書きを減らしたい自分のためのフォームなので細かいことはあまり考えてないです。
+  </p>
+  <p>
+    出力されるPDFに記載される字形は、あなたの求めるものではないかもしれません。<br>
+    （たとえば「しんにょう」の点の数、「茨」「葛」「芦」などの字形）<br>
+    おそらく、<?= Html::a(
+      Html::encode('JIS X 0203:2004'),
+      'https://ja.wikipedia.org/wiki/JIS_X_0213#JIS_X_0213:2004%E3%81%AE%E6%94%B9%E6%AD%A3',
+      [
+        'target' => '_blank',
+        'rel' => 'external noopener',
+      ]
+    ) ?>の例示字形と同じ形でで出力されると思います。<br>
+    出力されるPDFに記載される字形がどうしても受け入れられない場合、このサイトを使用せず、手書きで提出することをおすすめします。
   </p>
 
   <script type="application/json" id="fake-data"><?= Json::encode($fake) ?></script>
