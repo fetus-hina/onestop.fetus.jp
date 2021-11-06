@@ -78,6 +78,8 @@ final class Pdf2016Form extends Model
     public $checkbox1;
     /** @var string */
     public $checkbox2;
+    /** @var string */
+    public $use_western_year = '0'; // 西暦の利用
 
     /** @return void */
     public function init()
@@ -134,17 +136,20 @@ final class Pdf2016Form extends Model
             'pref_id',
             'sex',
             'sign',
+            'use_western_year',
             'zipcode',
         ];
         $trimAttrs = array_filter($allAttrs, function (string $v): bool {
             return $v !== 'checkbox1' &&
                 $v !== 'checkbox2' &&
-                $v !== 'sign';
+                $v !== 'sign' &&
+                $v !== 'use_western_year';
         });
         $requiredAttrs = array_filter($allAttrs, function (string $v): bool {
             return $v !== 'address2' &&
                 $v !== 'individual_number' &&
-                $v !== 'sign';
+                $v !== 'sign' &&
+                $v !== 'use_western_year';
         });
         return [
             [$trimAttrs, 'trim'],
@@ -171,7 +176,7 @@ final class Pdf2016Form extends Model
                 'range' => ['1'],
                 'message' => 'この項目は必ずチェックが必要です。',
             ],
-            [['sign'], 'boolean'],
+            [['sign', 'use_western_year'], 'boolean'],
             [['individual_number'], 'match', 'pattern' => '/^\d{12}$/'],
             [['individual_number'], MyNumberValidator::class],
         ];
@@ -204,6 +209,7 @@ final class Pdf2016Form extends Model
             'pref_id' => '都道府県',
             'sex' => '性別',
             'sign' => '名前を自署するため、空欄で出力する',
+            'use_western_year' => '和暦を出力せず、西暦の使用を強制する',
             'zipcode' => '郵便番号',
         ];
     }
@@ -221,6 +227,7 @@ final class Pdf2016Form extends Model
             ->setTime(0, 0, 0);
 
         $pdf = Yii::createObject(Pdf::class)
+            ->setUseWesternYear($this->use_western_year === '1')
             ->setEnvelope($post, $this->local_gov)
             ->setAddress(
                 $this->zipcode,

@@ -12,7 +12,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array<string, string> $fake
+ * @var array<string, string|int|bool|null> $fake
  * @var Form $model
  */
 
@@ -390,6 +390,16 @@ $thisYear = (int)date('Y', $now);
         <?= $form->field($model, 'checkbox2')
           ->checkbox()
           ->hint('同年中の寄附先が5自治体以下であることを申告します。') . "\n"
+        ?>
+      </fieldset>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <fieldset>
+        <legend>その他設定</legend>
+        <?= $form->field($model, 'use_western_year')
+          ->checkbox() . "\n"
         ?>
       </fieldset>
     </div>

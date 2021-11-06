@@ -23,6 +23,8 @@ final class Pdf extends Model
     private array $black = [0, 0, 0, 100];
     private ?TCPDF $pdf = null;
 
+    private bool $useWesternYear = false;
+
     /** @return void */
     public function init()
     {
@@ -46,16 +48,15 @@ final class Pdf extends Model
         return $this->pdf->Output('', 'S');
     }
 
+    public function setUseWesternYear(bool $flag): self
+    {
+        $this->useWesternYear = $flag;
+        return $this;
+    }
+
     public function setEnvelope(DateTimeImmutable $date, string $localGovName): self
     {
-        if ($_ = Era::calcYear($date)) {
-            list($era, $eraYear) = $_;
-            $formatted = vsprintf('%s%s年%s月%s日', [
-                $era->name,
-                self::num2str($eraYear, true),
-                self::num2str((int)$date->format('n')),
-                self::num2str((int)$date->format('j')),
-            ]);
+        if ($formatted = $this->formatDate($date)) {
             $this->drawTextToBox(38.5, 30.8, 89.5, 33.95, $formatted, 'L', 'M');
         }
 
@@ -247,14 +248,7 @@ final class Pdf extends Model
 
     public function setBirthday(DateTimeImmutable $date): self
     {
-        if ($_ = Era::calcYear($date)) {
-            list($era, $eraYear) = $_;
-            $formatted = vsprintf('%s%s年%s月%s日', [
-                $era->name,
-                self::num2str($eraYear, true),
-                self::num2str((int)$date->format('n')),
-                self::num2str((int)$date->format('j')),
-            ]);
+        if ($formatted = $this->formatDate($date)) {
             $this->drawTextToBox(
                 116.5 + 0.5,
                 61.4 + 0.5,
@@ -272,16 +266,9 @@ final class Pdf extends Model
 
     public function setKifuData(DateTimeImmutable $date, int $amount): self
     {
-        if ($_ = Era::calcYear($date)) {
-            list($era, $eraYear) = $_;
-            $formatted = vsprintf('%s%s年%s月%s日', [
-                $era->name,
-                self::num2str($eraYear, true),
-                self::num2str((int)$date->format('n')),
-                self::num2str((int)$date->format('j')),
-            ]);
+        if ($formatted = $this->formatDate($date)) {
             $this->drawTextToBox(38, 139.4, 102.2, 144.8, $formatted, 'C', 'M', 0.1, 2.9);
-            $this->renderHeading($era, $eraYear);
+            $this->renderHeading($date);
         }
 
         $this->drawTextToBox(102.2, 139.4, 167, 144.8, (string)$amount, 'C', 'M', 0.1, 0, 'ocrb_aizu_1_1');
@@ -289,13 +276,12 @@ final class Pdf extends Model
         return $this;
     }
 
-    private function renderHeading(Era $era, int $year): void
+    private function renderHeading(DateTimeImmutable $date): void
     {
         $size = 3.7;
-        $left = vsprintf('%s%s年寄附分', [
-            $era->name,
-            self::num2str($year, true),
-        ]);
+        $left = ($year = $this->formatDate($date, true))
+            ? sprintf('%s寄附分', $year)
+            : '';
         $center = "市町村民税\n道府県民税";
         $right = '寄附金税額控除に係る申告特例申請書';
         $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
@@ -777,6 +763,40 @@ final class Pdf extends Model
             }
         }
         return $minFontSize;
+    }
+
+    private function formatDate(DateTimeImmutable $date, bool $isYearOnly = false): ?string
+    {
+        if (!$year = $this->formatYear($date)) {
+            return null;
+        }
+
+        if ($isYearOnly) {
+            return $year;
+        }
+
+        return vsprintf('%s%s月%s日', [
+            $year,
+            self::num2str((int)$date->format('n')),
+            self::num2str((int)$date->format('j')),
+        ]);
+    }
+
+    private function formatYear(DateTimeImmutable $date): ?string
+    {
+        if ($this->useWesternYear) {
+            return sprintf('%s年', self::num2str((int)$date->format('Y')));
+        }
+
+        if (!$_ = Era::calcYear($date)) {
+            return null;
+        }
+
+        list($era, $year) = $_;
+        return vsprintf('%s%s年', [
+            $era->name,
+            self::num2str($year, true),
+        ]);
     }
 
     private static function mm2pt(float $mm): float

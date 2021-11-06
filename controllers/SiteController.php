@@ -75,6 +75,10 @@ class SiteController extends Controller
         $fakeModel = Yii::createObject(Pdf2016Form::class)->faker();
         $fakeData = [];
         foreach ($fakeModel->attributes as $k => $v) {
+            if ($k === 'sign' || $k === 'use_western_year') {
+                continue;
+            }
+
             if (substr($k, 0, 8) === 'checkbox') {
                 $v = $v ? true : false;
             }
