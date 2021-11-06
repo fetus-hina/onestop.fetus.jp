@@ -28,7 +28,7 @@ final class Pdf extends Model
     {
         parent::init();
 
-        $pdf = new TCPDF('P', 'mm', [static::A4_WIDTH_MM, static::A4_HEIGHT_MM], true, 'UTF-8');
+        $pdf = new TCPDF('P', 'mm', [self::A4_WIDTH_MM, self::A4_HEIGHT_MM], true, 'UTF-8');
         $pdf->SetPrintHeader(false);
         $pdf->SetPrintFooter(false);
         $pdf->SetMargins(0, 0, 0);
@@ -52,9 +52,9 @@ final class Pdf extends Model
             list($era, $eraYear) = $_;
             $formatted = vsprintf('%s%s年%s月%s日', [
                 $era->name,
-                static::num2str($eraYear, true),
-                static::num2str((int)$date->format('n')),
-                static::num2str((int)$date->format('j')),
+                self::num2str($eraYear, true),
+                self::num2str((int)$date->format('n')),
+                self::num2str((int)$date->format('j')),
             ]);
             $this->drawTextToBox(38.5, 30.8, 89.5, 33.95, $formatted, 'L', 'M');
         }
@@ -156,7 +156,7 @@ final class Pdf extends Model
         return $this;
     }
 
-    public function setName(?string $name, string $kana): self
+    public function setName(?string $name, string $kana, bool $sign): self
     {
         $kana = mb_convert_kana(trim($kana), 'ASKV', 'UTF-8');
         $this->drawTextToBox(
@@ -171,17 +171,20 @@ final class Pdf extends Model
 
         $name = mb_convert_kana(trim((string)$name), 'ASKV', 'UTF-8');
         if ($name !== '') {
-            $this->drawTextToBox(
-                116.5 + 0.5,
-                40.1 + 0.5,
-                157,
-                50.0 - 0.5,
-                $name,
-                'L',
-                'M',
-                0.1,
-                6
-            );
+            if (!$sign) {
+                $this->drawTextToBox(
+                    116.5 + 0.5,
+                    40.1 + 0.5,
+                    157,
+                    50.0 - 0.5,
+                    $name,
+                    'L',
+                    'M',
+                    0.1,
+                    6
+                );
+            }
+
             $this->drawTextToBox(
                 53 + 0.5,
                 251.4 + 0.5,
@@ -193,8 +196,6 @@ final class Pdf extends Model
                 0.1,
                 6
             );
-
-            $this->drawTextToBox(160.5, 40.1, 160.5, 50, '印', 'L', 'M', 2.9, 2.9, 'ipaexg');
         }
 
         return $this;
@@ -227,7 +228,7 @@ final class Pdf extends Model
     public function setSex(bool $isMale): self
     {
         $size = 2.9;
-        $this->pdf->SetFont('ipaexm', '', static::mm2pt($size));
+        $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
         list($width,) = $this->calcTextSize('男');
         $size = 4.35;
         $this->drawTextToBox(
@@ -250,9 +251,9 @@ final class Pdf extends Model
             list($era, $eraYear) = $_;
             $formatted = vsprintf('%s%s年%s月%s日', [
                 $era->name,
-                static::num2str($eraYear, true),
-                static::num2str((int)$date->format('n')),
-                static::num2str((int)$date->format('j')),
+                self::num2str($eraYear, true),
+                self::num2str((int)$date->format('n')),
+                self::num2str((int)$date->format('j')),
             ]);
             $this->drawTextToBox(
                 116.5 + 0.5,
@@ -275,9 +276,9 @@ final class Pdf extends Model
             list($era, $eraYear) = $_;
             $formatted = vsprintf('%s%s年%s月%s日', [
                 $era->name,
-                static::num2str($eraYear, true),
-                static::num2str((int)$date->format('n')),
-                static::num2str((int)$date->format('j')),
+                self::num2str($eraYear, true),
+                self::num2str((int)$date->format('n')),
+                self::num2str((int)$date->format('j')),
             ]);
             $this->drawTextToBox(38, 139.4, 102.2, 144.8, $formatted, 'C', 'M', 0.1, 2.9);
             $this->renderHeading($era, $eraYear);
@@ -293,11 +294,11 @@ final class Pdf extends Model
         $size = 3.7;
         $left = vsprintf('%s%s年寄附分', [
             $era->name,
-            static::num2str($year, true),
+            self::num2str($year, true),
         ]);
         $center = "市町村民税\n道府県民税";
         $right = '寄附金税額控除に係る申告特例申請書';
-        $this->pdf->SetFont('ipaexm', '', static::mm2pt($size));
+        $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
         list($leftWidth, ) = $this->calcTextSize($left);
         list($rightWidth, ) = $this->calcTextSize($right);
         $this->drawTextToBox(38, 16, 163.5, 24, $left, 'L', 'M', $size, $size);
@@ -316,7 +317,7 @@ final class Pdf extends Model
 
         $size = 3.2;
         $right = '寄附金税額控除に係る申告特例申請書受付書';
-        $this->pdf->SetFont('ipaexm', '', static::mm2pt($size));
+        $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
         list($leftWidth, ) = $this->calcTextSize($left);
         list($rightWidth, ) = $this->calcTextSize($right);
         $this->drawTextToBox(42, 229.2, 163, 240.8, $left, 'L', 'M', $size, $size);
@@ -346,7 +347,7 @@ final class Pdf extends Model
     private function drawBoldLines(): void
     {
         $this->pdf->SetLineStyle([
-            'width' => static::LINE_WIDTH_BOLD,
+            'width' => self::LINE_WIDTH_BOLD,
             'cap' => 'square',
             'join' => 'square',
             'dash' => 0,
@@ -365,7 +366,7 @@ final class Pdf extends Model
     private function drawRegularLines(): void
     {
         $this->pdf->SetLineStyle([
-            'width' => static::LINE_WIDTH_REGULAR,
+            'width' => self::LINE_WIDTH_REGULAR,
             'cap' => 'square',
             'join' => 'square',
             'dash' => 0,
@@ -423,7 +424,7 @@ final class Pdf extends Model
     private function drawThinLines(): void
     {
         $this->pdf->SetLineStyle([
-            'width' => static::LINE_WIDTH_THIN,
+            'width' => self::LINE_WIDTH_THIN,
             'cap' => 'square',
             'join' => 'square',
             'dash' => 0,
@@ -448,7 +449,7 @@ final class Pdf extends Model
     private function drawDottedLines(): void
     {
         $this->pdf->SetLineStyle([
-            'width' => static::LINE_WIDTH_REGULAR,
+            'width' => self::LINE_WIDTH_REGULAR,
             'cap' => 'square',
             'join' => 'square',
             'dash' => '1,2',
@@ -461,7 +462,7 @@ final class Pdf extends Model
     private function drawDashedLines(): void
     {
         $this->pdf->SetLineStyle([
-            'width' => static::LINE_WIDTH_REGULAR,
+            'width' => self::LINE_WIDTH_REGULAR,
             'cap' => 'square',
             'join' => 'square',
             'dash' => 2,
@@ -549,7 +550,7 @@ final class Pdf extends Model
             37,
             71.3,
             167,
-            static::A4_HEIGHT_MM,
+            self::A4_HEIGHT_MM,
             implode("\n", [
                 '　「個人番号」欄には、あなたの個人番号（行政手続における特定の個人を識別するための番号の利',
                 '用等に関する法律第２条第５項に規定する個人番号をいう。）を記載してください。',
@@ -588,7 +589,7 @@ final class Pdf extends Model
             38,
             154,
             167,
-            static::A4_HEIGHT_MM,
+            self::A4_HEIGHT_MM,
             implode("\n", [
                 '　申告の特例の適用を受けるための申請は、①及び②に該当する場合のみすることができます。',
                 '①及び②に該当する場合、それぞれ下の欄の□にチェックをしてください。',
@@ -613,7 +614,7 @@ final class Pdf extends Model
             38,
             173.5,
             167,
-            static::A4_HEIGHT_MM,
+            self::A4_HEIGHT_MM,
             implode("\n", [
                 '（注）　地方税法附則第７条第１項（第８項）に規定する申告特例対象寄附者とは、ⅰ及びⅱに該',
                 '　　　当すると見込まれる者をいいます。',
@@ -643,7 +644,7 @@ final class Pdf extends Model
             38,
             212,
             167,
-            static::A4_HEIGHT_MM,
+            self::A4_HEIGHT_MM,
             implode("\n", [
                 '（注）　地方税法附則第７条第２項（第９項）に規定する要件に該当する者とは、この申請を含め',
                 '　　　申告特例対象年の１月１日から12月31日の間に申告の特例の適用を受けるための申請を行う',
@@ -659,7 +660,7 @@ final class Pdf extends Model
             171,
             20.5,
             176,
-            static::A4_HEIGHT_MM,
+            self::A4_HEIGHT_MM,
             "第\n五\n十\n五\n号\nの\n五\n様\n式",
             'C',
             'T',
@@ -671,7 +672,7 @@ final class Pdf extends Model
             171,
             60,
             176,
-            static::A4_HEIGHT_MM,
+            self::A4_HEIGHT_MM,
             "︵\n附\n則\n第\n二\n条\nの\n四\n関\n係\n︶",
             'C',
             'T',
@@ -693,7 +694,7 @@ final class Pdf extends Model
         string $fontName = 'ipaexm'
     ): self {
         if ($maxFontSize <= 0.1) {
-            $maxFontSize = static::pt2mm(10.5);
+            $maxFontSize = self::pt2mm(10.5);
         }
 
         $left = (float)number_format($left, 2, '.', '');
@@ -704,7 +705,7 @@ final class Pdf extends Model
         $height = (float)number_format($bottom - $top, 2, '.', '');
         $this->pdf->SetFont($fontName, '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize, $minFontSize);
-        $this->pdf->SetFont($fontName, '', static::mm2pt($fontSize));
+        $this->pdf->SetFont($fontName, '', self::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($text);
         $this->pdf->SetXY(
             (function () use ($align, $left, $right, $width, $textWidth): float {
@@ -769,7 +770,7 @@ final class Pdf extends Model
             if ($fontSize <= $minFontSize || $fontSize <= 0) {
                 return $minFontSize;
             }
-            $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+            $this->pdf->SetFont('', '', self::mm2pt($fontSize));
             list($textWidth, $textHeight) = $this->calcTextSize($text);
             if ($textWidth <= $width && $textHeight <= $height) {
                 return $fontSize;

@@ -291,8 +291,10 @@ $thisYear = (int)date('Y', $now);
           ->hint('数字とハイフンで入力します') . "\n"
         ?>
         <?= $form->field($model, 'name')
-          ->textInput(['placeholder' => '例: 相沢　陽菜（省略可能）'])
-          ->hint('漢字の名前はあとで手書きしたほうがいいかもしれません') . "\n"
+          ->textInput(['placeholder' => '例: 相沢　陽菜']) . "\n"
+        ?>
+        <?= $form->field($model, 'sign')
+          ->checkbox() . "\n"
         ?>
         <?= $form->field($model, 'name_kana')
           ->textInput(['placeholder' => '例: アイザワ　ヒナ']) . "\n"

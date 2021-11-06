@@ -62,6 +62,8 @@ final class Pdf2016Form extends Model
     /** @var string */
     public $name_kana;
     /** @var string */
+    public $sign = '0';
+    /** @var string */
     public $sex;
     /** @var string|int */
     public $birth_year;
@@ -109,35 +111,43 @@ final class Pdf2016Form extends Model
     public function rules()
     {
         $allAttrs = [
-            'post_year',
-            'post_month',
-            'post_day',
-            'local_gov',
-            'kifu_year',
-            'kifu_month',
-            'kifu_day',
-            'kifu_amount',
-            'zipcode',
-            'pref_id',
-            'city',
             'address1',
             'address2',
-            'phone',
-            'name',
-            'name_kana',
-            'sex',
-            'birth_year',
-            'birth_month',
             'birth_day',
-            'individual_number',
+            'birth_month',
+            'birth_year',
             'checkbox1',
             'checkbox2',
+            'city',
+            'individual_number',
+            'kifu_amount',
+            'kifu_day',
+            'kifu_month',
+            'kifu_year',
+            'local_gov',
+            'name',
+            'name_kana',
+            'phone',
+            'post_day',
+            'post_month',
+            'post_year',
+            'pref_id',
+            'sex',
+            'sign',
+            'zipcode',
         ];
+        $trimAttrs = array_filter($allAttrs, function (string $v): bool {
+            return $v !== 'checkbox1' &&
+                $v !== 'checkbox2' &&
+                $v !== 'sign';
+        });
         $requiredAttrs = array_filter($allAttrs, function (string $v): bool {
-            return $v !== 'address2' && $v !== 'name' && $v !== 'individual_number';
+            return $v !== 'address2' &&
+                $v !== 'individual_number' &&
+                $v !== 'sign';
         });
         return [
-            [$allAttrs, 'trim'],
+            [$trimAttrs, 'trim'],
             [$requiredAttrs, 'required'],
             [['post_year', 'kifu_year', 'birth_year'], 'integer', 'min' => 1],
             [['post_month', 'kifu_month', 'birth_month'], 'integer', 'min' => 1, 'max' => 12],
@@ -157,6 +167,11 @@ final class Pdf2016Form extends Model
                     static::SEX_FEMALE
                 ],
             ],
+            [['checkbox1', 'checkbox2'], 'in',
+                'range' => ['1'],
+                'message' => 'この項目は必ずチェックが必要です。',
+            ],
+            [['sign'], 'boolean'],
             [['individual_number'], 'match', 'pattern' => '/^\d{12}$/'],
             [['individual_number'], MyNumberValidator::class],
         ];
@@ -166,29 +181,30 @@ final class Pdf2016Form extends Model
     public function attributeLabels()
     {
         return [
-            'post_year'     => '投函予定日（年）',
-            'post_month'    => '投函予定日（月）',
-            'post_day'      => '投函予定日（日）',
-            'local_gov'     => '寄付先自治体名',
-            'kifu_year'     => '寄付日（年）',
-            'kifu_month'    => '寄付日（月）',
-            'kifu_day'      => '寄付日（日）',
-            'kifu_amount'   => '寄付金額',
-            'zipcode'       => '郵便番号',
-            'pref_id'       => '都道府県',
-            'city'          => '市区町村',
-            'address1'      => '住所(1)',
-            'address2'      => '住所(2)',
-            'phone'         => '電話番号',
-            'name'          => '名前（漢字）',
-            'name_kana'     => '名前（カナ）',
-            'sex'           => '性別',
-            'birth_year'    => '誕生日（年）',
-            'birth_month'   => '誕生日（月）',
-            'birth_day'     => '誕生日（日）',
+            'address1' => '住所(1)',
+            'address2' => '住所(2)',
+            'birth_day' => '誕生日（日）',
+            'birth_month' => '誕生日（月）',
+            'birth_year' => '誕生日（年）',
+            'checkbox1' => '地方税法附則第７条第１項（第８項）に規定する申告特例対象寄附者である',
+            'checkbox2' => '地方税法附則第７条第２項（第９項）に規定する要件に該当する者である',
+            'city' => '市区町村',
             'individual_number' => 'マイナンバー（個人番号）',
-            'checkbox1'     => '地方税法附則第７条第１項（第８項）に規定する申告特例対象寄附者である',
-            'checkbox2'     => '地方税法附則第７条第２項（第９項）に規定する要件に該当する者である',
+            'kifu_amount' => '寄付金額',
+            'kifu_day' => '寄付日（日）',
+            'kifu_month' => '寄付日（月）',
+            'kifu_year' => '寄付日（年）',
+            'local_gov' => '寄付先自治体名',
+            'name' => '名前（漢字）',
+            'name_kana' => '名前（カナ）',
+            'phone' => '電話番号',
+            'post_day' => '投函予定日（日）',
+            'post_month' => '投函予定日（月）',
+            'post_year' => '投函予定日（年）',
+            'pref_id' => '都道府県',
+            'sex' => '性別',
+            'sign' => '名前を自署するため、空欄で出力する',
+            'zipcode' => '郵便番号',
         ];
     }
 
@@ -214,7 +230,7 @@ final class Pdf2016Form extends Model
                 $this->address2
             )
             ->setPhone($this->phone)
-            ->setName($this->name, $this->name_kana)
+            ->setName($this->name, $this->name_kana, $this->sign === '1')
             ->setIndividualNumber($this->individual_number)
             ->setSex($this->sex === static::SEX_MALE)
             ->setBirthday($birthday)
@@ -234,8 +250,8 @@ final class Pdf2016Form extends Model
         $yesterday = $today->sub(new DateInterval('P1D'));
         $birthday = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
             ->setTimestamp(mt_rand(
-                (int)floor(time() - 55 * 365.2422 * 86400),
-                (int)ceil(time() - 23 * 365.2422 * 86400)
+                (int)floor(time() - 55 * 365.2425 * 86400),
+                (int)ceil(time() - 23 * 365.2425 * 86400)
             ));
 
         $this->attributes = [
