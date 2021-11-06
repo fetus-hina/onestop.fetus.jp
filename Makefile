@@ -46,7 +46,7 @@ resources: $(RESOURCES)
 	npx sass $< | npx postcss --no-map --use autoprefixer --use cssnano -o $@
 
 %.js: %.es node_modules .browserslistrc
-	npx babel $< | npx uglifyjs --compress --mangle > $@
+	npx babel $< | npx terser -c -m -f ascii_only=true -o $@
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@

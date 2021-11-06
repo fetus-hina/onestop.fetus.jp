@@ -1,1 +1,1 @@
-"use strict";(e=>{e.fn.fakeData=function(){return this.click(function(){const t=e(this);var a=JSON.parse(e(t.data("data")).text());Object.entries(a).forEach(t=>{var[a,t]=t;const c=e(a);!0===t||!1===t?c.prop("checked",t):c.val(t)})}),this}})(jQuery);
+"use strict";(t=>{t.fn.fakeData=function(){return this.click((function(){const c=t(this),e=JSON.parse(t(c.data("data")).text());Object.entries(e).forEach((c=>{const[e,a]=c,n=t(e);!0===a||!1===a?n.prop("checked",a):n.val(a)}))})),this}})(jQuery);
