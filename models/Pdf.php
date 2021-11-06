@@ -11,7 +11,7 @@ use yii\base\Model;
 /**
  * @property-read string $binary
  */
-class Pdf extends Model
+final class Pdf extends Model
 {
     private const A4_WIDTH_MM = 210;
     private const A4_HEIGHT_MM = 297;
@@ -203,19 +203,23 @@ class Pdf extends Model
     public function setIndividualNumber(string $numbers): self
     {
         $numbers = mb_convert_kana($numbers, 'n', 'UTF-8');
-        for ($i = 0; $i < 12; ++$i) {
-            $this->drawTextToBox(
-                116.5 + 0.5 + (167 - 116.5) / 12 * $i,
-                50,
-                116.5 - 0.5 + (167 - 116.5) / 12 * ($i + 1),
-                56.5,
-                substr($numbers, $i, 1),
-                'C',
-                'M',
-                0.1,
-                10,
-                'ocrb_aizu_1_1'
-            );
+        $length = min(12, mb_strlen($numbers, 'UTF-8'));
+        for ($i = 0; $i < $length; ++$i) {
+            $number = mb_substr($numbers, $i, 1, 'UTF-8');
+            if (preg_match('/\A[0-9]\z/', $number)) {
+                $this->drawTextToBox(
+                    116.5 + 0.5 + (167 - 116.5) / 12 * $i,
+                    50,
+                    116.5 - 0.5 + (167 - 116.5) / 12 * ($i + 1),
+                    56.5,
+                    $number,
+                    'C',
+                    'M',
+                    0.1,
+                    10,
+                    'ocrb_aizu_1_1'
+                );
+            }
         }
         return $this;
     }
@@ -330,7 +334,6 @@ class Pdf extends Model
         $this->drawTextToBox(42, 229.2, 163, 240.8, $right, 'R', 'M', $size, $size);
     }
 
-    // drawLines {{{
     private function drawLines(): void
     {
         $this->drawBoldLines();
@@ -468,7 +471,6 @@ class Pdf extends Model
         $this->pdf->Line(38, 229.2, 80, 229.2);
         $this->pdf->Line(125, 229.2, 167, 229.2);
     }
-    // }}}
 
     private function drawLabels(): void
     {
@@ -690,7 +692,6 @@ class Pdf extends Model
         float $maxFontSize = 0,
         string $fontName = 'ipaexm'
     ): self {
-        // {{{
         if ($maxFontSize <= 0.1) {
             $maxFontSize = static::pt2mm(10.5);
         }
@@ -731,12 +732,10 @@ class Pdf extends Model
             0       // ln
         );
         return $this;
-        // }}}
     }
 
     private function calcTextSize(string $text): array
     {
-        // {{{
         $lines = explode("\n", $text);
         $this->pdf->SetXY(0, 0);
         return [
@@ -756,7 +755,6 @@ class Pdf extends Model
                 0.0
             ),
         ];
-        // }}}
     }
 
     private function calcFontSize(
@@ -766,7 +764,6 @@ class Pdf extends Model
         float $maxFontSize = 20.0,
         float $minFontSize = 0.1
     ): float {
-        // {{{
         for ($i = 0;; ++$i) {
             $fontSize = (float)number_format($maxFontSize - 0.1 * $i, 2, '.', '');
             if ($fontSize <= $minFontSize || $fontSize <= 0) {
@@ -779,7 +776,6 @@ class Pdf extends Model
             }
         }
         return $minFontSize;
-        // }}}
     }
 
     private static function mm2pt(float $mm): float

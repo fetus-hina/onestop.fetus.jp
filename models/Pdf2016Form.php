@@ -15,7 +15,7 @@ use yii\base\Model;
 /**
  * @property-read ?Prefecturer $prefecturer
  */
-class Pdf2016Form extends Model
+final class Pdf2016Form extends Model
 {
     public const SEX_MALE   = '1';
     public const SEX_FEMALE = '2';
@@ -134,7 +134,7 @@ class Pdf2016Form extends Model
             'checkbox2',
         ];
         $requiredAttrs = array_filter($allAttrs, function (string $v): bool {
-            return $v !== 'address2' && $v !== 'name';
+            return $v !== 'address2' && $v !== 'name' && $v !== 'individual_number';
         });
         return [
             [$allAttrs, 'trim'],

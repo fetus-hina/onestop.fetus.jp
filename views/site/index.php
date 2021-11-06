@@ -348,11 +348,31 @@ $thisYear = (int)date('Y', $now);
             </div>
           </div>
         </div>
-        <?= $form->field($model, 'individual_number')
-          ->textInput(['placeholder' => '123412341234'])
-          ->hint('数字のみを入力します。テスト用ダミー: <span id="dummy-mynumber"></span>') . "\n"
+        <?= $form->field($model, 'individual_number', [
+          'inputTemplate' => Html::tag(
+              'div',
+              implode('', [
+                '{input}',
+                Html::button(Html::encode('ランダム生成（確認用）'), [
+                  'id' => Html::getInputId($model, 'individual_number') . '--randombtn',
+                  'class' => 'btn btn-secondary',
+                  'disabled' => true,
+                ]),
+              ]),
+              ['class' => 'input-group']
+            ),
+          ])
+          ->textInput(['placeholder' => '123412341234（省略可）'])
+          ->hint('数字のみを入力します。このサイトの管理人に伝えないために省略できますが、必ず記入してから提出してください。') . "\n"
         ?>
-<?php $this->registerJs('$("#dummy-mynumber").dummyMyNumber();') ?>
+<?php $this->registerJs(vsprintf('$(%s).dummyMyNumber(%s);', [
+  Json::encode(vsprintf('#%s--randombtn', [
+    Html::getInputId($model, 'individual_number'),
+  ])),
+  Json::encode(vsprintf('#%s', [
+    Html::getInputId($model, 'individual_number'),
+  ])),
+])); ?>
       </fieldset>
     </div>
   </div>

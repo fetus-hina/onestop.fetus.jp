@@ -20,10 +20,11 @@
     return numbers + String(calcCheckDigit(numbers));
   };
 
-  $.fn.dummyMyNumber = function () {
-    this.each(function () {
-      $(this).text(makeDummyMyNumber());
-    });
-    return this;
+  $.fn.dummyMyNumber = function (selector) {
+    return this
+      .prop('disabled', false)
+      .click(() => {
+        $(selector).val(makeDummyMyNumber());
+      });
   };
 })(jQuery);
