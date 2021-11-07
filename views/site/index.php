@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
-use yii\bootstrap4\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
