@@ -2,6 +2,7 @@
 
 RESOURCES := \
 	web/css/site.css \
+	web/favicon.ico \
 	web/js/fakedata.js \
 	web/js/mynumber.js \
 	web/js/zipsearch.js
@@ -47,6 +48,9 @@ resources: $(RESOURCES)
 
 %.js: %.es node_modules .browserslistrc
 	npx babel $< | npx terser -c -m -f ascii_only=true -o $@
+
+web/favicon.ico:
+	curl -o $@ -fsSL https://fetus.jp/favicon.ico
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@
