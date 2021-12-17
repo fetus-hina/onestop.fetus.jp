@@ -22,7 +22,7 @@
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "autoprefixer": "^10.4.0",
-    "cssnano": "^5.0.12",
+    "cssnano": "^5.0.13",
     "patch-package": "^6.4.7",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
@@ -32,6 +32,6 @@
     "stylelint": "^14.1.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "terser": "^5.10.0",
-    "updates": "^12.2.2"
+    "updates": "^12.2.3"
   }
 }
