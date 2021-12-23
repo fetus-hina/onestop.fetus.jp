@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\helpers\Icon;
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
 use yii\bootstrap5\ActiveForm;
@@ -174,7 +175,7 @@ $thisYear = (int)date('Y', $now);
                   'id' => Html::getInputId($model, 'zipcode') . '--zipquerybtn',
                   'class' => 'btn btn-secondary',
                 ]),
-                Html::button(Html::tag('span', '', ['class' => 'far fa-question-circle']), [
+                Html::button(Icon::help(), [
                   'class' => 'btn btn-outline-secondary',
                   'data' => [
                     'bs-toggle' => 'modal',
@@ -226,7 +227,9 @@ $thisYear = (int)date('Y', $now);
                 なお、このサイトの運営者と、当該サービスの運用者には一切の関係はありません。
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                  <?= Icon::dismiss() ?> 閉じる
+                </button>
               </div>
             </div>
           </div>
@@ -251,7 +254,9 @@ $thisYear = (int)date('Y', $now);
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <?= Icon::dismiss() ?> 閉じる
+                </button>
               </div>
             </div>
           </div>
@@ -274,7 +279,9 @@ $thisYear = (int)date('Y', $now);
               <div class="modal-body">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                  <?= Icon::dismiss() ?> 閉じる
+                </button>
               </div>
             </div>
           </div>
@@ -420,9 +427,9 @@ $thisYear = (int)date('Y', $now);
 
   <div class="input-group">
     <button type="submit" class="btn btn-primary">
-      <span class="fas fa-fw fa-file-pdf"></span>
+      <?= Icon::filePdf() . "\n" ?>
       PDF作成
-      <span class="fas fa-fw fa-download"></span>
+      <?= Icon::download() . "\n" ?>
     </button>
   </div>
 

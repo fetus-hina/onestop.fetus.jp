@@ -5,10 +5,11 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">= 8.0",
-
     "jp3cki/mynumber": "^1.0.0",
+    "myclabs/php-enum": "^1.8",
     "php-curl-class/php-curl-class": "^9.4.0",
     "tecnickcom/tcpdf": "^6.4.2",
+    "twbs/bootstrap-icons": "^1.7",
     "yiisoft/yii2": "~2.0.43",
     "yiisoft/yii2-bootstrap5": "*"
   },

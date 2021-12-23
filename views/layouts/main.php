@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\AppAsset;
+use app\helpers\Icon;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -61,11 +62,11 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
             ),
             implode(' ', [
               Html::a(
-                Html::tag('span', '', ['class' => 'fab fa-twitter']),
+                Icon::twitter(),
                 'https://twitter.com/fetus_hina'
               ),
               Html::a(
-                Html::tag('span', '', ['class' => 'fab fa-github']),
+                Icon::github(),
                 'https://github.com/fetus-hina'
               ),
             ]),
