@@ -4,7 +4,7 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">= 7.4",
+    "php": ">= 8.0",
 
     "jp3cki/mynumber": "^1.0.0",
     "php-curl-class/php-curl-class": "^9.4.0",
@@ -43,7 +43,7 @@
   "config": {
     "process-timeout": 1800,
     "platform": {
-      "php": "7.4.22"
+      "php": "8.0.10"
     },
     "sort-packages": true
   },
