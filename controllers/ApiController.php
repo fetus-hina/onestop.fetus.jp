@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use Curl\Curl;
+use Exception;
 use Throwable;
 use Yii;
 use yii\base\DynamicModel;
@@ -113,7 +114,10 @@ class ApiController extends Controller
         }
 
         try {
-            return Json::decode($curl->rawResponse, true);
+            $result = Json::decode($curl->rawResponse, true);
+            return is_array($result)
+                ? $result
+                : throw new Exception('JSON decoded, but not expected value');
         } catch (Throwable $e) {
             return [
                 'message' => vsprintf('JSONデコードエラー: #%d, %s', [
