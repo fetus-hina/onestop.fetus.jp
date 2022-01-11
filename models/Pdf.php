@@ -45,6 +45,8 @@ final class Pdf extends Model
 
     public function getBinary(): string
     {
+        assert($this->pdf !== null);
+
         return $this->pdf->Output('', 'S');
     }
 
@@ -85,7 +87,7 @@ final class Pdf extends Model
             'ASKV',
             'UTF-8'
         );
-        $text = preg_replace_callback(
+        $text = (string)preg_replace_callback(
             '/[\x{ff10}-\x{ff19}]{2,}/u',
             function (array $match): string {
                 return mb_convert_kana($match[0], 'n', 'UTF-8');
@@ -117,7 +119,7 @@ final class Pdf extends Model
             'ASKV',
             'UTF-8'
         );
-        $text = preg_replace_callback(
+        $text = (string)preg_replace_callback(
             '/[\x{ff10}-\x{ff19}]{2,}/u',
             function (array $match): string {
                 return mb_convert_kana($match[0], 'n', 'UTF-8');
@@ -228,6 +230,8 @@ final class Pdf extends Model
 
     public function setSex(bool $isMale): self
     {
+        assert($this->pdf !== null);
+
         $size = 2.9;
         $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
         list($width,) = $this->calcTextSize('男');
@@ -278,6 +282,8 @@ final class Pdf extends Model
 
     private function renderHeading(DateTimeImmutable $date): void
     {
+        assert($this->pdf !== null);
+
         $size = 3.7;
         $left = ($year = $this->formatDate($date, true))
             ? sprintf('%s寄附分', $year)
@@ -332,6 +338,8 @@ final class Pdf extends Model
 
     private function drawBoldLines(): void
     {
+        assert($this->pdf !== null);
+
         $this->pdf->SetLineStyle([
             'width' => self::LINE_WIDTH_BOLD,
             'cap' => 'square',
@@ -351,6 +359,8 @@ final class Pdf extends Model
 
     private function drawRegularLines(): void
     {
+        assert($this->pdf !== null);
+
         $this->pdf->SetLineStyle([
             'width' => self::LINE_WIDTH_REGULAR,
             'cap' => 'square',
@@ -409,6 +419,8 @@ final class Pdf extends Model
 
     private function drawThinLines(): void
     {
+        assert($this->pdf !== null);
+
         $this->pdf->SetLineStyle([
             'width' => self::LINE_WIDTH_THIN,
             'cap' => 'square',
@@ -434,6 +446,8 @@ final class Pdf extends Model
 
     private function drawDottedLines(): void
     {
+        assert($this->pdf !== null);
+
         $this->pdf->SetLineStyle([
             'width' => self::LINE_WIDTH_REGULAR,
             'cap' => 'square',
@@ -447,6 +461,8 @@ final class Pdf extends Model
 
     private function drawDashedLines(): void
     {
+        assert($this->pdf !== null);
+
         $this->pdf->SetLineStyle([
             'width' => self::LINE_WIDTH_REGULAR,
             'cap' => 'square',
@@ -461,6 +477,8 @@ final class Pdf extends Model
 
     private function drawLabels(): void
     {
+        assert($this->pdf !== null);
+
         $this->pdf->SetTextColorArray($this->black);
 
         $size = 2.9;
@@ -679,6 +697,8 @@ final class Pdf extends Model
         float $maxFontSize = 0,
         string $fontName = 'ipaexm'
     ): self {
+        assert($this->pdf !== null);
+
         if ($maxFontSize <= 0.1) {
             $maxFontSize = self::pt2mm(10.5);
         }
@@ -723,12 +743,14 @@ final class Pdf extends Model
 
     private function calcTextSize(string $text): array
     {
+        assert($this->pdf !== null);
         $lines = explode("\n", $text);
         $this->pdf->SetXY(0, 0);
         return [
             // width
             max(array_map(
                 function (string $text): float {
+                    assert($this->pdf !== null);
                     return (float)$this->pdf->GetStringWidth($text);
                 },
                 $lines
@@ -737,6 +759,7 @@ final class Pdf extends Model
             array_reduce(
                 $lines,
                 function (float $carry, string $item): float {
+                    assert($this->pdf !== null);
                     return $carry + $this->pdf->GetStringHeight(0, $item, false, false);
                 },
                 0.0
@@ -751,6 +774,8 @@ final class Pdf extends Model
         float $maxFontSize = 20.0,
         float $minFontSize = 0.1
     ): float {
+        assert($this->pdf !== null);
+
         for ($i = 0;; ++$i) {
             $fontSize = (float)number_format($maxFontSize - 0.1 * $i, 2, '.', '');
             if ($fontSize <= $minFontSize || $fontSize <= 0) {

@@ -7,6 +7,7 @@ namespace app\models;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\validators\MyNumberValidator;
 use jp3cki\mynumber\MyNumber;
@@ -226,12 +227,16 @@ final class Pdf2016Form extends Model
             ->setDate((int)$this->kifu_year, (int)$this->kifu_month, (int)$this->kifu_day)
             ->setTime(0, 0, 0);
 
+        if (!$pref = $this->prefecturer) {
+            throw new Exception();
+        }
+
         $pdf = Yii::createObject(Pdf::class)
             ->setUseWesternYear($this->use_western_year === '1')
             ->setEnvelope($post, $this->local_gov)
             ->setAddress(
                 $this->zipcode,
-                $this->prefecturer,
+                $pref,
                 $this->city,
                 $this->address1,
                 $this->address2
