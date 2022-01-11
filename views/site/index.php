@@ -25,7 +25,7 @@ $sourceUrl = (Yii::$app->params['revision'] && Yii::$app->params['revision']['ha
   ])
   : 'https://github.com/fetus-hina/onestop.fetus.jp';
 
-$now = ((int)$_SERVER['REQUEST_TIME'] ?? time());
+$now = (int)$_SERVER['REQUEST_TIME'];
 $thisYear = (int)date('Y', $now);
 ?>
 <main>
