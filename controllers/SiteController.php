@@ -79,11 +79,11 @@ class SiteController extends Controller
                 continue;
             }
 
-            if (substr($k, 0, 8) === 'checkbox') {
+            if (substr((string)$k, 0, 8) === 'checkbox') {
                 $v = $v ? true : false;
             }
 
-            $fakeData['#' . Html::getInputId($fakeModel, $k)] = $v;
+            $fakeData['#' . Html::getInputId($fakeModel, (string)$k)] = $v;
         }
 
         return $this->render('index', [

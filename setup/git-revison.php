@@ -5,7 +5,7 @@ declare(strict_types=1);
 $data = getCurrentRevision();
 $data['{version}'] = getCurrentVersion($data['{hash}']);
 
-$template = trim(file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__));
+$template = trim((string)file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__));
 echo str_replace(array_keys($data), array_values($data), $template) . "\n";
 
 function getCurrentRevision(): array

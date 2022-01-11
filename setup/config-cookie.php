@@ -6,7 +6,7 @@ $random = base64_encode(random_bytes(24));
 $random = rtrim($random, '=');
 $random = strtr($random, '+/', '-_');
 
-$template = trim(file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__));
+$template = trim((string)file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__));
 
 echo str_replace('{random}', addslashes($random), $template) . "\n";
 

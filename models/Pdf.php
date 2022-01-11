@@ -729,7 +729,7 @@ final class Pdf extends Model
             // width
             max(array_map(
                 function (string $text): float {
-                    return $this->pdf->GetStringWidth($text);
+                    return (float)$this->pdf->GetStringWidth($text);
                 },
                 $lines
             )),
