@@ -7,12 +7,12 @@ namespace app\assets;
 use yii\bootstrap5\BootstrapAsset;
 use yii\bootstrap5\BootstrapPluginAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 use yii\web\YiiAsset;
 
-class AppAsset extends AssetBundle
+final class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@app/resources';
     public $css = [
         'css/site.css',
     ];
@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
+        JqueryAsset::class,
         YiiAsset::class,
     ];
 }

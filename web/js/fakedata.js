@@ -1,1 +1,0 @@
-"use strict";(t=>{t.fn.fakeData=function(e){return this.click((function(){const a=t(this);a.prop("disabled",!0),t.ajax("/api/fake-data").done((e=>{Object.entries(e).forEach((e=>{const[a,n]=e,c=t("#"+a);!0===n||!1===n?c.prop("checked",n):c.val(n)}))})).always((()=>{a.prop("disabled",!1);bootstrap.Modal.getInstance(document.getElementById(e)).hide()}))})),this}})(jQuery);

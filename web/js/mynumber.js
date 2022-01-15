@@ -1,1 +1,0 @@
-"use strict";(r=>{r.fn.dummyMyNumber=function(t){return this.prop("disabled",!1).click((()=>{r(t).val((()=>{let r="";for(let t=0;t<11;++t)r+=String(Math.floor(10*Math.random()));return r+String((r=>{let t=0;for(let e=1;e<=11;++e)t+=r[11-e]*(e<=6?e+1:e-5);return t%=11,t<=1?0:11-t})(r))})())}))}})(jQuery);

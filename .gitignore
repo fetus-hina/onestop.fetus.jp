@@ -10,6 +10,8 @@
 /models/Migration.php
 /node_modules
 /phpunit.xml
+/resources/*/*.css
+/resources/*/*.js
 /tests/_output/*
 /tests/_support/_generated
 /vendor

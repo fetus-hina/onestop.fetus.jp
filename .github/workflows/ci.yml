@@ -81,7 +81,7 @@ jobs:
 
       - name: 'Run semistandard'
         run: |
-          npx semistandard --global=jQuery --global=bootstrap 'web/**/*.es'
+          npx semistandard --global=jQuery --global=bootstrap 'resources/**/*.es'
 
   cssStyleCheck:
     name: 'CSS Coding Style'
@@ -91,7 +91,7 @@ jobs:
       - run: |
           node --version
           npm ci
-          npx stylelint "web/css/*.scss"
+          npx stylelint "resources/**/*.scss"
 
   phpTest:
     name: 'PHP test (PHP ${{ matrix.php_version }})'

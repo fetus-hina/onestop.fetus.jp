@@ -8,7 +8,7 @@
         .done(json => {
           Object.entries(json).forEach(kvPair => {
             const [selector, value] = kvPair;
-            const $input = $('#' + selector);
+            const $input = $(`#${selector}`);
             if (value === true || value === false) {
               $input.prop('checked', value);
             } else {
