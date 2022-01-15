@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9444080e698787bd7f5efd9d73c5c089",
+    "content-hash": "2accf06f31cbc390cf2511a0782f42d6",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -120,6 +120,60 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.14.0"
             },
             "time": "2021-12-25T01:21:49+00:00"
+        },
+        {
+            "name": "jp3cki/gimei",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/gimei-php.git",
+                "reference": "7a1a9714879d2ccb6c858535fbc6a1a0c1e2ae98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/gimei-php/zipball/7a1a9714879d2ccb6c858535fbc6a1a0c1e2ae98",
+                "reference": "7a1a9714879d2ccb6c858535fbc6a1a0c1e2ae98",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "^3.6.2",
+                "symfony/yaml": "^4.4.36"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\gimei\\": "src",
+                    "jp3cki\\gimei\\test\\": "test"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@fetus.jp"
+                },
+                {
+                    "name": "willnet"
+                }
+            ],
+            "description": "random Japanese name and address generator",
+            "keywords": [
+                "gimei"
+            ],
+            "support": {
+                "issues": "https://github.com/fetus-hina/gimei-php/issues",
+                "source": "https://github.com/fetus-hina/gimei-php/tree/v2.0.1"
+            },
+            "time": "2022-01-15T10:32:44+00:00"
         },
         {
             "name": "jp3cki/mynumber",
@@ -6294,7 +6348,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "8.0.10"
+        "php": "8.0.14"
     },
     "plugin-api-version": "2.1.0"
 }

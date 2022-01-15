@@ -5,6 +5,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">= 8.0",
+    "jp3cki/gimei": "^2.0.1",
     "jp3cki/mynumber": "^1.0.0",
     "myclabs/php-enum": "^1.8",
     "php-curl-class/php-curl-class": "^9.4.0",
@@ -43,7 +44,7 @@
   "config": {
     "process-timeout": 1800,
     "platform": {
-      "php": "8.0.10"
+      "php": "8.0.14"
     },
     "sort-packages": true
   },

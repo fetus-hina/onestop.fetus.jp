@@ -10,6 +10,7 @@ use DateTimeZone;
 use Exception;
 use Yii;
 use app\validators\MyNumberValidator;
+use jp3cki\gimei\Gimei;
 use jp3cki\mynumber\MyNumber;
 use yii\base\Model;
 
@@ -18,7 +19,7 @@ use yii\base\Model;
  */
 final class Pdf2016Form extends Model
 {
-    public const SEX_MALE   = '1';
+    public const SEX_MALE = '1';
     public const SEX_FEMALE = '2';
 
     // 投函年月日
@@ -260,38 +261,110 @@ final class Pdf2016Form extends Model
     {
         $today = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
         $yesterday = $today->sub(new DateInterval('P1D'));
+
+        $this->attributes = array_merge(
+            [
+                'post_year' => (int)$today->format('Y'),
+                'post_month' => (int)$today->format('n'),
+                'post_day' => (int)$today->format('j'),
+                'kifu_year' => (int)$yesterday->format('Y'),
+                'kifu_month' => (int)$yesterday->format('n'),
+                'kifu_day' => (int)$yesterday->format('j'),
+                'kifu_amount' => mt_rand(5, 50) * 1000,
+                'checkbox1' => '1',
+                'checkbox2' => '1',
+            ],
+            $this->generateFakeAddress(),
+            $this->generateFakeLocalGov(),
+            $this->generateFakePerson(),
+            $this->generateFakePhone(),
+        );
+
+        return $this;
+    }
+
+    /** @return array<string, int|string> */
+    private function generateFakeAddress(): array
+    {
+        $gimei = Gimei::generateAddress();
+
+        return [
+            'zipcode' => sprintf('%07d', random_int(0, 9999999)),
+            'pref_id' => random_int(1, 47),
+            'city' => $gimei->getCity()->getKanji(),
+            'address1' => mb_strlen($gimei->getTown()->getKanji(), 'UTF-8') > 4
+                ? vsprintf('%s%d-%d', [
+                    $gimei->getTown()->getKanji(),
+                    random_int(10, 9999),
+                    random_int(1, 9),
+                ])
+                : vsprintf('%s%d-%d-%d', [
+                    $gimei->getTown()->getKanji(),
+                    random_int(1, 9),
+                    random_int(1, 99),
+                    random_int(1, 99),
+                ]),
+            'address2' => '',
+        ];
+    }
+
+    /** @return array<string, string> */
+    private function generateFakeLocalGov(): array
+    {
+        for ($i = 0; $i < 10000; ++$i) {
+            // Gimei の生成する自治体名は色々混じっているので、
+            // 処理が確実で簡単になる「なんとか市」だけのアドレスを使用する
+            // 廿日市市とか四日市市とかは出ない
+            $city = Gimei::generateAddress()->getCity()->getKanji();
+            if (preg_match('/^[^市]+市$/u', $city)) {
+                return [
+                    'local_gov' => $city,
+                ];
+            }
+        }
+
+        // fallback
+        return [
+            'local_gov' => '寝屋川市',
+        ];
+    }
+
+    /** @return array<string, int|string> */
+    private function generateFakePerson(): array
+    {
+        $gimei = Gimei::generateName();
         $birthday = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
             ->setTimestamp(mt_rand(
                 (int)floor(time() - 55 * 365.2425 * 86400),
                 (int)ceil(time() - 23 * 365.2425 * 86400)
             ));
 
-        $this->attributes = [
-            'post_year' => (int)$today->format('Y'),
-            'post_month' => (int)$today->format('n'),
-            'post_day' => (int)$today->format('j'),
-            'local_gov' => '寝屋川市',
-            'kifu_year' => (int)$yesterday->format('Y'),
-            'kifu_month' => (int)$yesterday->format('n'),
-            'kifu_day' => (int)$yesterday->format('j'),
-            'kifu_amount' => mt_rand(5, 50) * 1000,
-            'zipcode' => '1000001',
-            'pref_id' => 13,
-            'city' => '千代田区',
-            'address1' => '千代田1-1',
-            'address2' => 'パレス皇居404',
-            'phone' => '090-1234-5678',
-            'name' => '相沢　陽菜',
-            'name_kana' => 'アイザワ　ヒナ',
-            'sex' => '2',
+        return [
             'birth_year' => (int)$birthday->format('Y'),
             'birth_month' => (int)$birthday->format('n'),
             'birth_day' => (int)$birthday->format('j'),
+            'name' => vsprintf('%s　%s', [
+                $gimei->getLastName()->getKanji(),
+                $gimei->getFirstName()->getKanji(),
+            ]),
+            'name_kana' => vsprintf('%s　%s', [
+                $gimei->getLastName()->getKatakana(),
+                $gimei->getFirstName()->getKatakana(),
+            ]),
+            'sex' => $gimei->isMale() ? '1' : '2',
             'individual_number' => MyNumber::generate(),
-            'checkbox1' => '1',
-            'checkbox2' => '1',
         ];
+    }
 
-        return $this;
+    /** @return array<string, string> */
+    private function generateFakePhone(): array
+    {
+        return [
+            'phone' => vsprintf('%s-%04d-%04d', [
+                ['070', '080', '090'][random_int(0, 2)],
+                random_int(0, 9999),
+                random_int(0, 9999),
+            ]),
+        ];
     }
 }
