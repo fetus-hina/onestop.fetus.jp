@@ -8,8 +8,10 @@ use Curl\Curl;
 use Exception;
 use Throwable;
 use Yii;
+use app\models\Pdf2016Form;
 use yii\base\DynamicModel;
 use yii\base\Model;
+use yii\bootstrap5\Html;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -32,10 +34,36 @@ class ApiController extends Controller
             [
                 'class' => VerbFilter::class,
                 'actions' => [
+                    'fake-data' => ['get'],
                     'postal-code' => ['get', 'post'],
                 ],
             ],
         ];
+    }
+
+    public function actionFakeData(): Response
+    {
+        $fakeModel = Yii::createObject(Pdf2016Form::class)->faker();
+        $fakeData = [];
+        foreach ($fakeModel->attributes as $k => $v) {
+            if ($k === 'sign' || $k === 'use_western_year') {
+                continue;
+            }
+
+            if (substr((string)$k, 0, 8) === 'checkbox') {
+                $v = $v ? true : false;
+            }
+
+            $fakeData[Html::getInputId($fakeModel, (string)$k)] = $v;
+        }
+
+        $resp = Yii::$app->response;
+        $resp->format = Response::FORMAT_JSON;
+        $resp->setStatusCode(200, 'OK');
+        $resp->headers->set('Content-Type', 'application/json; charset=UTF-8');
+        $resp->headers->set('Content-Language', 'ja');
+        $resp->data = $fakeData;
+        return $resp;
     }
 
     public function actionPostalCode(): Response
