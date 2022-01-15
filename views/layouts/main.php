@@ -44,11 +44,8 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
       </div>
     </header>
     <div class="container">
-      <h1>onestop.fetus.jp</h1>
-    </div>
-    <hr>
-    <div class="container">
-      <?= $content . "\n" ?>
+      <?= $this->render('//layouts/_navbar') . "\n" ?>
+      <?= Html::tag('main', $content) . "\n" ?>
     </div>
     <footer>
       <hr>

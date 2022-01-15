@@ -51,6 +51,8 @@ return (function (): array {
                 'enablePrettyUrl' => true,
                 'showScriptName' => false,
                 'rules' => [
+                    '' => 'site/index',
+                    '<action:\w+>' => 'site/<action>',
                 ],
             ],
         ],
