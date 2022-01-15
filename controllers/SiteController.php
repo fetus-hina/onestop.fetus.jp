@@ -8,7 +8,6 @@ use Yii;
 use app\models\Pdf2016Form;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\Response;
@@ -72,23 +71,8 @@ class SiteController extends Controller
             }
         }
 
-        $fakeModel = Yii::createObject(Pdf2016Form::class)->faker();
-        $fakeData = [];
-        foreach ($fakeModel->attributes as $k => $v) {
-            if ($k === 'sign' || $k === 'use_western_year') {
-                continue;
-            }
-
-            if (substr((string)$k, 0, 8) === 'checkbox') {
-                $v = $v ? true : false;
-            }
-
-            $fakeData['#' . Html::getInputId($fakeModel, (string)$k)] = $v;
-        }
-
         return $this->render('index', [
             'model' => $model,
-            'fake' => $fakeData,
         ]);
     }
 

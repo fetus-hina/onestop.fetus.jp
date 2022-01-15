@@ -14,12 +14,18 @@ use yii\web\View;
 
 final class Icon
 {
+    // check
     // dismiss
     // download
     // filePdf
     // github
     // help
     // twitter
+
+    public static function check(): string
+    {
+        return self::renderIcon(IconSource::BOOTSTRAP_ICONS, 'bi-check-lg');
+    }
 
     public static function dismiss(): string
     {

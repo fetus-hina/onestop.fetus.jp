@@ -13,7 +13,6 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array<string, string|int|bool|null> $fake
  * @var Form $model
  */
 
@@ -51,12 +50,59 @@ $thisYear = (int)date('Y', $now);
     出力されるPDFに記載される字形がどうしても受け入れられない場合、このサイトを使用せず、手書きで提出することをおすすめします。
   </p>
 
-  <script type="application/json" id="fake-data"><?= Json::encode($fake) ?></script>
   <div class="text-end mb-3">
-    <button type="button" class="btn btn-secondary" id="use-fake-data" data-data="#fake-data">
-      サンプルデータ
-    </button>
-<?php $this->registerJs('$("#use-fake-data").fakeData();') ?>
+    <?= Html::tag('button', 'サンプルデータ', [
+      'class' => ['btn', 'btn-secondary'],
+      'data' => [
+        'bs-target' => '#fake-data-modal',
+        'bs-toggle' => 'modal',
+      ],
+      'type' => 'button',
+    ]) . "\n" ?>
+    <?= Html::beginTag('div', [
+      'aria' => [
+        'hidden' => 'true',
+        'labelledby' => 'fake-data-modal-title',
+      ],
+      'class' => [
+        'fade',
+        'modal',
+        'text-start',
+      ],
+      'id' => 'fake-data-modal',
+      'tabindex' => '-1',
+    ]) . "\n" ?>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title" id="fake-data-modal-title">
+              サンプルデータの適用
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              全ての入力データを破棄して、ランダム生成のダミーデータを自動入力します。
+            </p>
+            <p>
+              存在しない郵便番号、電話番号、住所、マイナンバーが生成されます（存在するものになる可能性もあります）。
+            </p>
+            <p class="mb-0">
+              このデータは作成イメージ確認用であり、実際の提出に使用することはできません。
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              <?= Icon::dismiss() ?> キャンセル
+            </button>
+            <button type="button" class="btn btn-primary" id="use-fake-data">
+              <?= Icon::check() ?> OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+<?php $this->registerJs('$("#use-fake-data").fakeData("fake-data-modal");') ?>
   </div>
 
   <?php $form = ActiveForm::begin(); echo "\n"; ?>
