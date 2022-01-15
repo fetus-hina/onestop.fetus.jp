@@ -36,14 +36,20 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); echo "\n"; ?>
   </head>
-  <body>
+  <?= Html::beginTag('body', [
+    'class' => [
+      'd-flex',
+      'flex-column',
+      'h-100',
+    ],
+  ]) . "\n" ?>
 <?php $this->beginBody() ?>
     <header class="mb-3">
       <div class="container">
         <h1><a href="https://fetus.jp/">fetus</a></h1>
       </div>
     </header>
-    <div class="container">
+    <div class="container flex-grow-1">
       <?= $this->render('//layouts/_navbar') . "\n" ?>
       <?= Html::tag('main', $content) . "\n" ?>
     </div>
