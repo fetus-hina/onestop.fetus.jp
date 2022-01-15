@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use yii\bootstrap5\BootstrapAsset;
 use yii\bootstrap5\BootstrapPluginAsset;
+use yii\helpers\ArrayHelper;
 use yii\web\AssetManager;
 use yii\web\JqueryAsset;
 
@@ -27,4 +28,20 @@ return [
             ],
         ],
     ],
+    'hashCallback' => function (string $path): string {
+        $pathParts = [];
+
+        $revision = ArrayHelper::getValue(Yii::$app->params, 'revision.short', null);
+        if (is_string($revision) && preg_match('/^[0-9a-f]+$/i', $revision)) {
+            $pathParts[] = strtolower($revision);
+        }
+
+        $pathParts[] = substr(
+            hash('sha256', is_file($path) ? dirname($path) : $path),
+            0,
+            8,
+        );
+
+        return implode('/', $pathParts);
+    },
 ];
