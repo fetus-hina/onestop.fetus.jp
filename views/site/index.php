@@ -29,7 +29,7 @@ $now = (int)$_SERVER['REQUEST_TIME'];
 $thisYear = (int)date('Y', $now);
 ?>
 <main>
-  <h1 class="sr-only">
+  <h1 class="visually-hidden">
     <span class="font-script"><?= Html::encode(Yii::$app->name); ?></span>
   </h1>
   <p>
