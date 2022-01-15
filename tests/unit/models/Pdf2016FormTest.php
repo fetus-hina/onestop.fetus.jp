@@ -23,7 +23,6 @@ class Pdf2016FormTest extends Unit
 
         $pref = $model->prefecturer;
         $this->assertInstanceOf(Prefecturer::class, $pref);
-        $this->assertEquals('東京都', $pref->name);
     }
 
     public function testValidate(): void
