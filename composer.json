@@ -42,9 +42,13 @@
     "npm-asset/bootstrap": "*"
   },
   "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "yiisoft/yii2-composer": true
+    },
     "process-timeout": 1800,
     "platform": {
-      "php": "8.0.14"
+      "php": "8.0.15"
     },
     "sort-packages": true
   },

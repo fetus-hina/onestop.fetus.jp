@@ -21,7 +21,11 @@ setup-db: composer.phar config-files vendor
 	./yii migrate/up --interactive=0
 
 composer.phar:
+ifeq (, $(shell which composer 2>/dev/null))
 	curl -fsSL 'https://getcomposer.org/installer' | php -- --stable
+else
+	ln -s `which composer` $@
+endif
 
 vendor: composer.lock composer.phar
 	php composer.phar install --prefer-dist
