@@ -54,8 +54,7 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
       <?= Html::tag('main', $content) . "\n" ?>
     </div>
     <footer>
-      <hr>
-      <div class="container text-end pb-3">
+      <div class="container">
         <?= implode('<br>', array_filter([
           vsprintf('Copyright &copy; 2017-%d %s %s', [
             (int)$now->format('Y'),
