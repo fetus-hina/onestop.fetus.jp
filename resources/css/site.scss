@@ -6,11 +6,3 @@ html,
 body {
   height: 100%;
 }
-
-.nobr {
-  white-space: nowrap;
-}
-
-.form-control::placeholder {
-  color: rgb(200, 190, 186) !important;
-}
