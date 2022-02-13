@@ -1,7 +1,6 @@
 .PHONY: all config-files setup setup-db resources clean
 
 RESOURCES := \
-	resources/css/site.css \
 	resources/js/fakedata.js \
 	resources/js/mynumber.js \
 	resources/js/zipsearch.js \
@@ -47,9 +46,6 @@ clean:
 .PHONY: resources
 resources: $(RESOURCES)
 
-%.css: %.scss node_modules .browserslistrc
-	npx sass $< | npx postcss --no-map --use autoprefixer --use cssnano -o $@
-
 %.js: %.es node_modules .browserslistrc
 	npx babel $< | npx terser -c -m -f ascii_only=true -o $@
 
@@ -64,7 +60,7 @@ config/git-revision.php:
 	php setup/git-revison.php > $@
 
 .PHONY: check-style
-check-style: check-style-php check-style-js check-style-css
+check-style: check-style-php check-style-js
 
 .PHONY: check-style-php
 check-style-php: check-style-phpcs check-style-phpstan
@@ -80,10 +76,6 @@ check-style-phpstan: config-files vendor
 .PHONY: check-style-js
 check-style-js: node_modules
 	npx semistandard --global=jQuery --global=bootstrap 'resources/**/*.es'
-
-.PHONY: check-style-css
-check-style-css: node_modules
-	npx stylelint 'resources/**/*.scss'
 
 .PHONY: test
 test: composer.phar config-files vendor node_modules resources

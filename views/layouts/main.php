@@ -18,7 +18,10 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<?= Html::beginTag('html', ['lang' => Yii::$app->language]) . "\n" ?>
+<?= Html::beginTag('html', [
+  'class' => 'h-100',
+  'lang' => Yii::$app->language,
+]) . "\n" ?>
   <head>
     <?= Html::tag('meta', '', ['charset' => Yii::$app->charset]) . "\n" ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">

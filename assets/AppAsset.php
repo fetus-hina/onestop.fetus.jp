@@ -14,7 +14,6 @@ final class AppAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources';
     public $css = [
-        'css/site.css',
     ];
     public $js = [
         'js/fakedata.js',

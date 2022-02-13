@@ -83,16 +83,6 @@ jobs:
         run: |
           npx semistandard --global=jQuery --global=bootstrap 'resources/**/*.es'
 
-  cssStyleCheck:
-    name: 'CSS Coding Style'
-    runs-on: 'ubuntu-20.04'
-    steps:
-      - uses: 'actions/checkout@v2'
-      - run: |
-          node --version
-          npm ci
-          npx stylelint "resources/**/*.scss"
-
   phpTest:
     name: 'PHP test (PHP ${{ matrix.php_version }})'
     strategy:
