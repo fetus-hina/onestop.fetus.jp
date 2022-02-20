@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\AppAsset;
 use app\helpers\Icon;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -14,7 +15,29 @@ use yii\web\View;
 
 AppAsset::register($this);
 
+$this->registerLinkTag([
+  'href' => Url::to('@web/favicon/favicon.svg'),
+  'rel' => 'icon',
+  'sizes' => 'any',
+  'type' => 'image/svg+xml',
+]);
+
+foreach ([57, 60, 72, 76, 114, 120, 144, 152, 180] as $size) {
+  $this->registerLinkTag([
+    'href' => Url::to("@web/favicon/apple-touch-icon-{$size}.png"),
+    'rel' => 'apple-touch-icon',
+    'sizes' => "{$size}x{$size}",
+    'type' => 'image/png',
+  ]);
+}
+
+$this->registerMetaTag([
+  'name' => 'viewport',
+  'content' => 'width=device-width,initial-scale=1',
+]);
+
 $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -24,17 +47,6 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
 ]) . "\n" ?>
   <head>
     <?= Html::tag('meta', '', ['charset' => Yii::$app->charset]) . "\n" ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="image/svg+xml" href="https://fetus.jp/images/favicon.svg" rel="icon" sizes="any">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-57.png" rel="apple-touch-icon" sizes="57x57">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-60.png" rel="apple-touch-icon" sizes="60x60">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-72.png" rel="apple-touch-icon" sizes="72x72">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-76.png" rel="apple-touch-icon" sizes="76x76">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-114.png" rel="apple-touch-icon" sizes="114x114">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-120.png" rel="apple-touch-icon" sizes="120x120">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-144.png" rel="apple-touch-icon" sizes="144x144">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-152.png" rel="apple-touch-icon" sizes="152x152">
-    <link type="image/png" href="https://fetus.jp/images/apple-touch-icon-180.png" rel="apple-touch-icon" sizes="180x180">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); echo "\n"; ?>

@@ -4,6 +4,7 @@ RESOURCES := \
 	resources/js/fakedata.js \
 	resources/js/mynumber.js \
 	resources/js/zipsearch.js \
+	web/favicon \
 	web/favicon.ico
 
 .PHONY: all
@@ -49,8 +50,11 @@ resources: $(RESOURCES)
 %.js: %.es node_modules .browserslistrc
 	npx babel $< | npx terser -c -m -f ascii_only=true -o $@
 
-web/favicon.ico:
-	curl -o $@ -fsSL https://fetus.jp/favicon.ico
+web/favicon: node_modules
+	ln -s ../node_modules/@fetus-hina/fetus.css/dist/favicon $@
+
+web/favicon.ico: web/favicon
+	ln -s favicon/favicon.ico $@
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@
