@@ -13,14 +13,13 @@ use yii\web\YiiAsset;
 final class AppAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources';
-    public $css = [
-    ];
     public $js = [
         'js/fakedata.js',
         'js/mynumber.js',
         'js/zipsearch.js',
     ];
     public $depends = [
+        BackToTopAsset::class,
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
         JqueryAsset::class,

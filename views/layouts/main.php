@@ -41,6 +41,7 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
   </head>
   <?= Html::beginTag('body', [
     'class' => [
+      'back-to-top-auto',
       'd-flex',
       'flex-column',
       'h-100',
