@@ -24,7 +24,7 @@ composer.phar:
 ifeq (, $(shell which composer 2>/dev/null))
 	curl -fsSL 'https://getcomposer.org/installer' | php -- --stable
 else
-	ln -s `which composer` $@
+	ln -sf `which composer` $@
 endif
 
 vendor: composer.lock composer.phar
@@ -51,10 +51,12 @@ resources: $(RESOURCES)
 	npx babel $< | npx terser -c -m -f ascii_only=true -o $@
 
 web/favicon: node_modules
-	ln -s ../node_modules/@fetus-hina/fetus.css/dist/favicon $@
+	ln -sf ../node_modules/@fetus-hina/fetus.css/dist/favicon $@
+	@touch $@
 
 web/favicon.ico: web/favicon
-	ln -s favicon/favicon.ico $@
+	ln -sf favicon/favicon.ico $@
+	@touch $@
 
 config/cookie-secret.php:
 	php setup/config-cookie.php > $@
