@@ -81,7 +81,7 @@ check-style-phpstan: config-files vendor
 
 .PHONY: check-style-js
 check-style-js: node_modules
-	npx semistandard --global=jQuery --global=bootstrap 'resources/**/*.es'
+	npx semistandard 'resources/**/*.es'
 
 .PHONY: test
 test: composer.phar config-files vendor node_modules resources
