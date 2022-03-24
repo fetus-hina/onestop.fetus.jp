@@ -12,9 +12,18 @@ if (!YII_ENV_PROD) {
 }
 
 Yii::$container->set(ActiveField::class, [
+    'errorOptions' => [
+        'class' => 'invalid-feedback smoothing',
+    ],
+    'labelOptions' => [
+      'class' => [
+        'smoothing',
+      ],
+    ],
     'hintOptions' => [
         'class' => [
             'widget' => 'form-text',
+            'smoothing',
             'text-muted'
         ],
         'tag' => 'div',
