@@ -17,7 +17,6 @@ NavBar::begin([
       'px-3',
       'rounded',
       'shadow',
-      'smoothing',
     ],
   ],
 ]);
@@ -26,9 +25,6 @@ echo Nav::widget([
     [
       'label' => 'トップ',
       'url' => ['site/index'],
-      'options' => [
-        'class' => 'smoothing',
-      ],
     ],
   ],
   'options' => [
@@ -42,9 +38,6 @@ echo Nav::widget([
     [
       'label' => 'fetus.jp',
       'url' => 'https://fetus.jp/',
-      'options' => [
-        'class' => 'smoothing',
-      ],
     ],
   ],
   'options' => [

@@ -31,12 +31,12 @@ $thisYear = (int)date('Y', $now);
   <h1 class="visually-hidden">
     <span class="font-script"><?= Html::encode(Yii::$app->name); ?></span>
   </h1>
-  <p class="smoothing">
+  <p>
     ふるさと納税ワンストップ特例申請書をそれなりに埋めたPDFを生成するだけのサイトです。<br>
     ここで入力した情報は一切保存されていません（<?= Html::a('ソースコード', $sourceUrl, ['rel' => 'external noopener', 'target' => '_blank']) ?>）。<br>
     一文字でも手書きを減らしたい自分のためのフォームなので細かいことはあまり考えてないです。
   </p>
-  <p class="smoothing">
+  <p>
     出力されるPDFに記載される字形は、あなたの求めるものではないかもしれません。<br>
     （たとえば「しんにょう」の点の数、「茨」「葛」「芦」などの字形）<br>
     おそらく、<?= Html::a(
@@ -53,7 +53,7 @@ $thisYear = (int)date('Y', $now);
   <div class="text-end mb-3">
     <?= Html::tag(
       'button',
-      Html::tag('span', Html::encode('サンプルデータ'), ['class' => 'd-inline-block smoothing']),
+      Html::encode('サンプルデータ'),
       [
         'class' => [
           'btn',
@@ -88,13 +88,13 @@ $thisYear = (int)date('Y', $now);
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p class="smoothing">
+            <p>
               全ての入力データを破棄して、ランダム生成のダミーデータを自動入力します。
             </p>
-            <p class="smoothing">
+            <p>
               存在しない郵便番号、電話番号、住所、マイナンバーが生成されます（存在するものになる可能性もあります）。
             </p>
-            <p class="smoothing mb-0">
+            <p class="mb-0">
               このデータは作成イメージ確認用であり、実際の提出に使用することはできません。
             </p>
           </div>
@@ -102,7 +102,7 @@ $thisYear = (int)date('Y', $now);
             <?= Html::button(
               implode(' ', [
                 Icon::dismiss(),
-                Html::tag('span', Html::encode('キャンセル'), ['class' => 'd-inline-block smoothing']),
+                Html::encode('キャンセル'),
               ]),
               [
                 'class' => [
@@ -118,7 +118,7 @@ $thisYear = (int)date('Y', $now);
             <?= Html::button(
               implode(' ', [
                 Icon::check(),
-                Html::tag('span', Html::encode('OK'), ['class' => 'd-inline-block smoothing']),
+                Html::encode('OK'),
               ]),
               [
                 'class' => [
@@ -142,7 +142,7 @@ $thisYear = (int)date('Y', $now);
     <div class="card-body">
       <fieldset>
         <legend>エンベロープ</legend>
-        <label class="form-label smoothing" for="dummy">投函予定日</label><br>
+        <label class="form-label" for="dummy">投函予定日</label><br>
         <div class="row row-cols-sm-auto" style="--bs-gutter-x:0.5rem">
           <div class="col-12">
             <?= $form->field($model, 'post_year')
@@ -188,7 +188,7 @@ $thisYear = (int)date('Y', $now);
     <div class="card-body">
       <fieldset>
         <legend>寄付に関する情報</legend>
-        <label class="form-label smoothing" for="dummy">寄付年月日</label><br>
+        <label class="form-label" for="dummy">寄付年月日</label><br>
         <div class="row row-cols-sm-auto" style="--bs-gutter-x:0.5rem">
           <div class="col-12">
             <?= $form->field($model, 'kifu_year')
@@ -295,21 +295,19 @@ $thisYear = (int)date('Y', $now);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <div class="smoothing">
-                  郵便番号に対応する住所を取得するため、<strong>株式会社アイビスの提供する<a href="http://zipcloud.ibsnet.co.jp/doc/api" target="_blank">検索API</a>を利用しています。</strong><br>
-                  <br>
-                  住所入力ボタンを押すと、このサイトのサーバを経由して問い合わせが行われます。<br>
-                  当該サーバへは郵便番号のみが送信されますので、あなたの個人情報としての「価値」は低い状態になっているはずですが、その郵便番号の人がこのサービス（<?= Html::encode(Yii::$app->name) ?>）を利用していることは伝わります。<br>
-                  住所入力ボタンを押した場合、あなたはこの内容を理解しているものとみなします。<br>
-                  <br>
-                  なお、このサイトの運営者と、当該サービスの運用者には一切の関係はありません。
-                </div>
+                郵便番号に対応する住所を取得するため、<strong>株式会社アイビスの提供する<a href="http://zipcloud.ibsnet.co.jp/doc/api" target="_blank">検索API</a>を利用しています。</strong><br>
+                <br>
+                住所入力ボタンを押すと、このサイトのサーバを経由して問い合わせが行われます。<br>
+                当該サーバへは郵便番号のみが送信されますので、あなたの個人情報としての「価値」は低い状態になっているはずですが、その郵便番号の人がこのサービス（<?= Html::encode(Yii::$app->name) ?>）を利用していることは伝わります。<br>
+                住所入力ボタンを押した場合、あなたはこの内容を理解しているものとみなします。<br>
+                <br>
+                なお、このサイトの運営者と、当該サービスの運用者には一切の関係はありません。
               </div>
               <div class="modal-footer">
                 <?= Html::button(
                   implode(' ', [
                     Icon::dismiss(),
-                    Html::tag('span', Html::encode('閉じる'), ['class' => 'd-inline-block smoothing']),
+                    Html::encode('閉じる'),
                   ]),
                   [
                     'class' => 'btn btn-primary',
@@ -346,7 +344,7 @@ $thisYear = (int)date('Y', $now);
                 <?= Html::button(
                   implode(' ', [
                     Icon::dismiss(),
-                    Html::tag('span', Html::encode('閉じる'), ['class' => 'd-inline-block smoothing']),
+                    Html::encode('閉じる'),
                   ]),
                   [
                     'class' => 'btn btn-secondary',
@@ -381,7 +379,7 @@ $thisYear = (int)date('Y', $now);
                 <?= Html::button(
                   implode(' ', [
                     Icon::dismiss(),
-                    Html::tag('span', Html::encode('閉じる'), ['class' => 'd-inline-block smoothing']),
+                    Html::encode('閉じる'),
                   ]),
                   [
                     'class' => 'btn btn-outline-danger',
@@ -439,7 +437,7 @@ $thisYear = (int)date('Y', $now);
           ->hint('その他の性の人は自治体に問い合わせてください') . "\n"
         ?>
         <div class="form-group mb-3">
-          <label class="form-label smoothing" for="dummy">生年月日</label><br>
+          <label class="form-label" for="dummy">生年月日</label><br>
           <div class="row row-cols-sm-auto" style="--bs-gutter-x:0.5rem">
             <div class="col-12">
               <?= $form->field($model, 'birth_year')
@@ -485,7 +483,7 @@ $thisYear = (int)date('Y', $now);
               implode('', [
                 '{input}',
                 Html::button(
-                  Html::tag('span', Html::encode('ランダム生成（確認用）'), ['class' => 'd-inline-block smoothing']),
+                  Html::encode('ランダム生成（確認用）'),
                   [
                     'class' => [
                       'btn',
