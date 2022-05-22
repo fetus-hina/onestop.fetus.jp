@@ -1,148 +1,145 @@
----
-name: 'CI'
-on:
-  - 'push'
+name: CI
+'on':
+  - push
 jobs:
   phpSyntaxCheck:
     name: 'Syntax Check (PHP ${{ matrix.php.version }})'
     strategy:
       matrix:
         php:
-          - version: '8.0'
+          -
+            version: '8.0'
             experimental: false
-
-          - version: '8.1'
+          -
+            version: '8.1'
             experimental: false
-
-          - version: '8.2'
+          -
+            version: '8.2'
             experimental: true
-
-    runs-on: 'ubuntu-20.04'
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v2'
-
-      - name: 'Set up PHP ${{ matrix.php.version }}'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        uses: actions/checkout@v2
+      -
+        name: 'Set up PHP ${{ matrix.php.version }}'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
-
-      - name: 'Syntax Check'
+      -
+        name: 'Syntax Check'
         continue-on-error: '${{ matrix.php.experimental }}'
         env:
-          LANG: 'C'
+          LANG: C
         run: |
           find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
             | sort \
             | xargs -n 1 php -l
-
   makeComposerCache:
     name: 'Make composer cache'
-    runs-on: 'ubuntu-20.04'
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v2'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v2
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
           restore-keys: |
             ${{ runner.os }}-composer-
-
-      - name: 'Use PHP 8.0'
+      -
+        name: 'Use PHP 8.0'
         run: 'sudo update-alternatives --set php /usr/bin/php8.0'
-
-      - name: 'Install Composer dependencies'
+      -
+        name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
-
   phpStyleCheck:
     name: 'PHP Coding Style'
-    runs-on: 'ubuntu-20.04'
+    runs-on: ubuntu-20.04
     needs:
-      - 'makeComposerCache'
+      - makeComposerCache
     steps:
-      - uses: 'actions/checkout@v2'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v2
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-
-      - name: 'Use PHP 8.0'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        name: 'Use PHP 8.0'
         run: 'sudo update-alternatives --set php /usr/bin/php8.0'
-
-      - name: 'Install Composer dependencies'
+      -
+        name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
-
-      - name: 'Create config-files'
+      -
+        name: 'Create config-files'
         run: 'make -j config-files'
-
-      - name: 'Run PHPCS'
-        run: './vendor/bin/phpcs'
-
-      - name: 'Run PHPStan (Errors ignored)'
+      -
+        name: 'Run PHPCS'
+        run: ./vendor/bin/phpcs
+      -
+        name: 'Run PHPStan (Errors ignored)'
         run: './vendor/bin/phpstan analyze --memory-limit=1G || true'
-
   jsStyleCheck:
     name: 'JS Coding Style'
-    runs-on: 'ubuntu-20.04'
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v2'
-
-      - name: 'Install NPM packages'
+      -
+        uses: actions/checkout@v2
+      -
+        name: 'Install NPM packages'
         run: |
           npm ci
-
-      - name: 'Run semistandard'
+      -
+        name: 'Run semistandard'
         run: |
           npx semistandard --global=jQuery --global=bootstrap 'resources/**/*.es'
-
   phpTest:
     name: 'PHP test (PHP ${{ matrix.php.version }})'
-
     strategy:
       matrix:
         php:
-          - version: '8.0'
+          -
+            version: '8.0'
             experimental: false
-
-          - version: '8.1'
+          -
+            version: '8.1'
             experimental: false
-
-          - version: '8.2'
+          -
+            version: '8.2'
             experimental: true
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     needs:
-      - 'makeComposerCache'
-
+      - makeComposerCache
     steps:
-      - uses: 'actions/checkout@v2'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v2
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-
-      - name: 'Set up PHP ${{ matrix.php.version }}'
-        uses: 'shivammathur/setup-php@v2'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        name: 'Set up PHP ${{ matrix.php.version }}'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
-
-      - name: 'Set up application'
+      -
+        name: 'Set up application'
         run: |
           ln -s `which composer` composer.phar
           make config-files vendor
-
-      - name: 'Set up (migrate) database'
+      -
+        name: 'Set up (migrate) database'
         run: 'tests/bin/yii migrate/fresh --compact=1 --interactive=0'
-
-      - name: 'Run unit test'
+      -
+        name: 'Run unit test'
         run: 'vendor/bin/codecept run unit'
         continue-on-error: '${{ matrix.php.experimental }}'
