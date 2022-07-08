@@ -48,7 +48,7 @@
     },
     "process-timeout": 1800,
     "platform": {
-      "php": "8.0.20"
+      "php": "8.0.21"
     },
     "sort-packages": true
   },
