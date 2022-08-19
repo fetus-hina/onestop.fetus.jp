@@ -24,11 +24,12 @@ class MyNumberValidator extends Validator
     {
         $value = $model->$attribute;
         if (!is_scalar($value)) {
-            $this->addError($model, $attribute, $this->message);
+            $this->addError($model, $attribute, (string)$this->message);
             return;
         }
+
         if (!MyNumber::isValid($value)) {
-            $this->addError($model, $attribute, $this->message);
+            $this->addError($model, $attribute, (string)$this->message);
             return;
         }
     }
