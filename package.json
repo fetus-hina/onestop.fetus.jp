@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.0",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.2.1",
     "inputmask": "^5.0.7",
     "jquery": "^3.6.1",
     "punycode": "^2.1.1",
@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.19.0",
-    "@babel/preset-env": "^7.19.0",
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
     "semistandard": "^16.0.1",
     "terser": "^5.15.0",
     "updates": "^13.1.5"
