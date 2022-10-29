@@ -6,7 +6,7 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.0",
+    "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.3",
     "bootstrap": "^5.2.2",
     "inputmask": "^5.0.7",
     "jquery": "^3.6.1",
@@ -15,11 +15,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.3",
+    "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
     "semistandard": "^16.0.1",
     "terser": "^5.15.1",
-    "updates": "^13.1.8"
+    "updates": "^13.1.13"
   },
   "semistandard": {
     "envs": {
