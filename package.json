@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.20.2",
     "semistandard": "^16.0.1",
     "terser": "^5.15.1",
-    "updates": "^13.1.13"
+    "updates": "^13.2.1"
   },
   "semistandard": {
     "envs": {
