@@ -86,12 +86,7 @@ check-style-js: node_modules
 .PHONY: test
 test: composer.phar config-files vendor node_modules resources
 	./tests/bin/yii migrate/fresh --interactive=0 --compact=1
-	/usr/bin/env XDEBUG_MODE=coverage \
-		./vendor/bin/codecept run unit \
-			--coverage \
-			--coverage-html=./web/coverage/ \
-			--coverage-text=./runtime/coverage/coverage.txt \
-			--coverage-xml=./runtime/coverage/coverage.xml
+	./vendor/bin/codecept run unit
 
 .browserslistrc:
 	curl -fsSL -o $@ 'https://raw.githubusercontent.com/twbs/bootstrap/v5.1.0/.browserslistrc'
