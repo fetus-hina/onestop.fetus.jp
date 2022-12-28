@@ -345,16 +345,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.12.4",
+            "version": "9.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "a0c5980cbc81cad521bb1fa410b714b64e15bd6a"
+                "reference": "ac45a3d212e56c52cdeb81ceece47d0fd69f9abf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/a0c5980cbc81cad521bb1fa410b714b64e15bd6a",
-                "reference": "a0c5980cbc81cad521bb1fa410b714b64e15bd6a",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/ac45a3d212e56c52cdeb81ceece47d0fd69f9abf",
+                "reference": "ac45a3d212e56c52cdeb81ceece47d0fd69f9abf",
                 "shasum": ""
             },
             "require": {
@@ -414,9 +414,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.12.4"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.12.5"
             },
-            "time": "2022-12-17T01:28:37+00:00"
+            "time": "2022-12-20T01:29:22+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -492,16 +492,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.10.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "4deaf1f69ccbe0a996c08a308525a26b05467242"
+                "reference": "817d780a476dbb24b269a89ba56ff1d0d4125132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/4deaf1f69ccbe0a996c08a308525a26b05467242",
-                "reference": "4deaf1f69ccbe0a996c08a308525a26b05467242",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/817d780a476dbb24b269a89ba56ff1d0d4125132",
+                "reference": "817d780a476dbb24b269a89ba56ff1d0d4125132",
                 "shasum": ""
             },
             "type": "library",
@@ -525,9 +525,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.10.2"
+                "source": "https://github.com/twbs/icons/tree/v1.10.3"
             },
-            "time": "2022-11-13T17:44:34+00:00"
+            "time": "2022-12-27T05:46:02+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -3306,16 +3306,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.9",
+            "version": "v0.11.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "1acec99d6684a54ff92f8b548a4e41b566963778"
+                "reference": "e9eadffbed9c9deb5426fd107faae0452bf20a36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/1acec99d6684a54ff92f8b548a4e41b566963778",
-                "reference": "1acec99d6684a54ff92f8b548a4e41b566963778",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/e9eadffbed9c9deb5426fd107faae0452bf20a36",
+                "reference": "e9eadffbed9c9deb5426fd107faae0452bf20a36",
                 "shasum": ""
             },
             "require": {
@@ -3376,9 +3376,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.9"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.10"
             },
-            "time": "2022-11-06T15:29:46+00:00"
+            "time": "2022-12-23T17:47:18+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
