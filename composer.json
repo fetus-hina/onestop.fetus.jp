@@ -23,7 +23,6 @@
     "codeception/module-yii2": "*",
     "codeception/specify": "*",
     "codeception/verify": "*",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
     "phpcompatibility/php-compatibility": "^9.3.5",
     "proget-hq/phpstan-yii2": "^0.8.0",
     "slevomat/coding-standard": "^8.7",
