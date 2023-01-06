@@ -11,6 +11,12 @@ use UnitTester;
 use Yii;
 use app\models\Era;
 
+use function count;
+use function is_int;
+use function mktime;
+use function strtotime;
+use function substr;
+
 class EraTest extends Unit
 {
     protected UnitTester $tester;
@@ -19,7 +25,7 @@ class EraTest extends Unit
     {
         $this->assertEquals(
             count($this->getEraData()),
-            Era::find()->count()
+            Era::find()->count(),
         );
     }
 
@@ -48,7 +54,7 @@ class EraTest extends Unit
     {
         // 江戸時代のような古いデータは取れないので null が返る
         $this->assertNull(
-            Era::calcYear(new DateTimeImmutable('1603-03-24T00:00:00+09:00', new DateTimeZone('Asia/Tokyo')))
+            Era::calcYear(new DateTimeImmutable('1603-03-24T00:00:00+09:00', new DateTimeZone('Asia/Tokyo'))),
         );
 
         $result = Era::calcYear(new DateTimeImmutable('2020-01-23T11:22:33+09:00', new DateTimeZone('Asia/Tokyo')));

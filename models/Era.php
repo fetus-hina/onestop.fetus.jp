@@ -10,6 +10,8 @@ use DateTimeZone;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_DESC;
+
 /**
  * This is the model class for table "era".
  *

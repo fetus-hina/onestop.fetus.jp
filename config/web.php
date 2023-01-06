@@ -7,8 +7,8 @@ use yii\caching\FileCache;
 use yii\log\FileTarget;
 
 return (function (): array {
-    $params = require(__DIR__ . '/params.php');
-    $config = [
+    $params = require __DIR__ . '/params.php';
+    return [
         'id' => 'onestop-fetus-jp',
         'name' => 'onestop.fetus.jp',
         'basePath' => dirname(__DIR__),
@@ -58,6 +58,4 @@ return (function (): array {
         ],
         'params' => $params,
     ];
-
-    return $config;
 })();

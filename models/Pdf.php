@@ -8,6 +8,24 @@ use DateTimeImmutable;
 use TCPDF;
 use yii\base\Model;
 
+use function array_map;
+use function array_reduce;
+use function assert;
+use function explode;
+use function implode;
+use function max;
+use function mb_convert_kana;
+use function mb_strlen;
+use function mb_substr;
+use function min;
+use function number_format;
+use function preg_match;
+use function preg_replace_callback;
+use function sprintf;
+use function substr;
+use function trim;
+use function vsprintf;
+
 /**
  * @property-read string $binary
  */
@@ -85,14 +103,12 @@ final class Pdf extends Model
                 trim((string)$address2),
             ])),
             'ASKV',
-            'UTF-8'
+            'UTF-8',
         );
         $text = (string)preg_replace_callback(
             '/[\x{ff10}-\x{ff19}]{2,}/u',
-            function (array $match): string {
-                return mb_convert_kana($match[0], 'n', 'UTF-8');
-            },
-            $text
+            fn (array $match): string => mb_convert_kana($match[0], 'n', 'UTF-8'),
+            $text,
         );
         $this->drawTextToBox(
             52.3 + 0.5,
@@ -103,7 +119,7 @@ final class Pdf extends Model
             'L',
             'T',
             0.1,
-            3.5
+            3.5,
         );
 
         $text = mb_convert_kana(
@@ -117,14 +133,12 @@ final class Pdf extends Model
                 trim((string)$address1 . ' ' . (string)$address2),
             ])),
             'ASKV',
-            'UTF-8'
+            'UTF-8',
         );
         $text = (string)preg_replace_callback(
             '/[\x{ff10}-\x{ff19}]{2,}/u',
-            function (array $match): string {
-                return mb_convert_kana($match[0], 'n', 'UTF-8');
-            },
-            $text
+            fn (array $match): string => mb_convert_kana($match[0], 'n', 'UTF-8'),
+            $text,
         );
         $this->drawTextToBox(
             53 + 0.5,
@@ -133,7 +147,7 @@ final class Pdf extends Model
             251.4 - 0.5,
             $text,
             'L',
-            'M'
+            'M',
         );
 
         return $this;
@@ -149,12 +163,12 @@ final class Pdf extends Model
             mb_convert_kana(
                 mb_convert_kana($phoneNumber, 'A', 'UTF-8'),
                 'n',
-                'UTF-8'
+                'UTF-8',
             ),
             'L',
             'M',
             0.1,
-            3.5
+            3.5,
         );
         return $this;
     }
@@ -169,7 +183,7 @@ final class Pdf extends Model
             40.1 + 0.3,
             $kana,
             'L',
-            'M'
+            'M',
         );
 
         $name = mb_convert_kana(trim((string)$name), 'ASKV', 'UTF-8');
@@ -184,7 +198,7 @@ final class Pdf extends Model
                     'L',
                     'M',
                     0.1,
-                    6
+                    6,
                 );
             }
 
@@ -197,7 +211,7 @@ final class Pdf extends Model
                 'L',
                 'M',
                 0.1,
-                6
+                6,
             );
         }
 
@@ -221,7 +235,7 @@ final class Pdf extends Model
                     'M',
                     0.1,
                     10,
-                    'ocrb_aizu_1_1'
+                    'ocrb_aizu_1_1',
                 );
             }
         }
@@ -234,7 +248,7 @@ final class Pdf extends Model
 
         $size = 2.9;
         $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
-        list($width,) = $this->calcTextSize('男');
+        [$width,] = $this->calcTextSize('男');
         $size = 4.35;
         $this->drawTextToBox(
             ($isMale ? 133 : 147.5) + $width / 2,
@@ -245,7 +259,7 @@ final class Pdf extends Model
             'C',
             'M',
             $size,
-            $size
+            $size,
         );
         return $this;
     }
@@ -262,7 +276,7 @@ final class Pdf extends Model
                 'L',
                 'M',
                 0.1,
-                3.5
+                3.5,
             );
         }
         return $this;
@@ -291,8 +305,8 @@ final class Pdf extends Model
         $center = "市町村民税\n道府県民税";
         $right = '寄附金税額控除に係る申告特例申請書';
         $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
-        list($leftWidth, ) = $this->calcTextSize($left);
-        list($rightWidth, ) = $this->calcTextSize($right);
+        [$leftWidth,] = $this->calcTextSize($left);
+        [$rightWidth,] = $this->calcTextSize($right);
         $this->drawTextToBox(38, 16, 163.5, 24, $left, 'L', 'M', $size, $size);
         $this->drawTextToBox(
             38 + $leftWidth,
@@ -303,15 +317,15 @@ final class Pdf extends Model
             'C',
             'M',
             $size,
-            $size
+            $size,
         );
         $this->drawTextToBox(38, 16, 163.5, 24, $right, 'R', 'M', $size, $size);
 
         $size = 3.2;
         $right = '寄附金税額控除に係る申告特例申請書受付書';
         $this->pdf->SetFont('ipaexm', '', self::mm2pt($size));
-        list($leftWidth, ) = $this->calcTextSize($left);
-        list($rightWidth, ) = $this->calcTextSize($right);
+        [$leftWidth,] = $this->calcTextSize($left);
+        [$rightWidth,] = $this->calcTextSize($right);
         $this->drawTextToBox(42, 229.2, 163, 240.8, $left, 'L', 'M', $size, $size);
         $this->drawTextToBox(
             42 + $leftWidth,
@@ -322,7 +336,7 @@ final class Pdf extends Model
             'C',
             'M',
             $size,
-            $size
+            $size,
         );
         $this->drawTextToBox(42, 229.2, 163, 240.8, $right, 'R', 'M', $size, $size);
     }
@@ -431,7 +445,7 @@ final class Pdf extends Model
 
         // マイナンバー
         for ($i = 1; $i < 12; ++$i) {
-            if ($i % 4  == 0) {
+            if ($i % 4 == 0) {
                 continue;
             }
             $x = 116.5 + $i * (167 - 116.5) / 12;
@@ -506,7 +520,7 @@ final class Pdf extends Model
             'L',
             'M',
             $size,
-            $size
+            $size,
         );
         $this->drawTextToBox(152.9, 163.5, 167, 172.9, '□', 'C', 'M', $size * 1.2, $size * 1.2);
         $this->drawTextToBox(152.9, 163.5, 167, 172.9, '✓', 'C', 'M', $size * 1.2, $size * 1.2);
@@ -519,7 +533,7 @@ final class Pdf extends Model
             'L',
             'M',
             $size,
-            $size
+            $size,
         );
         $this->drawTextToBox(152.9, 202.2, 167, 211.6, '□', 'C', 'M', $size * 1.2, $size * 1.2);
         $this->drawTextToBox(152.9, 202.2, 167, 211.6, '✓', 'C', 'M', $size * 1.2, $size * 1.2);
@@ -532,7 +546,7 @@ final class Pdf extends Model
             'C',
             'M',
             $size / 1.25,
-            $size / 1.25
+            $size / 1.25,
         );
         $this->drawTextToBox(39.5, 240.8, 51.5, 251.4, '住　　所', 'C', 'M');
         $this->drawTextToBox(39.5, 251.4, 51.5, 261.9, '氏　　名', 'C', 'M');
@@ -546,7 +560,7 @@ final class Pdf extends Model
             'C',
             'T',
             $size / 1.35,
-            $size / 1.35
+            $size / 1.35,
         );
         $this->drawTextToBox(102, 264.3, 119.7, 269.8, '受付団体名', 'C', 'M', $size, $size);
 
@@ -576,7 +590,7 @@ final class Pdf extends Model
             'C',
             'T',
             2.8,
-            2.8
+            2.8,
         );
         $this->drawTextToBox(
             38,
@@ -587,7 +601,7 @@ final class Pdf extends Model
             'L',
             'T',
             3.65,
-            3.65
+            3.65,
         );
         $this->drawTextToBox(
             38,
@@ -601,7 +615,7 @@ final class Pdf extends Model
             'C',
             'T',
             2.8,
-            2.8
+            2.8,
         );
         $this->drawTextToBox(
             38,
@@ -612,7 +626,7 @@ final class Pdf extends Model
             'L',
             'T',
             3.65,
-            3.65
+            3.65,
         );
         $this->drawTextToBox(
             38,
@@ -626,7 +640,7 @@ final class Pdf extends Model
             'C',
             'T',
             2.8,
-            2.8
+            2.8,
         );
         $this->drawTextToBox(
             46,
@@ -642,7 +656,7 @@ final class Pdf extends Model
                 '　い者',
             ]),
             'C',
-            'T'
+            'T',
         );
         $this->drawTextToBox(
             38,
@@ -658,7 +672,7 @@ final class Pdf extends Model
             'C',
             'T',
             2.8,
-            2.8
+            2.8,
         );
         $this->drawTextToBox(
             171,
@@ -670,7 +684,7 @@ final class Pdf extends Model
             'T',
             3.4,
             3.4,
-            'ipaexg'
+            'ipaexg',
         );
         $this->drawTextToBox(
             171,
@@ -681,7 +695,7 @@ final class Pdf extends Model
             'C',
             'T',
             3.4,
-            3.4
+            3.4,
         );
     }
 
@@ -712,7 +726,7 @@ final class Pdf extends Model
         $this->pdf->SetFont($fontName, '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize, $minFontSize);
         $this->pdf->SetFont($fontName, '', self::mm2pt($fontSize));
-        list ($textWidth, $textHeight) = $this->calcTextSize($text);
+        [$textWidth, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(
             (function () use ($align, $left, $right, $width, $textWidth): float {
                 switch ($align) {
@@ -727,16 +741,16 @@ final class Pdf extends Model
             })(),
             $valign === 'T'
                 ? $top
-                : ($top + ($height / 2 - $textHeight / 2))
+                : $top + ($height / 2 - $textHeight / 2),
         );
         $this->pdf->MultiCell(
             0,
             $textHeight,
             $text,
-            0,      // border
-            'L',    // align
-            false,  // fill
-            0       // ln
+            0, // border
+            'L', // align
+            false, // fill
+            0, // ln
         );
         return $this;
     }
@@ -753,7 +767,7 @@ final class Pdf extends Model
                     assert($this->pdf !== null);
                     return (float)$this->pdf->GetStringWidth($text);
                 },
-                $lines
+                $lines,
             )),
             // height
             array_reduce(
@@ -762,7 +776,7 @@ final class Pdf extends Model
                     assert($this->pdf !== null);
                     return $carry + $this->pdf->GetStringHeight(0, $item, false, false);
                 },
-                0.0
+                0.0,
             ),
         ];
     }
@@ -782,7 +796,7 @@ final class Pdf extends Model
                 return $minFontSize;
             }
             $this->pdf->SetFont('', '', self::mm2pt($fontSize));
-            list($textWidth, $textHeight) = $this->calcTextSize($text);
+            [$textWidth, $textHeight] = $this->calcTextSize($text);
             if ($textWidth <= $width && $textHeight <= $height) {
                 return $fontSize;
             }
@@ -817,7 +831,7 @@ final class Pdf extends Model
             return null;
         }
 
-        list($era, $year) = $_;
+        [$era, $year] = $_;
         return vsprintf('%s%s年', [
             $era->name,
             self::num2str($year, true),

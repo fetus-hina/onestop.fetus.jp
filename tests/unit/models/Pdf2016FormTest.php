@@ -10,6 +10,9 @@ use Yii;
 use app\models\Pdf2016Form;
 use app\models\Prefecturer;
 
+use function mb_strlen;
+use function mb_substr;
+
 class Pdf2016FormTest extends Unit
 {
     protected UnitTester $tester;

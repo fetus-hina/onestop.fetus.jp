@@ -17,6 +17,4 @@ __halt_compiler();
 
 declare(strict_types=1);
 
-return (function (): string {
-    return '{random}';
-})();
+return '{random}';

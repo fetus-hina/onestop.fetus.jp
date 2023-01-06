@@ -14,6 +14,19 @@ use jp3cki\gimei\Gimei;
 use jp3cki\mynumber\MyNumber;
 use yii\base\Model;
 
+use function array_filter;
+use function array_merge;
+use function ceil;
+use function floor;
+use function mb_convert_kana;
+use function mb_strlen;
+use function mt_rand;
+use function preg_match;
+use function random_int;
+use function sprintf;
+use function time;
+use function vsprintf;
+
 /**
  * @property-read ?Prefecturer $prefecturer
  */
@@ -88,7 +101,8 @@ final class Pdf2016Form extends Model
     {
         parent::init();
 
-        $date = (new DateTimeImmutable(sprintf('@%d', $_SERVER['REQUEST_TIME'] ?? time())))
+        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+        $date = (new DateTimeImmutable(sprintf('@%d', $_SERVER['REQUEST_TIME'])))
             ->setTimezone(new DateTimeZone('Asia/Tokyo'));
 
         if ($this->post_year === null && $this->post_month === null && $this->post_day === null) {
@@ -141,18 +155,14 @@ final class Pdf2016Form extends Model
             'use_western_year',
             'zipcode',
         ];
-        $trimAttrs = array_filter($allAttrs, function (string $v): bool {
-            return $v !== 'checkbox1' &&
+        $trimAttrs = array_filter($allAttrs, fn (string $v): bool => $v !== 'checkbox1' &&
                 $v !== 'checkbox2' &&
                 $v !== 'sign' &&
-                $v !== 'use_western_year';
-        });
-        $requiredAttrs = array_filter($allAttrs, function (string $v): bool {
-            return $v !== 'address2' &&
+                $v !== 'use_western_year');
+        $requiredAttrs = array_filter($allAttrs, fn (string $v): bool => $v !== 'address2' &&
                 $v !== 'individual_number' &&
                 $v !== 'sign' &&
-                $v !== 'use_western_year';
-        });
+                $v !== 'use_western_year');
         return [
             [$trimAttrs, 'trim'],
             [$requiredAttrs, 'required'],
@@ -161,17 +171,18 @@ final class Pdf2016Form extends Model
             [['post_day', 'kifu_day', 'birth_day'], 'integer', 'min' => 1, 'max' => 31],
             [['kifu_amount'], 'integer', 'min' => 1],
             [['local_gov', 'city', 'address1', 'address2', 'name', 'name_kana'], 'string'],
-            [['name_kana'], 'filter', 'filter' => fn($v) => mb_convert_kana($v, 'asKCV', 'UTF-8')],
+            [['name_kana'], 'filter', 'filter' => fn ($v) => mb_convert_kana($v, 'asKCV', 'UTF-8')],
             [['zipcode'], 'match', 'pattern' => '/^\d{7}$/'],
             [['pref_id'], 'exist',
                 'skipOnError' => true,
                 'targetClass' => Prefecturer::class,
-                'targetAttribute' => ['pref_id' => 'id']],
+                'targetAttribute' => ['pref_id' => 'id'],
+            ],
             [['phone'], 'match', 'pattern' => '/^0[0-9\-]+$/'],
             [['sex'], 'in',
                 'range' => [
                     static::SEX_MALE,
-                    static::SEX_FEMALE
+                    static::SEX_FEMALE,
                 ],
             ],
             [['checkbox1', 'checkbox2'], 'in',
@@ -240,7 +251,7 @@ final class Pdf2016Form extends Model
                 $pref,
                 $this->city,
                 $this->address1,
-                $this->address2
+                $this->address2,
             )
             ->setPhone($this->phone)
             ->setName($this->name, $this->name_kana, $this->sign === '1')
@@ -336,7 +347,7 @@ final class Pdf2016Form extends Model
         $birthday = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
             ->setTimestamp(mt_rand(
                 (int)floor(time() - 55 * 365.2425 * 86400),
-                (int)ceil(time() - 23 * 365.2425 * 86400)
+                (int)ceil(time() - 23 * 365.2425 * 86400),
             ));
 
         return [

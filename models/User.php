@@ -7,6 +7,8 @@ namespace app\models;
 use yii\base\BaseObject;
 use yii\web\IdentityInterface;
 
+use function strcasecmp;
+
 /**
  * @codeCoverageIgnore
  */
@@ -40,7 +42,6 @@ class User extends BaseObject implements IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
-
 
     /**
      * @inheritdoc

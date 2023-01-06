@@ -18,7 +18,7 @@ Yii::$container->set(ActiveField::class, [
     'hintOptions' => [
         'class' => [
             'widget' => 'form-text',
-            'text-muted'
+            'text-muted',
         ],
         'tag' => 'div',
     ],

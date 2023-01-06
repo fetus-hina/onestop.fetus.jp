@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "prefecturer".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  */
 class Prefecturer extends ActiveRecord

@@ -8,6 +8,10 @@ use Yii;
 use jp3cki\mynumber\MyNumber;
 use yii\validators\Validator;
 
+use function is_array;
+use function is_object;
+use function is_scalar;
+
 class MyNumberValidator extends Validator
 {
     /** @return void */

@@ -18,6 +18,12 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
+use function array_values;
+use function implode;
+use function is_array;
+use function substr;
+use function vsprintf;
+
 class ApiController extends Controller
 {
     /** @return void */
@@ -51,7 +57,7 @@ class ApiController extends Controller
             }
 
             if (substr((string)$k, 0, 8) === 'checkbox') {
-                $v = $v ? true : false;
+                $v = (bool)$v;
             }
 
             $fakeData[Html::getInputId($fakeModel, (string)$k)] = $v;
@@ -84,7 +90,7 @@ class ApiController extends Controller
                     'skipOnError' => true,
                     'pattern' => '/^[0-9]{7}$/',
                 ],
-            ]
+            ],
         );
         if ($model->hasErrors()) {
             return $this->makeInputError($model, ['api/postal-code']);
@@ -100,7 +106,7 @@ class ApiController extends Controller
         $resp->setStatusCode(200, 'OK');
         $resp->headers->set('Content-Type', 'application/json; charset=UTF-8');
         $resp->headers->set('Content-Language', 'ja');
-        $resp->data = ($apiResp['results'] ?? null) ?: [];
+        $resp->data = $apiResp['results'] ?? null ?: [];
         return $resp;
     }
 

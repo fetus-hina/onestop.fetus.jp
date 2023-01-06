@@ -12,6 +12,9 @@ use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\Response;
 
+use function function_exists;
+use function opcache_reset;
+
 class SiteController extends Controller
 {
     /**
@@ -61,6 +64,7 @@ class SiteController extends Controller
     {
         $model = Yii::createObject(Pdf2016Form::class);
         if (Yii::$app->request->isPost) {
+            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
             if ($model->load($_POST) && $model->validate()) {
                 $resp = Yii::$app->response;
                 $resp->sendContentAsFile($model->createPdf(), 'onestop.pdf', [

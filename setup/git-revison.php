@@ -53,10 +53,10 @@ function getVersionTags(string $fullHash): array
     }
 
     $versions = array_filter(
-        array_map(fn($line) => trim($line), $lines),
-        fn($line) => preg_match('/^v([0-9.]+)$/', $line)
+        array_map(fn ($line) => trim($line), $lines),
+        fn ($line) => preg_match('/^v([0-9.]+)$/', $line)
     );
-    usort($versions, fn($a, $b) => version_compare($b, $a));
+    usort($versions, fn ($a, $b) => version_compare($b, $a));
     return array_values($versions);
 }
 
@@ -66,10 +66,8 @@ __halt_compiler();
 
 declare(strict_types=1);
 
-return (function (): array {
-    return [
-        'hash' => '{hash}',
-        'short' => '{short}',
-        'version' => '{version}',
-    ];
-})();
+return [
+    'hash' => '{hash}',
+    'short' => '{short}',
+    'version' => '{version}',
+];
