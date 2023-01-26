@@ -30,10 +30,9 @@ class EraTest extends Unit
     }
 
     /**
-     * @param int|string $startDate
      * @dataProvider getEraData
      */
-    public function testEraData($startDate, string $nameFull, string $nameShort): void
+    public function testEraData(int|string $startDate, string $nameFull, string $nameShort): void
     {
         $model = Era::findOne(['name' => $nameFull]);
         $this->assertInstanceOf(Era::class, $model);

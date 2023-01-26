@@ -36,67 +36,44 @@ final class Pdf2016Form extends Model
     public const SEX_FEMALE = '2';
 
     // 投函年月日
-    /** @var string|int */
-    public $post_year;
-    /** @var string|int */
-    public $post_month;
-    /** @var string|int */
-    public $post_day;
+    public string|int|null $post_year = null;
+    public string|int|null $post_month = null;
+    public string|int|null $post_day = null;
 
     // 自治体名（"長"なし）
-    /** @var string */
-    public $local_gov;
+    public string|null $local_gov = null;
 
     // 寄付年月日
-    /** @var string|int */
-    public $kifu_year;
-    /** @var string|int */
-    public $kifu_month;
-    /** @var string|int */
-    public $kifu_day;
+    public string|int|null $kifu_year = null;
+    public string|int|null $kifu_month = null;
+    public string|int|null $kifu_day = null;
 
     // 寄付金額
-    /** @var string|int */
-    public $kifu_amount;
+    public string|int|null $kifu_amount = null;
 
     // 寄付者情報
-    /** @var string */
-    public $zipcode;
-    /** @var string|int */
-    public $pref_id;
-    /** @var string */
-    public $city;
-    /** @var string */
-    public $address1;
-    /** @var string */
-    public $address2;
-    /** @var string */
-    public $phone;
-    /** @var string */
-    public $name;
-    /** @var string */
-    public $name_kana;
-    /** @var string */
-    public $sign = '0';
-    /** @var string */
-    public $sex;
-    /** @var string|int */
-    public $birth_year;
-    /** @var string|int */
-    public $birth_month;
-    /** @var string|int */
-    public $birth_day;
-    /** @var string */
-    public $individual_number; // マイナンバー
+    public string|null $zipcode = null;
+    public string|int|null $pref_id = null;
+    public string|null $city = null;
+    public string|null $address1 = null;
+    public string|null $address2 = null;
+    public string|null $phone = null;
+    public string|null $name = null;
+    public string|null $name_kana = null;
+    public string|null $sign = '0';
+    public string|null $sex = null;
+    public string|int|null $birth_year = null;
+    public string|int|null $birth_month = null;
+    public string|int|null $birth_day = null;
+    public string|null $individual_number = null; // マイナンバー
     // 特例にかかわるチェックボックス
-    /** @var string */
-    public $checkbox1;
-    /** @var string */
-    public $checkbox2;
-    /** @var string */
-    public $use_western_year = '0'; // 西暦の利用
+    public string|int|null $checkbox1 = null;
+    public string|int|null $checkbox2 = null;
+    public string|int|null $use_western_year = '0'; // 西暦の利用
 
-    /** @return void */
+    /**
+     * @return void
+     */
     public function init()
     {
         parent::init();
@@ -126,6 +103,9 @@ final class Pdf2016Form extends Model
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         $allAttrs = [
@@ -195,7 +175,10 @@ final class Pdf2016Form extends Model
         ];
     }
 
-    /** @codeCoverageIgnore */
+    /**
+     * @inheritdoc
+     * @codeCoverageIgnore
+     */
     public function attributeLabels()
     {
         return [
@@ -245,17 +228,21 @@ final class Pdf2016Form extends Model
 
         $pdf = Yii::createObject(Pdf::class)
             ->setUseWesternYear($this->use_western_year === '1')
-            ->setEnvelope($post, $this->local_gov)
+            ->setEnvelope($post, (string)$this->local_gov)
             ->setAddress(
-                $this->zipcode,
+                (string)$this->zipcode,
                 $pref,
-                $this->city,
-                $this->address1,
-                $this->address2,
+                (string)$this->city,
+                (string)$this->address1,
+                (string)$this->address2,
             )
-            ->setPhone($this->phone)
-            ->setName($this->name, $this->name_kana, $this->sign === '1')
-            ->setIndividualNumber($this->individual_number)
+            ->setPhone((string)$this->phone)
+            ->setName(
+                (string)$this->name,
+                (string)$this->name_kana,
+                $this->sign === '1',
+            )
+            ->setIndividualNumber((string)$this->individual_number)
             ->setSex($this->sex === static::SEX_MALE)
             ->setBirthday($birthday)
             ->setKifuData($kifu, (int)$this->kifu_amount);

@@ -24,8 +24,4 @@ use _generated\UnitTesterActions;
 class UnitTester extends Actor
 {
     use UnitTesterActions;
-
-   /**
-    * Define custom actions here
-    */
 }

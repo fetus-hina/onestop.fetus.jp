@@ -34,6 +34,9 @@ class ApiController extends Controller
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [

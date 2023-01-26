@@ -14,19 +14,14 @@ use function strcasecmp;
  */
 class User extends BaseObject implements IdentityInterface
 {
-    /** @var string */
-    public $id;
-    /** @var string */
-    public $username;
-    /** @var string */
-    public $password;
-    /** @var string */
-    public $authKey;
-    /** @var string */
-    public $accessToken;
+    public string $id;
+    public string $username;
+    public string $password;
+    public string $authKey;
+    public string $accessToken;
 
     /** @var array<int, array<string, string>> */
-    private static $users = [
+    private static array $users = [
         '100' => [
             'id' => '100',
             'username' => 'admin',
@@ -68,10 +63,9 @@ class User extends BaseObject implements IdentityInterface
     /**
      * Finds user by username
      *
-     * @param string $username
      * @return self|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $username)
     {
         foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
@@ -112,7 +106,7 @@ class User extends BaseObject implements IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function validatePassword(string $password)
     {
         return $this->password === $password;
     }

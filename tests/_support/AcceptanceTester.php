@@ -24,8 +24,4 @@ use _generated\AcceptanceTesterActions;
 class AcceptanceTester extends Actor
 {
     use AcceptanceTesterActions;
-
-   /**
-    * Define custom actions here
-    */
 }

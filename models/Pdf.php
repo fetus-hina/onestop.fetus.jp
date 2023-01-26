@@ -38,6 +38,9 @@ final class Pdf extends Model
     private const LINE_WIDTH_REGULAR = self::LINE_WIDTH_BOLD / 2;
     private const LINE_WIDTH_THIN = self::LINE_WIDTH_REGULAR / 2;
 
+    /**
+     * @var array{int, int, int, int}
+     */
     private array $black = [0, 0, 0, 100];
     private ?TCPDF $pdf = null;
 
@@ -445,7 +448,7 @@ final class Pdf extends Model
 
         // マイナンバー
         for ($i = 1; $i < 12; ++$i) {
-            if ($i % 4 == 0) {
+            if ($i % 4 === 0) {
                 continue;
             }
             $x = 116.5 + $i * (167 - 116.5) / 12;

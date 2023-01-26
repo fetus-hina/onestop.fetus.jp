@@ -52,11 +52,17 @@ final class Era extends ActiveRecord
             ->one();
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
         return 'era';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -69,7 +75,10 @@ final class Era extends ActiveRecord
         ];
     }
 
-    /** @codeCoverageIgnore */
+    /**
+     * @inheritdoc
+     * @codeCoverageIgnore
+     */
     public function attributeLabels()
     {
         return [

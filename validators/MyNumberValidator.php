@@ -23,7 +23,10 @@ class MyNumberValidator extends Validator
         }
     }
 
-    /** @return void */
+    /**
+     * @inheritdoc
+     * @return void
+     */
     public function validateAttribute($model, $attribute)
     {
         $value = $model->$attribute;
@@ -38,6 +41,9 @@ class MyNumberValidator extends Validator
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function validateValue($value)
     {
         if (is_array($value) || is_object($value)) {
