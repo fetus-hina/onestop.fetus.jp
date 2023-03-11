@@ -34,7 +34,7 @@ return [
 
         static $appPath = null;
         if (!$appPath) {
-            $appPath = realpath(Yii::getAlias('@app'));
+            $appPath = realpath((string)Yii::getAlias('@app'));
         }
         if ($appPath) {
             $pathParts[] = substr(
