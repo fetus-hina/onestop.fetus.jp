@@ -9,7 +9,7 @@
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.3",
     "bootstrap": "^5.2.3",
     "inputmask": "^5.0.7",
-    "jquery": "^3.6.3",
+    "jquery": "^3.6.4",
     "punycode": "^2.3.0",
     "yii2-pjax": "^2.0.8"
   },
@@ -18,8 +18,8 @@
     "@babel/core": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
     "semistandard": "^16.0.1",
-    "terser": "^5.16.5",
-    "updates": "^13.2.8"
+    "terser": "^5.16.6",
+    "updates": "^13.2.9"
   },
   "semistandard": {
     "envs": {
