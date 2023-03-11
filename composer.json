@@ -8,6 +8,7 @@
     "jp3cki/gimei": "^2.0.1",
     "jp3cki/mynumber": "^1.0.0",
     "myclabs/php-enum": "^1.8",
+    "paragonie/constant_time_encoding": "^2.6",
     "php-curl-class/php-curl-class": "^9.4.0",
     "tecnickcom/tcpdf": "^6.4.2",
     "twbs/bootstrap-icons": "^1.10",
