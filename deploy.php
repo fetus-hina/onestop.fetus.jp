@@ -34,33 +34,11 @@ set('writable_mode', 'chmod');
 set('writable_chmod_recursive', false);
 set('softwarecollections', []);
 
-set('bin/php', function () {
-    if ($scl = get('softwarecollections')) {
-        return vsprintf('scl enable %s -- php', [
-            implode(' ', array_map(
-                'escapeshellarg',
-                $scl
-            )),
-        ]);
-    }
+set('bin/make', fn () => locateBinaryPath('make'));
+set('bin/npm', fn () => locateBinaryPath('npm'));
+set('bin/php', fn () => locateBinaryPath('php'));
 
-    return locateBinaryPath('php');
-});
-
-set('bin/npm', function () {
-    if ($scl = get('softwarecollections')) {
-        return vsprintf('scl enable %s -- npm', [
-            implode(' ', array_map(
-                'escapeshellarg',
-                $scl
-            )),
-        ]);
-    }
-
-    return locateBinaryPath('npm');
-});
-
-host('2401:2500:102:1206:133:242:147:83')
+host('2403:3a00:202:1127:49:212:205:127')
     ->user('onestop')
     ->stage('production')
     ->roles('app')
@@ -73,7 +51,6 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
-    'deploy:production',
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
@@ -90,6 +67,8 @@ task('deploy', [
 task('deploy:git_config', function () {
     run('git config --global advice.detachedHead false');
 });
+
+after('deploy:update_code', 'deploy:production');
 
 task('deploy:production', function () {
     within('{{release_path}}', function () {
@@ -114,16 +93,7 @@ task('deploy:vendors_production', function () {
 
 task('deploy:build', function () {
     within('{{release_path}}', function () {
-        if ($scl = get('softwarecollections')) {
-            run(vsprintf('scl enable %s -- make', [
-                implode(' ', array_map(
-                    'escapeshellarg',
-                    $scl
-                )),
-            ]));
-        } else {
-            run('make');
-        }
+        run('{{bin/make}}');
     });
 });
 
