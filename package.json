@@ -15,11 +15,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.3",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
     "semistandard": "^16.0.1",
-    "terser": "^5.16.8",
-    "updates": "^13.2.9"
+    "terser": "^5.17.1",
+    "updates": "^13.4.0"
   },
   "semistandard": {
     "envs": {
