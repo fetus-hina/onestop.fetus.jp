@@ -412,16 +412,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.16.0",
+            "version": "9.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "100a7f406daea7e1a0a020a2445d9b4715ad3ab0"
+                "reference": "5672725591a12595beecd54b74409b04a3daa0b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/100a7f406daea7e1a0a020a2445d9b4715ad3ab0",
-                "reference": "100a7f406daea7e1a0a020a2445d9b4715ad3ab0",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/5672725591a12595beecd54b74409b04a3daa0b5",
+                "reference": "5672725591a12595beecd54b74409b04a3daa0b5",
                 "shasum": ""
             },
             "require": {
@@ -481,9 +481,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.16.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.17.1"
             },
-            "time": "2023-05-25T18:02:49+00:00"
+            "time": "2023-06-14T18:02:50+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
