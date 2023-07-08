@@ -412,16 +412,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.17.1",
+            "version": "9.17.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "5672725591a12595beecd54b74409b04a3daa0b5"
+                "reference": "96bb2ef69b42d19aff37821bc8c23f8adbdc8e01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/5672725591a12595beecd54b74409b04a3daa0b5",
-                "reference": "5672725591a12595beecd54b74409b04a3daa0b5",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/96bb2ef69b42d19aff37821bc8c23f8adbdc8e01",
+                "reference": "96bb2ef69b42d19aff37821bc8c23f8adbdc8e01",
                 "shasum": ""
             },
             "require": {
@@ -431,6 +431,7 @@
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "*",
                 "ext-gd": "*",
+                "friendsofphp/php-cs-fixer": "*",
                 "phpcompatibility/php-compatibility": "dev-develop",
                 "phpcsstandards/phpcsutils": "@alpha",
                 "phpunit/phpunit": "*",
@@ -453,6 +454,10 @@
             "authors": [
                 {
                     "name": "Zach Borboa"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-curl-class/php-curl-class/graphs/contributors"
                 }
             ],
             "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
@@ -481,9 +486,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.17.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.17.3"
             },
-            "time": "2023-06-14T18:02:50+00:00"
+            "time": "2023-07-04T18:03:02+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
