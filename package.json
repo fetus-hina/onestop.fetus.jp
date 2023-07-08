@@ -27,7 +27,8 @@
       "jquery": true
     },
     "global": [
-      "bootstrap"
+      "bootstrap",
+      "jQuery"
     ]
   }
 }
