@@ -4,7 +4,7 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">= 8.0",
+    "php": ">= 8.1",
     "jp3cki/gimei": "^2.0.1",
     "jp3cki/mynumber": "^1.0.0",
     "myclabs/php-enum": "^1.8",
@@ -46,7 +46,7 @@
     },
     "process-timeout": 1800,
     "platform": {
-      "php": "8.0.21"
+      "php": "8.1.23"
     },
     "sort-packages": true
   },

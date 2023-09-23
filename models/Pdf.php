@@ -93,7 +93,7 @@ final class Pdf extends Model
         Prefecturer $prefecturer,
         string $city,
         string $address1,
-        ?string $address2
+        ?string $address2,
     ): self {
         $text = mb_convert_kana(
             trim(implode("\n", [
@@ -712,7 +712,7 @@ final class Pdf extends Model
         string $valign = 'M',
         float $minFontSize = 0.1,
         float $maxFontSize = 0,
-        string $fontName = 'ipaexm'
+        string $fontName = 'ipaexm',
     ): self {
         assert($this->pdf !== null);
 
@@ -789,7 +789,7 @@ final class Pdf extends Model
         float $width,
         float $height,
         float $maxFontSize = 20.0,
-        float $minFontSize = 0.1
+        float $minFontSize = 0.1,
     ): float {
         assert($this->pdf !== null);
 
