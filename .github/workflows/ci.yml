@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: 'Set up PHP ${{ matrix.php.version }}'
         uses: shivammathur/setup-php@v2
@@ -42,9 +42,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cache/composer/files
@@ -65,9 +65,9 @@ jobs:
       - makeComposerCache
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cache/composer/files
@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: 'Install NPM packages'
         run: |
@@ -124,9 +124,9 @@ jobs:
       - makeComposerCache
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cache/composer/files
