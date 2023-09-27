@@ -56,7 +56,7 @@ final class Icon
 
     public static function twitter(): string
     {
-        return self::renderIcon(IconSource::BOOTSTRAP_ICONS, 'bi-twitter');
+        return self::renderIcon(IconSource::BOOTSTRAP_ICONS, 'bi-twitter-x');
     }
 
     private static function renderIcon(IconSource $source, mixed $data): string
