@@ -1,6 +1,8 @@
 name: CI
 'on':
   - push
+env:
+  DEFAULT_PHP_VERSION: '8.1'
 jobs:
   phpSyntaxCheck:
     name: 'Syntax Check (PHP ${{ matrix.php.version }})'
@@ -49,12 +51,14 @@ jobs:
           path: |
             ~/.cache/composer/files
             vendor
-          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+          key: "${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}"
           restore-keys: |
             ${{ runner.os }}-composer-
       -
-        name: 'Use PHP 8.1'
-        run: 'sudo update-alternatives --set php /usr/bin/php8.1'
+        name: 'Use PHP ${{ env.DEFAULT_PHP_VERSION }}'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ env.DEFAULT_PHP_VERSION }}'
       -
         name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
@@ -72,10 +76,12 @@ jobs:
           path: |
             ~/.cache/composer/files
             vendor
-          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+          key: "${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}"
       -
-        name: 'Use PHP 8.1'
-        run: 'sudo update-alternatives --set php /usr/bin/php8.1'
+        name: 'Use PHP ${{ env.DEFAULT_PHP_VERSION }}'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ env.DEFAULT_PHP_VERSION }}'
       -
         name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
@@ -131,7 +137,7 @@ jobs:
           path: |
             ~/.cache/composer/files
             vendor
-          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+          key: "${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}"
       -
         name: 'Set up PHP ${{ matrix.php.version }}'
         uses: shivammathur/setup-php@v2
