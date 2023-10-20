@@ -11,7 +11,7 @@
     "php-curl-class/php-curl-class": "^9.18.2",
     "tecnickcom/tcpdf": "^6.6.5",
     "twbs/bootstrap-icons": "^1.11.1",
-    "yiisoft/yii2": "^2.0.49.1",
+    "yiisoft/yii2": "^2.0.49.2",
     "yiisoft/yii2-bootstrap5": "^2.0.4"
   },
   "require-dev": {
