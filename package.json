@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.2",
-    "@babel/preset-env": "^7.23.2",
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
     "semistandard": "^17.0.0",
     "terser": "^5.22.0",
     "updates": "^14.5.0"
