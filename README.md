@@ -8,7 +8,7 @@ onestop.fetus.jp
 License
 -------
 
-Copyright (C) 2017-2023 AIZAWA Hina.<br>
+Copyright (C) 2017-2024 AIZAWA Hina.<br>
 Licensed under the MIT License.<br>
 See [LICENSE](LICENSE) file for details.
 
