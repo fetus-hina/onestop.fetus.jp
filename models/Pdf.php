@@ -804,7 +804,6 @@ final class Pdf extends Model
                 return $fontSize;
             }
         }
-        return $minFontSize;
     }
 
     private function formatDate(DateTimeImmutable $date, bool $isYearOnly = false): ?string
