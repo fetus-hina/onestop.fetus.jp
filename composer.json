@@ -1,8 +1,7 @@
 {
   "name": "jp3cki/onestop-fetus-jp",
-  "type": "project",
   "license": "MIT",
-  "minimum-stability": "stable",
+  "type": "project",
   "require": {
     "php": ">= 8.2",
     "php-64bit": "*",
@@ -30,6 +29,7 @@
     "codeception/module-yii2": "^1.1.12",
     "codeception/specify": "^2.0.0",
     "codeception/verify": "^3.2.0",
+    "ergebnis/composer-normalize": "^2.45",
     "jp3cki/coding-standard": "^1.0.1",
     "proget-hq/phpstan-yii2": "^0.8.0",
     "squizlabs/php_codesniffer": "^3.11.2",
@@ -56,15 +56,17 @@
     "symfony/polyfill-php80": "*",
     "symfony/polyfill-php81": "*"
   },
+  "minimum-stability": "stable",
   "config": {
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true,
       "yiisoft/yii2-composer": true
     },
-    "process-timeout": 1800,
     "platform": {
       "php": "8.2.14"
     },
+    "process-timeout": 1800,
     "sort-packages": true
   },
   "scripts": {
