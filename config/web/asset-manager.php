@@ -13,7 +13,7 @@ return [
     'class' => AssetManager::class,
     'bundles' => [
         BootstrapAsset::class => [
-            'sourcePath' => '@node/@fetus-hina/fetus.css/dist',
+            'sourcePath' => '@node/@jp3cki/fetus.css/dist',
             'css' => [
                 'bootstrap-lineseedjp.min.css',
             ],
