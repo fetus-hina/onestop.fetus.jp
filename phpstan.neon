@@ -16,7 +16,7 @@ parameters:
     - data
     - database
     - deploy.php
-    - node_modules
+    - node_modules (?)
     - runtime
     - tests
     - vendor
