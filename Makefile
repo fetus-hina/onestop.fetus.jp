@@ -51,7 +51,7 @@ resources: $(RESOURCES)
 	npx babel $< | npx terser -c -m -f ascii_only=true -o $@
 
 web/favicon: node_modules
-	ln -sf ../node_modules/@fetus-hina/fetus.css/dist/favicon $@
+	ln -sf ../node_modules/@jp3cki/fetus.css/dist/favicon $@
 	@touch $@
 
 web/favicon.ico: web/favicon
