@@ -22,7 +22,7 @@ return [
         ],
         BootstrapPluginAsset::class => [
             'js' => [
-                'dist/js/bootstrap.bundle.min.js',
+                'bootstrap.bundle.min.js',
             ],
         ],
         JqueryAsset::class => [
