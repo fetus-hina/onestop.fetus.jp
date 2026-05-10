@@ -25,13 +25,21 @@ use const SORT_DESC;
  */
 final class Era extends ActiveRecord
 {
+    /**
+     * @return ActiveQuery<self>
+     */
     public static function find(): ActiveQuery
     {
-        return parent::find()
-            ->andWhere(['<>', '{{era}}.[[enabled]]', 0])
-            ->orderBy(['{{era}}.[[start_date]]' => SORT_DESC]);
+        /** @var ActiveQuery<self> $q */
+        $q = parent::find();
+        $q->andWhere(['<>', '{{era}}.[[enabled]]', 0]);
+        $q->orderBy(['{{era}}.[[start_date]]' => SORT_DESC]);
+        return $q;
     }
 
+    /**
+     * @return array{self, int}|null
+     */
     public static function calcYear(DateTimeInterface $date): ?array
     {
         if (!$era = self::findOneByDate($date)) {

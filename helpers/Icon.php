@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace app\helpers;
 
-use LogicException;
 use TypeError;
 use Yii;
 use app\assets\BootstrapIconsAsset;
+use yii\base\Application;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\web\View;
@@ -67,10 +67,10 @@ final class Icon
 
     private static function registerAsset(IconSource $source): AssetBundle
     {
-        $view = Yii::$app->view;
-        if (!$view instanceof View) {
-            throw new LogicException();
-        }
+        $view = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->view,
+            View::class,
+        );
 
         return match ($source) {
             IconSource::BOOTSTRAP_ICONS => BootstrapIconsAsset::register($view),

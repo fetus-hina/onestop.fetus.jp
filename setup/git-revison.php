@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 $data = getCurrentRevision();
-$data['{version}'] = getCurrentVersion($data['{hash}']);
+$data['{version}'] = (string)getCurrentVersion($data['{hash}']);
 
 $template = trim((string)file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__));
 echo str_replace(array_keys($data), array_values($data), $template) . "\n";
 
+/** @return array{'{hash}': string, '{short}': string} */
 function getCurrentRevision(): array
 {
     $cmdline = vsprintf('/usr/bin/env %s log -n 1 --pretty=%s', [
@@ -41,6 +42,7 @@ function getCurrentVersion(string $fullHash): ?string
     return $versions[0];
 }
 
+/** @return list<string> */
 function getVersionTags(string $fullHash): array
 {
     $cmdline = vsprintf('/usr/bin/env %s tag --points-at=%s', [
@@ -52,12 +54,12 @@ function getVersionTags(string $fullHash): array
         exit(1);
     }
 
-    $versions = array_filter(
+    $versions = array_values(array_filter(
         array_map(trim(...), $lines),
         fn (string $line): bool => (bool)preg_match('/^v([0-9.]+)$/', $line),
-    );
+    ));
     usort($versions, fn ($a, $b) => version_compare($b, $a));
-    return array_values($versions);
+    return $versions;
 }
 
 // phpcs:disable

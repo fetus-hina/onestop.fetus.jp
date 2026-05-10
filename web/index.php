@@ -14,5 +14,8 @@ require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 require __DIR__ . '/../config/bootstrap.php';
 
 $config = require __DIR__ . '/../config/web.php';
+if (!is_array($config)) {
+    throw new TypeError();
+}
 
 (new Application($config))->run();

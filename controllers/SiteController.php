@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use Yii;
+use app\helpers\TypeHelper;
 use app\models\Pdf2016Form;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Application;
 use yii\web\Controller;
 use yii\web\ErrorAction;
+use yii\web\Request;
 use yii\web\Response;
 
 use function function_exists;
@@ -62,11 +65,13 @@ class SiteController extends Controller
     /** @return string|Response */
     public function actionIndex()
     {
+        $app = TypeHelper::instanceOf(Yii::$app, Application::class);
         $model = Yii::createObject(Pdf2016Form::class);
-        if (Yii::$app->request->isPost) {
+        $req = TypeHelper::instanceOf($app->request, Request::class);
+        if ($req->isPost) {
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
             if ($model->load($_POST) && $model->validate()) {
-                $resp = Yii::$app->response;
+                $resp = TypeHelper::instanceOf($app->response, Response::class);
                 $resp->sendContentAsFile($model->createPdf(), 'onestop.pdf', [
                     'mimeType' => 'application/pdf',
                     'inline' => false,
@@ -82,7 +87,10 @@ class SiteController extends Controller
 
     public function actionClearOpcache(): string
     {
-        $r = Yii::$app->response;
+        $r = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->response,
+            Response::class,
+        );
         $r->format = Response::FORMAT_RAW;
         $r->headers->set('Content-Type', 'text/plain; charset=UTF-8');
 

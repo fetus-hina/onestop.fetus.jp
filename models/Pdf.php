@@ -758,6 +758,9 @@ final class Pdf extends Model
         return $this;
     }
 
+    /**
+     * @return array{float, float}
+     */
     private function calcTextSize(string $text): array
     {
         assert($this->pdf !== null);

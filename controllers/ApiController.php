@@ -8,6 +8,7 @@ use Curl\Curl;
 use Exception;
 use Throwable;
 use Yii;
+use app\helpers\TypeHelper;
 use app\models\Pdf2016Form;
 use yii\base\DynamicModel;
 use yii\base\Model;
@@ -15,12 +16,16 @@ use yii\bootstrap5\Html;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\Application;
 use yii\web\Controller;
+use yii\web\Request;
 use yii\web\Response;
 
 use function array_values;
 use function implode;
 use function is_array;
+use function is_int;
+use function is_string;
 use function substr;
 use function vsprintf;
 
@@ -30,8 +35,9 @@ class ApiController extends Controller
     public function init()
     {
         parent::init();
-        Yii::$app->language = 'en-US';
-        Yii::$app->timeZone = 'Etc/UTC';
+        $app = TypeHelper::instanceOf(Yii::$app, Application::class);
+        $app->language = 'en-US';
+        $app->timeZone = 'Etc/UTC';
     }
 
     /**
@@ -66,7 +72,10 @@ class ApiController extends Controller
             $fakeData[Html::getInputId($fakeModel, (string)$k)] = $v;
         }
 
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->response,
+            Response::class,
+        );
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(200, 'OK');
         $resp->headers->set('Content-Type', 'application/json; charset=UTF-8');
@@ -77,7 +86,10 @@ class ApiController extends Controller
 
     public function actionPostalCode(): Response
     {
-        $req = Yii::$app->request;
+        $req = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->request,
+            Request::class,
+        );
         $model = DynamicModel::validateData(
             [
                 'code' => ($req->isPost ? $req->post('code') : null) ?? $req->get('code'),
@@ -99,12 +111,15 @@ class ApiController extends Controller
             return $this->makeInputError($model, ['api/postal-code']);
         }
 
-        $apiResp = $this->requestPostalCodeApi($model->code); // @phpstan-ignore-line
-        if ((int)($apiResp['status'] ?? 500) !== 200) {
+        $apiResp = $this->requestPostalCodeApi((string)$model->code); // @phpstan-ignore-line
+        if ((int)($apiResp['status'] ?? 500) !== 200) { // @phpstan-ignore cast.int
             return $this->makeResponseError($apiResp, ['api/postal-code']);
         }
 
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->response,
+            Response::class,
+        );
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(200, 'OK');
         $resp->headers->set('Content-Type', 'application/json; charset=UTF-8');
@@ -133,25 +148,26 @@ class ApiController extends Controller
         if ($curl->curlError) {
             return [
                 'message' => vsprintf('cURLエラー: #%d, %s', [
-                    $curl->curlErrorCode,
-                    $curl->curlErrorMessage,
+                    is_int($curl->curlErrorCode) ? $curl->curlErrorCode : 0,
+                    is_string($curl->curlErrorMessage) ? $curl->curlErrorMessage : '',
                 ]),
                 'results' => null,
                 'status' => 500,
             ];
         } elseif ($curl->httpError) {
+            $httpStatusCode = is_int($curl->httpStatusCode) ? $curl->httpStatusCode : 0;
             return [
                 'message' => vsprintf('リモートAPIエラー: #%d, %s', [
-                    $curl->httpStatusCode,
-                    $curl->httpErrorMessage,
+                    $httpStatusCode,
+                    is_string($curl->httpErrorMessage) ? $curl->httpErrorMessage : '',
                 ]),
                 'results' => null,
-                'status' => $curl->httpStatusCode,
+                'status' => $httpStatusCode,
             ];
         }
 
         try {
-            $result = Json::decode($curl->rawResponse, true);
+            $result = Json::decode(is_string($curl->rawResponse) ? $curl->rawResponse : '', true);
             return is_array($result)
                 ? $result
                 : throw new Exception('JSON decoded, but not expected value');
@@ -181,7 +197,10 @@ class ApiController extends Controller
             }
         }
 
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->response,
+            Response::class,
+        );
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(400, 'Bad Request');
         $resp->headers->set('Content-Type', 'application/problem+json; charset=UTF-8');
@@ -199,7 +218,10 @@ class ApiController extends Controller
 
     private function makeResponseError(array $apiResp, array $url): Response
     {
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(
+            TypeHelper::instanceOf(Yii::$app, Application::class)->response,
+            Response::class,
+        );
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(503, 'Service Unavailable');
         $resp->headers->set('Content-Type', 'application/problem+json; charset=UTF-8');

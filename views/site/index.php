@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 use app\helpers\Icon;
+use app\helpers\TypeHelper;
 use app\models\Pdf2016Form as Form;
 use app\models\Prefecturer;
+use yii\base\Application;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -18,18 +20,22 @@ use yii\web\View;
 
 $this->title = 'onestop.fetus.jp';
 
-$sourceUrl = (Yii::$app->params['revision'] && Yii::$app->params['revision']['hash'])
+$app = TypeHelper::instanceOf(Yii::$app, Application::class);
+$revision = is_array($app->params['revision'] ?? null) ? $app->params['revision'] : [];
+$revisionHash = is_string($revision['hash'] ?? null) ? $revision['hash'] : null;
+
+$sourceUrl = ($revisionHash !== null)
   ? vsprintf('https://github.com/fetus-hina/onestop.fetus.jp/tree/%s', [
-    rawurlencode(Yii::$app->params['revision']['hash']),
+    rawurlencode($revisionHash),
   ])
   : 'https://github.com/fetus-hina/onestop.fetus.jp';
 
-$now = (int)$_SERVER['REQUEST_TIME'];
+$now = time();
 $thisYear = (int)date('Y', $now);
 ?>
 <main>
   <h1 class="visually-hidden">
-    <span class="font-script"><?= Html::encode(Yii::$app->name); ?></span>
+    <span class="font-script"><?= Html::encode($app->name); ?></span>
   </h1>
   <p>
     ふるさと納税ワンストップ特例申請書をそれなりに埋めたPDFを生成するだけのサイトです。<br>
@@ -298,7 +304,7 @@ $thisYear = (int)date('Y', $now);
                 郵便番号に対応する住所を取得するため、<strong>株式会社アイビスの提供する<a href="http://zipcloud.ibsnet.co.jp/doc/api" target="_blank">検索API</a>を利用しています。</strong><br>
                 <br>
                 住所入力ボタンを押すと、このサイトのサーバを経由して問い合わせが行われます。<br>
-                当該サーバへは郵便番号のみが送信されますので、あなたの個人情報としての「価値」は低い状態になっているはずですが、その郵便番号の人がこのサービス（<?= Html::encode(Yii::$app->name) ?>）を利用していることは伝わります。<br>
+                当該サーバへは郵便番号のみが送信されますので、あなたの個人情報としての「価値」は低い状態になっているはずですが、その郵便番号の人がこのサービス（<?= Html::encode($app->name) ?>）を利用していることは伝わります。<br>
                 住所入力ボタンを押した場合、あなたはこの内容を理解しているものとみなします。<br>
                 <br>
                 なお、このサイトの運営者と、当該サービスの運用者には一切の関係はありません。

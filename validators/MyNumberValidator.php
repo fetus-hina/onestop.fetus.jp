@@ -50,7 +50,7 @@ class MyNumberValidator extends Validator
             return [Yii::t('yii', '{attribute} is invalid.'), []];
         }
         if (!MyNumber::isValid($value)) {
-            return [$this->message, []];
+            return [(string)$this->message, []];
         }
         return null;
     }

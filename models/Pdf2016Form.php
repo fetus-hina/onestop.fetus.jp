@@ -8,16 +8,20 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use TypeError;
 use Yii;
+use app\helpers\TypeHelper;
 use app\validators\MyNumberValidator;
 use jp3cki\gimei\Gimei;
 use jp3cki\mynumber\MyNumber;
+use yii\base\Application;
 use yii\base\Model;
 
 use function array_filter;
 use function array_merge;
 use function ceil;
 use function floor;
+use function is_string;
 use function mb_convert_kana;
 use function mb_strlen;
 use function mt_rand;
@@ -78,8 +82,7 @@ final class Pdf2016Form extends Model
     {
         parent::init();
 
-        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
-        $date = (new DateTimeImmutable(sprintf('@%d', $_SERVER['REQUEST_TIME'])))
+        $date = (new DateTimeImmutable(sprintf('@%d', time())))
             ->setTimezone(new DateTimeZone('Asia/Tokyo'));
 
         if ($this->post_year === null && $this->post_month === null && $this->post_day === null) {
@@ -151,7 +154,7 @@ final class Pdf2016Form extends Model
             [['post_day', 'kifu_day', 'birth_day'], 'integer', 'min' => 1, 'max' => 31],
             [['kifu_amount'], 'integer', 'min' => 1],
             [['local_gov', 'city', 'address1', 'address2', 'name', 'name_kana'], 'string'],
-            [['name_kana'], 'filter', 'filter' => fn ($v) => mb_convert_kana($v, 'asKCV', 'UTF-8')],
+            [['name_kana'], 'filter', 'filter' => fn (string $v) => mb_convert_kana($v, 'asKCV', 'UTF-8')],
             [['zipcode'], 'match', 'pattern' => '/^\d{7}$/'],
             [['pref_id'], 'exist',
                 'skipOnError' => true,
@@ -257,7 +260,8 @@ final class Pdf2016Form extends Model
 
     public function faker(): self
     {
-        $today = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
+        $tz = new DateTimeZone(TypeHelper::instanceOf(Yii::$app, Application::class)->timeZone);
+        $today = new DateTimeImmutable('now', $tz);
         $yesterday = $today->sub(new DateInterval('P1D'));
 
         $this->attributes = array_merge(
@@ -331,11 +335,16 @@ final class Pdf2016Form extends Model
     private function generateFakePerson(): array
     {
         $gimei = Gimei::generateName();
-        $birthday = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
+        $tz = new DateTimeZone(TypeHelper::instanceOf(Yii::$app, Application::class)->timeZone);
+        $birthday = (new DateTimeImmutable('now', $tz))
             ->setTimestamp(mt_rand(
                 (int)floor(time() - 55 * 365.2425 * 86400),
                 (int)ceil(time() - 23 * 365.2425 * 86400),
             ));
+        $myNumber = MyNumber::generate();
+        if (!is_string($myNumber)) {
+            throw new TypeError('MyNumber::generate() returned non-string');
+        }
 
         return [
             'birth_year' => (int)$birthday->format('Y'),
@@ -350,7 +359,7 @@ final class Pdf2016Form extends Model
                 $gimei->getFirstName()->getKatakana(),
             ]),
             'sex' => $gimei->isMale() ? '1' : '2',
-            'individual_number' => MyNumber::generate(),
+            'individual_number' => $myNumber,
         ];
     }
 

@@ -28,6 +28,7 @@ return (function (): array {
             ],
             'db' => $db,
         ],
+        'modules' => [],
         'params' => $params,
     ];
 

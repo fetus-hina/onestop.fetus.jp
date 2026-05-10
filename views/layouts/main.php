@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use app\assets\AppAsset;
 use app\helpers\Icon;
+use app\helpers\TypeHelper;
+use yii\base\Application;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -12,6 +14,12 @@ use yii\web\View;
  * @var View $this
  * @var string $content
  */
+
+$app = TypeHelper::instanceOf(Yii::$app, Application::class);
+$revision = is_array($app->params['revision'] ?? null) ? $app->params['revision'] : [];
+$revisionVersion = is_string($revision['version'] ?? null) ? $revision['version'] : '';
+$revisionShort = is_string($revision['short'] ?? null) ? $revision['short'] : '';
+$revisionHash = is_string($revision['hash'] ?? null) ? $revision['hash'] : '';
 
 AppAsset::register($this);
 
@@ -36,17 +44,17 @@ $this->registerMetaTag([
   'content' => 'width=device-width,initial-scale=1',
 ]);
 
-$now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
+$now = new DateTimeImmutable('now', new DateTimeZone($app->timeZone));
 
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <?= Html::beginTag('html', [
   'class' => 'h-100',
-  'lang' => Yii::$app->language,
+  'lang' => $app->language,
 ]) . "\n" ?>
   <head>
-    <?= Html::tag('meta', '', ['charset' => Yii::$app->charset]) . "\n" ?>
+    <?= Html::tag('meta', '', ['charset' => $app->charset]) . "\n" ?>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); echo "\n"; ?>
@@ -89,23 +97,23 @@ $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
               ),
             ]),
           ]),
-          Yii::$app->params['revision']
+          $revisionShort !== ''
             ? implode(', ', array_filter([
-              Yii::$app->params['revision']['version']
+              $revisionVersion !== ''
                 ? vsprintf('Version %s', [
                   Html::a(
-                    Html::encode(Yii::$app->params['revision']['version']),
+                    Html::encode($revisionVersion),
                     vsprintf('https://github.com/fetus-hina/onestop.fetus.jp/releases/tag/%s', [
-                      rawurlencode(Yii::$app->params['revision']['version']),
+                      rawurlencode($revisionVersion),
                     ])
                   ),
                 ])
                 : null,
               vsprintf('Revision %s', [
                 Html::a(
-                  Html::encode(Yii::$app->params['revision']['short']),
+                  Html::encode($revisionShort),
                   vsprintf('https://github.com/fetus-hina/onestop.fetus.jp/tree/%s', [
-                    rawurlencode(Yii::$app->params['revision']['hash']),
+                    rawurlencode($revisionHash),
                   ])
                 ),
               ]),

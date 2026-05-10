@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use ParagonIE\ConstantTime\Base32;
+use app\helpers\TypeHelper;
+use yii\base\Application;
 use yii\bootstrap5\BootstrapAsset;
 use yii\bootstrap5\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
@@ -32,11 +34,13 @@ return [
     'hashCallback' => function (string $path): string {
         $pathParts = [];
 
+        /** @var string|false|null $appPath */
         static $appPath = null;
         if (!$appPath) {
-            $appPath = realpath((string)Yii::getAlias('@app'));
+            $alias = Yii::getAlias('@app');
+            $appPath = is_string($alias) ? realpath($alias) : false;
         }
-        if ($appPath) {
+        if (is_string($appPath)) {
             $pathParts[] = substr(
                 Base32::encodeUnpadded(
                     hash('sha256', $appPath, true),
@@ -46,7 +50,8 @@ return [
             );
         }
 
-        $revision = ArrayHelper::getValue(Yii::$app->params, 'revision.short', null);
+        $app = TypeHelper::instanceOf(Yii::$app, Application::class);
+        $revision = ArrayHelper::getValue($app->params, 'revision.short', null);
         if (is_string($revision) && preg_match('/^[0-9a-f]+$/i', $revision)) {
             $pathParts[] = strtolower($revision);
         }
