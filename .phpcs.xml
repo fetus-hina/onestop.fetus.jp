@@ -26,6 +26,7 @@
   <exclude-pattern>*/resources/*</exclude-pattern>
   <exclude-pattern>*/runtime/*</exclude-pattern>
   <exclude-pattern>*/setup/*</exclude-pattern>
+  <exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
   <exclude-pattern>*/vendor/*</exclude-pattern>
   <exclude-pattern>*/views/*</exclude-pattern>
 </ruleset>

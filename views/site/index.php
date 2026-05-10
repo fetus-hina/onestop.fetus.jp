@@ -397,7 +397,10 @@ $thisYear = (int)date('Y', $now);
         <?= $form->field($model, 'pref_id')
           ->dropDownList(
             ArrayHelper::map(
-              Prefecturer::find()->orderBy('[[id]] ASC')->asArray()->all(),
+              Prefecturer::find()
+                ->orderBy(['[[id]]' => SORT_ASC])
+                ->asArray()
+                ->all(),
               'id',
               'name'
             ),
