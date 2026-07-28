@@ -6,7 +6,7 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@jp3cki/fetus.css": "^5.3.10",
+    "@jp3cki/fetus.css": "^5.3.11",
     "bootstrap": "^5.3.8",
     "inputmask": "^5.0.9",
     "jquery": "^3.7.1",
@@ -14,12 +14,12 @@
     "yii2-pjax": "^2.0.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.6",
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.5",
+    "@babel/cli": "^8.0.4",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
     "semistandard": "^17.0.0",
-    "terser": "^5.47.1",
-    "updates": "^16.9.2"
+    "terser": "^5.49.0",
+    "updates": "^17.19.2"
   },
   "semistandard": {
     "envs": {
