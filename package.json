@@ -6,9 +6,9 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@jp3cki/fetus.css": "^5.3.11",
+    "@jp3cki/fetus.css": "^5.3.12",
     "bootstrap": "^5.3.8",
-    "inputmask": "^5.0.9",
+    "inputmask": "^5.0.10",
     "jquery": "^3.7.1",
     "punycode": "^2.3.1",
     "yii2-pjax": "^2.0.8"
@@ -18,8 +18,8 @@
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "semistandard": "^17.0.0",
-    "terser": "^5.49.0",
-    "updates": "^17.19.2"
+    "terser": "^5.49.2",
+    "updates": "^18.0.0"
   },
   "semistandard": {
     "envs": {
