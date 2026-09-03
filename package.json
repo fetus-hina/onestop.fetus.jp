@@ -18,8 +18,8 @@
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "semistandard": "^17.0.0",
-    "terser": "^5.49.2",
-    "updates": "^18.0.0"
+    "terser": "^5.51.2",
+    "updates": "^18.1.0"
   },
   "semistandard": {
     "envs": {
